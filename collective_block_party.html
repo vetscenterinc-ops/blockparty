@@ -549,8 +549,9 @@ footer span{color:var(--pink);}
         <button class="rc-btn" onclick="openReg('thu-mixer')" id="btn-thu-mixer"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
       </div>
 
-      <div class="reg-card thu-card" data-day="thu">
+      <div class="reg-card thu-card" data-day="thu" data-eb-event-id="EB_THU_WORKSHOP_ID">
         <div class="rc-accent" style="background:var(--sky)"></div>
+        <div class="rc-badge eb-status" id="status-thu-workshop" style="display:none"></div>
         <div class="rc-day" style="color:var(--sky)">THU &mdash; JULY 3</div>
         <div class="rc-badge bcra">CRA Component</div>
         <div class="rc-title">Financial Literacy Workshop</div>
@@ -578,8 +579,9 @@ footer span{color:var(--pink);}
         <button class="rc-btn" style="background:rgba(0,255,106,0.15);border-color:rgba(0,255,106,0.4);color:var(--green)" onclick="openReg('fri-taste')" id="btn-fri-taste"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
       </div>
 
-      <div class="reg-card fri-card" data-day="fri">
+      <div class="reg-card fri-card" data-day="fri" data-eb-event-id="EB_FRI_KIDS_ID">
         <div class="rc-accent" style="background:var(--green)"></div>
+        <div class="rc-badge eb-status" id="status-fri-kids" style="display:none"></div>
         <div class="rc-day" style="color:var(--green)">FRI &mdash; JULY 4</div>
         <div class="rc-badge bkids">Kids Zone</div>
         <div class="rc-title">Kids Carnival &amp; Games</div>
@@ -608,8 +610,9 @@ footer span{color:var(--pink);}
         <button class="rc-btn" onclick="openReg('sat-main')" id="btn-sat-main"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
       </div>
 
-      <div class="reg-card sat-card" data-day="sat">
+      <div class="reg-card sat-card" data-day="sat" data-eb-event-id="EB_SAT_SLIDES_ID">
         <div class="rc-accent" style="background:var(--pink)"></div>
+        <div class="rc-badge eb-status" id="status-sat-slides" style="display:none"></div>
         <div class="rc-day" style="color:var(--pink)">SAT &mdash; JULY 5</div>
         <div class="rc-badge bkids">Kids Zone</div>
         <div class="rc-title">Water Slides &amp; Bubbles</div>
@@ -622,8 +625,9 @@ footer span{color:var(--pink);}
         <button class="rc-btn" onclick="openReg('sat-slides')" id="btn-sat-slides"><i class="ti ti-ticket" aria-hidden="true"></i> Register + Waiver &rarr;</button>
       </div>
 
-      <div class="reg-card sat-card" data-day="sat">
+      <div class="reg-card sat-card" data-day="sat" data-eb-event-id="EB_SAT_GAMERS_ID">
         <div class="rc-accent" style="background:var(--pink)"></div>
+        <div class="rc-badge eb-status" id="status-sat-gamers" style="display:none"></div>
         <div class="rc-day" style="color:var(--pink)">SAT &mdash; JULY 5</div>
         <div class="rc-badge bkids">All Ages</div>
         <div class="rc-title">Gamers Lounge + Laser Tag</div>
@@ -651,8 +655,9 @@ footer span{color:var(--pink);}
         <button class="rc-btn" style="background:rgba(255,214,0,0.15);border-color:rgba(255,214,0,0.4);color:var(--gold)" onclick="openReg('sun-skate')" id="btn-sun-skate"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
       </div>
 
-      <div class="reg-card sun-card" data-day="sun">
+      <div class="reg-card sun-card" data-day="sun" data-eb-event-id="EB_SUN_HOUSING_ID">
         <div class="rc-accent" style="background:var(--gold)"></div>
+        <div class="rc-badge eb-status" id="status-sun-housing" style="display:none"></div>
         <div class="rc-day" style="color:var(--gold)">SUN &mdash; JULY 6</div>
         <div class="rc-badge bcra">Housing Counseling</div>
         <div class="rc-title">Housing Counseling Fair</div>
@@ -913,7 +918,8 @@ function loadApiKeys(){
     if(saved){
       const el=document.getElementById('dk-eb-'+k);
       if(el)el.value=saved;
-      const card=document.querySelector('[data-eb-event-id="EB_'+k.toUpperCase().replace(/-/g,'_')+'_ID"]');
+      const ebIdAttr='EB_'+k.toUpperCase().replace(/-/g,'_')+'_ID';
+      const card=document.querySelector('[data-eb-event-id="'+ebIdAttr+'"]')||document.querySelector('[data-eb-event-id="'+saved+'"]');
       if(card)card.setAttribute('data-eb-event-id',saved);
     }
   });
@@ -1217,7 +1223,8 @@ function saveDashKeys(){
     const el=document.getElementById('dk-eb-'+k);
     if(el&&el.value.trim()){
       localStorage.setItem('cbp_eb_id_'+k,el.value.trim());
-      const card=document.querySelector('[data-eb-event-id="EB_'+k.toUpperCase().replace(/-/g,'_')+'_ID"]');
+      const ebIdAttr='EB_'+k.toUpperCase().replace(/-/g,'_')+'_ID';
+      const card=document.querySelector('[data-eb-event-id="'+ebIdAttr+'"]')||document.querySelector('[data-eb-event-id="'+el.value.trim()+'"]');
       if(card)card.setAttribute('data-eb-event-id',el.value.trim());
     }
   });
@@ -1261,22 +1268,28 @@ const EVENT_NAMES = {
   'weekend-pass': 'Full Weekend Pass — July 3–6'
 };
 function openReg(evtKey) {
-  const ebUrl = localStorage.getItem('cbp_key_eburl') || '';
-  document.getElementById('ebEventTitle').textContent = EVENT_NAMES[evtKey] || 'Registration';
-  document.getElementById('ebEmbedSection').style.display = 'block';
-  const iframe = document.getElementById('ebIframe');
-  const placeholder = document.getElementById('ebPlaceholder');
+  const globalUrl  = localStorage.getItem('cbp_key_eburl') || '';
+  const eventId    = localStorage.getItem('cbp_eb_id_' + evtKey) || '';
+  const eventUrl   = eventId ? 'https://www.eventbrite.com/e/' + eventId : globalUrl;
+
+  const titleEl    = document.getElementById('ebEventTitle');
+  const embedEl    = document.getElementById('ebEmbedSection');
+  const iframe     = document.getElementById('ebIframe');
+  const placeholder= document.getElementById('ebPlaceholder');
   const directLink = document.getElementById('ebDirectLink');
-  if (ebUrl && ebUrl.startsWith('http')) {
-    iframe.src = ebUrl;
-    iframe.style.display = 'block';
-    placeholder.style.display = 'none';
-    directLink.href = ebUrl;
+
+  if (titleEl)  titleEl.textContent = EVENT_NAMES[evtKey] || 'Registration';
+  if (embedEl)  embedEl.style.display = 'block';
+
+  if (eventUrl && eventUrl.startsWith('http')) {
+    if (iframe)      { iframe.src = eventUrl; iframe.style.display = 'block'; }
+    if (placeholder) placeholder.style.display = 'none';
+    if (directLink)  directLink.href = eventUrl;
   } else {
-    iframe.style.display = 'none';
-    placeholder.style.display = 'block';
+    if (iframe)      iframe.style.display = 'none';
+    if (placeholder) placeholder.style.display = 'block';
   }
-  document.getElementById('ebEmbedSection').scrollIntoView({behavior:'smooth', block:'start'});
+  if (embedEl) embedEl.scrollIntoView({behavior:'smooth', block:'start'});
 }
 function closeReg() {
   document.getElementById('ebEmbedSection').style.display = 'none';
@@ -1434,6 +1447,15 @@ if (!document.getElementById('eb-spin-style')) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  const eventKeys = ['thu-mixer','thu-workshop','fri-taste','fri-kids','sat-main','sat-slides','sat-gamers','sun-skate','sun-housing'];
+  eventKeys.forEach(k => {
+    const saved = localStorage.getItem('cbp_eb_id_' + k);
+    if (!saved) return;
+    const placeholder = 'EB_' + k.toUpperCase().replace(/-/g,'_') + '_ID';
+    const card = document.querySelector('[data-eb-event-id="' + placeholder + '"]')
+               || document.querySelector('[data-eb-event-id="' + saved + '"]');
+    if (card) card.setAttribute('data-eb-event-id', saved);
+  });
   const token = localStorage.getItem('cbp_key_eventbrite');
   if (token) fetchAllEventbritePrices();
 });
