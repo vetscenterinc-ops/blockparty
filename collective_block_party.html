@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Collective Block Party — Lovejoy, GA · July 3–6, 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Teko:wght@500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--pink:#FF0AA0;--gold:#FFD600;--green:#00FF6A;--sky:#00CFFF;--orange:#FF6B00;--purple:#9B00FF;--dark:#080810;--border:rgba(255,255,255,0.1);}
+body{font-family:'Barlow Condensed',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden;}
+.page{display:none;min-height:100vh;padding-top:56px;}
+.page.active{display:block;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96);backdrop-filter:blur(12px);border-bottom:2px solid rgba(255,0,160,0.3);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.nav-logo{font-family:'Permanent Marker',cursive;font-size:17px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
+.nav-links{display:flex;gap:4px;}
+.nav-btn{background:none;border:none;color:rgba(255,255,255,0.65);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;padding:6px 13px;cursor:pointer;border-radius:6px;transition:all .2s;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
+.nav-btn:hover,.nav-btn.active{background:var(--pink);color:#fff;}
+.nav-btn i{font-size:14px;}
+.nav-cta{background:var(--gold);color:#000;border:none;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:2px;padding:8px 18px;border-radius:8px;cursor:pointer;text-transform:uppercase;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.nav-cta:hover{background:#ffe040;transform:scale(1.04);}
+
+/* HERO */
+.hero{position:relative;min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:40px 20px 20px;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,0,160,0.3),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(0,207,255,0.18),transparent 50%),linear-gradient(180deg,#080810,#10081a);}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px);background-size:30px 30px;}
+.presents{font-size:12px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:8px;}
+.h-the{font-family:'Permanent Marker',cursive;font-size:clamp(24px,5vw,52px);line-height:1;margin-bottom:-6px;}
+.h-col{font-family:'Permanent Marker',cursive;font-size:clamp(52px,13vw,124px);line-height:.88;background:linear-gradient(135deg,var(--pink) 0%,var(--gold) 50%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.h-bp{font-family:'Permanent Marker',cursive;font-size:clamp(32px,8vw,84px);color:var(--gold);line-height:1;margin-bottom:16px;}
+.h-loc{font-size:clamp(16px,3vw,24px);letter-spacing:4px;color:rgba(255,255,255,0.85);text-transform:uppercase;margin-bottom:8px;}
+.h-tag{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,4.5vw,44px);font-weight:900;font-style:italic;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:28px;}
+.btn-hot{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:13px 30px;border-radius:10px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+.btn-hot:hover{transform:translateY(-2px);}
+.btn-ol{background:transparent;color:var(--gold);border:2px solid var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:12px 30px;border-radius:10px;cursor:pointer;transition:all .2s;}
+.btn-ol:hover{background:var(--gold);color:#000;}
+.meet{font-family:'Permanent Marker',cursive;font-size:clamp(16px,3.5vw,34px);color:var(--pink);margin-top:4px;}
+
+/* DAY STRIP */
+.day-strip{background:#0C0C18;border-top:2px solid rgba(255,0,160,0.25);border-bottom:2px solid rgba(255,0,160,0.25);}
+.day-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.dtile{padding:22px 14px;border-right:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:background .2s;text-align:center;}
+.dtile:last-child{border-right:none;}
+.dtile:hover{background:rgba(255,255,255,0.04);}
+.tday{font-family:'Permanent Marker',cursive;font-size:24px;margin-bottom:2px;}
+.tdate{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6px;}
+.ttitle{font-family:'Teko',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;margin-bottom:5px;}
+.tsub{font-size:11px;color:rgba(255,255,255,0.5);line-height:1.4;margin-bottom:8px;}
+.ttime{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;padding:3px 10px;border-radius:100px;text-transform:uppercase;}
+.thu .tday,.thu .ttime{color:var(--sky);}.thu .ttime{background:rgba(0,207,255,0.12);border:1px solid rgba(0,207,255,0.25);}
+.fri .tday,.fri .ttime{color:var(--green);}.fri .ttime{background:rgba(0,255,106,0.08);border:1px solid rgba(0,255,106,0.2);}
+.sat .tday,.sat .ttime{color:var(--pink);}.sat .ttime{background:rgba(255,0,160,0.1);border:1px solid rgba(255,0,160,0.25);}
+.sun .tday,.sun .ttime{color:var(--gold);}.sun .ttime{background:rgba(255,214,0,0.08);border:1px solid rgba(255,214,0,0.2);}
+.pillars{display:flex;justify-content:center;border-top:1px solid rgba(255,255,255,0.05);}
+.pillar{flex:1;text-align:center;padding:16px;font-family:'Permanent Marker',cursive;font-size:clamp(13px,2.2vw,20px);}
+.pillar:nth-child(1){color:var(--sky);}.pillar:nth-child(2){color:var(--pink);}.pillar:nth-child(3){color:var(--gold);}
+
+/* SECTIONS */
+.sec{padding:52px 20px;max-width:1060px;margin:0 auto;}
+.sec-eye{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--pink);margin-bottom:8px;}
+.sec-title{font-family:'Permanent Marker',cursive;font-size:clamp(28px,5vw,48px);line-height:1.1;margin-bottom:24px;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:13px;}
+.fcard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:20px 16px;cursor:pointer;transition:all .22s;}
+.fcard:hover{background:rgba(255,255,255,0.08);transform:translateY(-3px);}
+.femo{font-size:26px;margin-bottom:10px;}
+.fcard h3{font-family:'Teko',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;margin-bottom:4px;}
+.fcard p{font-size:13px;color:rgba(255,255,255,0.52);line-height:1.5;}
+
+/* EVENTS PAGE */
+.ev-hero{padding:44px 20px 24px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(255,0,160,0.18),transparent 55%);}
+.ev-hero h1{font-family:'Permanent Marker',cursive;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.ev-hero p{font-size:14px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;}
+.ev-wrap{max-width:920px;margin:0 auto;padding:0 20px 56px;}
+.day-block{margin-bottom:44px;}
+.db-head{display:flex;align-items:center;gap:16px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.db-num{font-family:'Permanent Marker',cursive;font-size:52px;line-height:1;}
+.db-info h3{font-family:'Teko',sans-serif;font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.db-info p{font-size:13px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
+.ecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:13px;}
+.ecard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:18px;position:relative;overflow:hidden;transition:all .22s;}
+.ecard:hover{transform:translateY(-2px);}
+.ecard .acc{position:absolute;top:0;left:0;right:0;height:3px;}
+.etime{font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:5px;}
+.ecard h4{font-family:'Teko',sans-serif;font-size:21px;font-weight:700;text-transform:uppercase;margin-bottom:5px;}
+.ecard p{font-size:13px;color:rgba(255,255,255,0.58);line-height:1.5;margin-bottom:12px;}
+.bdg-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.bdg{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:100px;text-transform:uppercase;}
+.bkids{background:rgba(0,255,106,0.12);color:var(--green);}
+.bcra{background:rgba(0,207,255,0.1);color:var(--sky);}
+.bvip{background:rgba(155,0,255,0.1);color:#C060FF;}
+.reg-btn{display:inline-block;background:var(--pink);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:7px;border:none;cursor:pointer;transition:all .2s;text-decoration:none;}
+.reg-btn:hover{filter:brightness(1.15);}
+
+/* SPONSORS PAGE */
+.sp-hero{padding:44px 20px 28px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(255,214,0,0.15),transparent 50%);}
+.sp-hero h1{font-family:'Permanent Marker',cursive;font-size:clamp(32px,7vw,68px);line-height:1.1;margin-bottom:10px;}
+.sp-hero p{font-size:15px;color:rgba(255,255,255,0.58);max-width:540px;margin:0 auto 24px;line-height:1.6;}
+.sp-wrap{max-width:1060px;margin:0 auto;padding:0 20px 56px;position:relative;}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:13px;margin-bottom:44px;}
+.tier{border-radius:15px;padding:24px;border:1px solid rgba(255,255,255,0.09);cursor:pointer;transition:all .22s;}
+.tier:hover{transform:translateY(-4px);}
+.tier.sel{box-shadow:0 0 0 2px var(--gold);}
+.tier.plat{background:linear-gradient(135deg,rgba(200,200,230,0.1),rgba(120,100,200,0.06));border-color:rgba(200,200,230,0.22);}
+.tier.gold{background:linear-gradient(135deg,rgba(255,214,0,0.1),rgba(255,107,0,0.05));border-color:rgba(255,214,0,0.28);}
+.tier.silv{background:rgba(255,255,255,0.04);}
+.tier.comm{background:rgba(255,255,255,0.03);}
+.tbadge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;padding:4px 12px;border-radius:100px;margin-bottom:11px;text-transform:uppercase;}
+.tier.plat .tbadge{background:rgba(200,200,230,0.15);color:#D0D0F0;}
+.tier.gold .tbadge{background:rgba(255,214,0,0.15);color:var(--gold);}
+.tier.silv .tbadge{background:rgba(160,160,190,0.12);color:#B0B0D0;}
+.tier.comm .tbadge{background:rgba(0,207,255,0.12);color:var(--sky);}
+.tamt{font-family:'Permanent Marker',cursive;font-size:40px;line-height:1;margin-bottom:5px;}
+.tname{font-family:'Teko',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;margin-bottom:13px;color:rgba(255,255,255,0.65);}
+.tperks{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.tperks li{font-size:12px;color:rgba(255,255,255,0.62);display:flex;align-items:flex-start;gap:7px;line-height:1.4;}
+.tperks li::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0;}
+.pick-btn{width:100%;padding:10px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.14);background:transparent;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.pick-btn:hover,.tier.sel .pick-btn{background:var(--gold);color:#000;border-color:var(--gold);}
+.demo-two{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px;}
+.dcrd{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:18px;}
+.dcrd h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px;}
+.dbi{margin-bottom:9px;}
+.dbl{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:3px;}
+.dbt{height:7px;background:rgba(255,255,255,0.07);border-radius:100px;overflow:hidden;}
+.dbf{height:100%;border-radius:100px;}
+.map-crd{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:18px;margin-bottom:13px;}
+.map-crd h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:12px;}
+.map-vis{background:rgba(2,20,40,0.6);border:1px solid rgba(0,207,255,0.12);border-radius:9px;height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.mgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,207,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,207,255,0.05) 1px,transparent 1px);background-size:34px 34px;}
+.mpin{position:absolute;width:9px;height:9px;border-radius:50%;animation:ping 2s ease-out infinite;}
+.mpin::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1.5px solid currentColor;animation:ring 2s ease-out infinite;}
+@keyframes ping{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes ring{0%{transform:scale(.5);opacity:1}100%{transform:scale(2.2);opacity:0}}
+.zips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.zip{background:rgba(0,207,255,0.1);color:var(--sky);font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:5px;}
+.reach-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;}
+.ritem{text-align:center;}
+.rval{font-family:'Permanent Marker',cursive;font-size:24px;color:var(--gold);}
+.rlbl{font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.38);text-transform:uppercase;}
+.cra-box{background:rgba(0,207,255,0.05);border:1px solid rgba(0,207,255,0.16);border-radius:13px;padding:24px;margin-top:24px;}
+.cra-box h3{font-family:'Permanent Marker',cursive;font-size:22px;color:var(--sky);margin-bottom:7px;}
+.cra-box p{font-size:13px;color:rgba(255,255,255,0.58);line-height:1.7;margin-bottom:16px;}
+.cra4{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;}
+.cra4 .ct{background:rgba(0,207,255,0.07);border:1px solid rgba(0,207,255,0.14);border-radius:9px;padding:13px;}
+.cra4 .ct h4{font-family:'Teko',sans-serif;font-size:17px;font-weight:700;color:var(--sky);text-transform:uppercase;margin-bottom:3px;}
+.cra4 .ct p{font-size:12px;color:rgba(255,255,255,0.48);}
+
+/* SPONSOR MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;align-items:center;justify-content:center;}
+.modal-ov.open{display:flex;}
+.mbox{background:#100C1A;border:1px solid rgba(255,0,160,0.25);border-radius:18px;padding:30px;width:min(400px,92vw);}
+.mbox h2{font-family:'Permanent Marker',cursive;font-size:24px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
+.mbox .msub-txt{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:18px;}
+.mf{margin-bottom:12px;}
+.mf label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:5px;}
+.mf input,.mf select{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.11);border-radius:7px;padding:10px 13px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+.mf input:focus,.mf select:focus{border-color:var(--pink);}
+.mf select option{background:#100C1A;}
+.mbtns{display:flex;gap:9px;margin-top:6px;}
+.msub-btn{flex:1;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;padding:12px;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.mcancel{background:rgba(255,255,255,0.07);color:#fff;border:none;padding:12px 16px;border-radius:8px;cursor:pointer;font-size:13px;}
+
+/* LOGIN PAGE */
+#loginPage{min-height:calc(100vh - 56px);display:none;align-items:flex-start;justify-content:center;padding:40px 20px 60px;background:radial-gradient(ellipse at 50% 20%,rgba(255,0,160,0.12),transparent 60%),#080810;}
+#loginPage.active{display:flex;}
+.login-wrap{width:min(440px,96vw);}
+.login-icon{width:52px;height:52px;border-radius:50%;background:rgba(255,0,160,0.15);border:1px solid rgba(255,0,160,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.login-icon i{font-size:24px;color:var(--pink);}
+.login-title{font-family:'Permanent Marker',cursive;font-size:26px;text-align:center;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.login-sub{font-size:12px;letter-spacing:3px;color:rgba(255,255,255,0.35);text-transform:uppercase;text-align:center;margin-bottom:24px;}
+.login-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px;}
+.role-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:18px;}
+.rtab{padding:9px 6px;border-radius:7px;border:1px solid rgba(255,255,255,0.09);background:transparent;color:rgba(255,255,255,0.45);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;text-align:center;}
+.rtab.active{background:var(--pink);color:#fff;border-color:var(--pink);}
+.rtab:hover:not(.active){background:rgba(255,255,255,0.07);}
+.ff{margin-bottom:13px;}
+.ff label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:5px;}
+.ff input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.11);border-radius:8px;padding:11px 14px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+.ff input:focus{border-color:var(--pink);}
+.ff input::placeholder{color:rgba(255,255,255,0.22);}
+.ff .pw-wrap{position:relative;}
+.ff .pw-wrap input{padding-right:40px;}
+.ff .pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.35);cursor:pointer;padding:0;font-size:16px;line-height:1;}
+.ff .pw-toggle:hover{color:rgba(255,255,255,0.7);}
+.demo-hint{background:rgba(255,214,0,0.07);border:1px solid rgba(255,214,0,0.18);border-radius:7px;padding:9px 13px;font-size:12px;color:rgba(255,214,0,0.75);margin-bottom:14px;line-height:1.5;}
+.demo-hint b{color:var(--gold);}
+.btn-signin{width:100%;background:linear-gradient(135deg,var(--pink),#9B00FF);color:#fff;border:none;padding:13px;border-radius:9px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:7px;}
+.btn-signin:hover{filter:brightness(1.12);}
+.login-err{color:#FF6B6B;font-size:12px;text-align:center;min-height:16px;}
+.back-link{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.4);cursor:pointer;transition:color .2s;}
+.back-link:hover{color:var(--gold);}
+
+/* API KEYS PANEL */
+.api-panel{margin-top:18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:13px;overflow:hidden;}
+.api-panel-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;transition:background .2s;border-bottom:1px solid rgba(255,255,255,0.06);}
+.api-panel-header:hover{background:rgba(255,255,255,0.04);}
+.api-panel-header span{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:7px;}
+.api-panel-header i.lbl{font-size:15px;color:var(--gold);}
+.api-chevron{font-size:14px;color:rgba(255,255,255,0.3);transition:transform .25s;}
+.api-panel-header.open .api-chevron{transform:rotate(180deg);}
+.api-body{display:none;padding:16px;}
+.api-body.open{display:block;}
+.api-note{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;line-height:1.6;}
+.api-field{margin-bottom:12px;}
+.api-field label{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:5px;}
+.api-field label i{font-size:13px;}
+.api-input-wrap{position:relative;}
+.api-input-wrap input{width:100%;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.1);border-radius:7px;padding:10px 42px 10px 13px;color:#fff;font-family:'Courier New',monospace;font-size:12px;outline:none;letter-spacing:.5px;transition:border-color .2s;}
+.api-input-wrap input[type="text"]{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0;}
+.api-input-wrap input:focus{border-color:var(--gold);}
+.api-input-wrap input::placeholder{color:rgba(255,255,255,0.18);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-size:12px;}
+.api-eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:15px;line-height:1;}
+.api-eye:hover{color:rgba(255,255,255,0.7);}
+.api-save{width:100%;margin-top:4px;background:rgba(255,214,0,0.12);border:1px solid rgba(255,214,0,0.25);color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:9px;border-radius:7px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.api-save:hover{background:rgba(255,214,0,0.2);}
+.api-saved{display:none;font-size:11px;color:var(--green);text-align:center;margin-top:6px;letter-spacing:1px;}
+
+/* DASHBOARD */
+#dashPage{min-height:calc(100vh - 56px);display:none;}
+#dashPage.active{display:block;}
+.dash-bar{background:rgba(8,8,16,0.98);border-bottom:1px solid rgba(255,0,160,0.2);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:48px;}
+.live-dot{display:flex;align-items:center;gap:7px;font-size:11px;letter-spacing:2px;color:var(--green);}
+.live-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,255,106,.4)}50%{opacity:.5;box-shadow:0 0 0 5px rgba(0,255,106,0)}}
+.dash-user{display:flex;align-items:center;gap:10px;}
+.d-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+.d-name{font-size:13px;font-weight:700;}
+.d-role{font-size:10px;font-weight:700;letter-spacing:1px;padding:2px 9px;border-radius:100px;text-transform:uppercase;}
+.rp-org{background:rgba(255,0,160,0.15);color:var(--pink);}
+.rp-staff{background:rgba(0,207,255,0.12);color:var(--sky);}
+.rp-spon{background:rgba(255,214,0,0.12);color:var(--gold);}
+.btn-out{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);color:rgba(255,255,255,0.55);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 13px;border-radius:6px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;}
+.btn-out:hover{background:rgba(255,0,160,0.12);color:var(--pink);}
+.dash-body{display:flex;min-height:calc(100vh - 104px);}
+.sidebar{width:180px;flex-shrink:0;background:rgba(255,255,255,0.025);border-right:1px solid rgba(255,255,255,0.06);padding:14px 8px;}
+.sb-sec{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);padding:8px 10px 5px;margin-top:4px;}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;transition:all .18s;margin-bottom:2px;font-size:13px;font-weight:700;letter-spacing:.5px;color:rgba(255,255,255,0.5);border:none;background:transparent;width:100%;text-align:left;}
+.ni:hover{background:rgba(255,255,255,0.06);color:#fff;}
+.ni.active{background:rgba(255,0,160,0.12);color:var(--pink);border:1px solid rgba(255,0,160,0.2);}
+.ni i{font-size:16px;}
+.main{flex:1;padding:22px;overflow:auto;}
+.dpanel{display:none;}
+.dpanel.active{display:block;}
+.ptitle{font-family:'Permanent Marker',cursive;font-size:28px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:18px;}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:11px;margin-bottom:18px;}
+.sc{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:15px;}
+.sc .sl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:5px;}
+.sc .sv{font-family:'Teko',sans-serif;font-size:32px;font-weight:700;line-height:1;}
+.sc .ss{font-size:10px;color:rgba(255,255,255,0.28);margin-top:2px;}
+.dcrd2{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:18px;margin-bottom:13px;}
+.dcrd2 h3{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px;}
+.pi{margin-bottom:10px;}
+.pl{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px;}
+.pt{height:6px;background:rgba(255,255,255,0.07);border-radius:100px;overflow:hidden;}
+.pf{height:100%;border-radius:100px;}
+.dtable{width:100%;border-collapse:collapse;font-size:12px;}
+.dtable th{text-align:left;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.28);padding:7px 6px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.dtable td{padding:9px 6px;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.78);}
+.sb{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;}
+.sb-ok{background:rgba(0,255,106,0.1);color:var(--green);}
+.sb-pend{background:rgba(255,214,0,0.1);color:var(--gold);}
+.sb-need{background:rgba(255,0,160,0.1);color:var(--pink);}
+.act-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 14px;border-radius:7px;cursor:pointer;transition:all .18s;display:inline-flex;align-items:center;gap:5px;}
+.act-btn:hover{background:rgba(255,0,160,0.12);border-color:rgba(255,0,160,0.25);color:var(--pink);}
+.act-btn.primary{background:var(--pink);color:#fff;border-color:var(--pink);}
+.act-btn.primary:hover{filter:brightness(1.12);}
+.act-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.int-row{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:13px;}
+.itile{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:11px;padding:14px;text-align:center;}
+.itile .iname{font-family:'Teko',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;margin:5px 0 3px;}
+.itile .ist{font-size:10px;color:var(--green);letter-spacing:1px;}
+.itile .icnt{font-family:'Teko',sans-serif;font-size:26px;color:var(--gold);}
+.api-dash-card{background:rgba(255,214,0,0.04);border:1px solid rgba(255,214,0,0.15);border-radius:13px;padding:18px;margin-bottom:13px;}
+.api-dash-card h3{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,214,0,0.5);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+.api-dash-card h3 i{font-size:14px;color:var(--gold);}
+.api-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+footer{background:#080810;border-top:2px solid rgba(255,0,160,0.18);padding:22px;text-align:center;font-size:12px;color:rgba(255,255,255,0.28);}
+footer span{color:var(--pink);}
+
+@media(max-width:768px){
+  .day-grid{grid-template-columns:1fr 1fr;}
+  .two-col{grid-template-columns:1fr;}
+  .demo-two{grid-template-columns:1fr;}
+  .reach-row{grid-template-columns:repeat(2,1fr);}
+  .api-row{grid-template-columns:1fr;}
+}
+@media(max-width:580px){
+  .sidebar{width:46px;}
+  .ni span{display:none;}
+  .sb-sec{display:none;}
+  .nav-btn span{display:none;}
+}
+
+/* REGISTRATION PAGE STYLES */
+.evt-tab{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:8px;cursor:pointer;transition:all .2s;}
+.evt-tab:hover{background:rgba(255,255,255,0.09);color:#fff;}
+.evt-tab.active{background:var(--pink);color:#fff;border-color:var(--pink);}
+.reg-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px;position:relative;overflow:hidden;transition:all .22s;display:flex;flex-direction:column;}
+.reg-card:hover{background:rgba(255,255,255,0.07);transform:translateY(-3px);}
+.rc-accent{position:absolute;top:0;left:0;right:0;height:3px;}
+.rc-day{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:6px;margin-top:6px;}
+.rc-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:100px;text-transform:uppercase;margin-bottom:8px;width:fit-content;}
+.rc-title{font-family:'Teko',sans-serif;font-size:21px;font-weight:700;text-transform:uppercase;margin-bottom:6px;line-height:1.1;}
+.rc-time{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.rc-time i{font-size:13px;}
+.rc-desc{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:14px;flex:1;}
+.rc-price-row{display:flex;gap:16px;margin-bottom:14px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);}
+.rc-price-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:2px;}
+.rc-price{font-family:'Teko',sans-serif;font-size:22px;font-weight:700;}
+.rc-btn{background:rgba(255,0,160,0.12);border:1px solid rgba(255,0,160,0.3);color:var(--pink);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;width:100%;}
+.rc-btn:hover{background:var(--pink);color:#fff;}
+.primary-btn{background:linear-gradient(135deg,var(--pink),var(--purple)) !important;border-color:var(--pink) !important;color:#fff !important;font-size:15px !important;padding:13px 24px !important;}
+.primary-btn:hover{filter:brightness(1.15) !important;}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="go('home',document.querySelectorAll('.nav-btn')[0])">The Collective Block Party</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="go('home',this)"><i class="ti ti-home"></i><span>Home</span></button>
+    <button class="nav-btn" onclick="go('events',this)"><i class="ti ti-calendar"></i><span>Events</span></button>
+    <button class="nav-btn" onclick="go('sponsors',this)"><i class="ti ti-building"></i><span>Sponsors</span></button>
+    <button class="nav-btn" onclick="go('registration',this)"><i class="ti ti-ticket"></i><span>Register</span></button>
+    <button class="nav-btn" id="dashNavBtn" onclick="goDash(this)"><i class="ti ti-lock"></i><span>Login</span></button>
+  </div>
+  <a class="nav-cta" id="ticketLink" href="https://www.eventbrite.com" target="_blank" rel="noopener">
+    <i class="ti ti-ticket" style="font-size:14px"></i>Get Tickets
+  </a>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div><div class="hero-dots"></div>
+    <div style="position:relative;z-index:2">
+      <div class="presents">Vets Central &amp; The Community Presents</div>
+      <div class="h-the">The</div>
+      <div class="h-col">COLLECTIVE</div>
+      <div class="h-bp">BLOCK PARTY</div>
+      <div class="h-loc">Lovejoy, GA &nbsp;&middot;&nbsp; July 3&ndash;6, 2025</div>
+      <div class="h-tag">Outside All Weekend</div>
+      <div class="hero-btns">
+        <a class="btn-hot" id="heroTicketBtn" href="https://www.eventbrite.com" target="_blank" rel="noopener">
+          <i class="ti ti-ticket" style="font-size:16px"></i>Get Tickets Now
+        </a>
+        <button class="btn-ol" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">View Full Lineup</button>
+      </div>
+      <div class="meet">Meet Me In Lovejoy 🍑</div>
+    </div>
+  </div>
+  <div class="day-strip">
+    <div class="day-grid">
+      <div class="dtile thu" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">
+        <div class="tday">THU</div><div class="tdate">July 3</div>
+        <div class="ttitle">Small Business Kickoff</div>
+        <div class="tsub">Support &middot; Network &middot; Vibe</div>
+        <span class="ttime">5PM&ndash;11PM</span>
+      </div>
+      <div class="dtile fri" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">
+        <div class="tday">FRI</div><div class="tdate">July 4</div>
+        <div class="ttitle">Taste of Atlanta</div>
+        <div class="tsub">Food &middot; Live DJs &middot; Culture</div>
+        <span class="ttime">2PM&ndash;Until</span>
+      </div>
+      <div class="dtile sat" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">
+        <div class="tday">SAT</div><div class="tdate">July 5</div>
+        <div class="ttitle">Cars, Bikes &amp; Vibes</div>
+        <div class="tsub">Car Show &middot; Water Fest &middot; Music</div>
+        <span class="ttime">12PM&ndash;Late</span>
+      </div>
+      <div class="dtile sun" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">
+        <div class="tday">SUN</div><div class="tdate">July 6</div>
+        <div class="ttitle">Day Party Finale</div>
+        <div class="tsub">Let's Skate &middot; Classic Jams</div>
+        <span class="ttime">2PM&ndash;10PM</span>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar">🏠 Housing</div>
+      <div class="pillar">🎨 Culture</div>
+      <div class="pillar">🤝 Community</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-eye">What's Going Down</div>
+    <div class="sec-title" style="background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">The Full Experience</div>
+    <div class="feat-grid">
+      <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">🎮</div><h3>Gamers Lounge</h3><p>PS5 &amp; Xbox, laser tag, and tournaments all weekend.</p></div>
+      <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">💦</div><h3>Water Slides</h3><p>Giant inflatables, bubbles, and splash zones Saturday.</p></div>
+      <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">🚗</div><h3>Car &amp; Bike Show</h3><p>Custom builds, lowriders, and the cleanest rides in South Metro.</p></div>
+      <div class="fcard" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])"><div class="femo">💼</div><h3>Business Mixer</h3><p>Thursday night vendor showcase and entrepreneur networking.</p></div>
+      <div class="fcard" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])"><div class="femo">📊</div><h3>Sponsor Portal</h3><p>Real demographics and ZIP code data for marketing partners.</p></div>
+      <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">🏠</div><h3>Housing Counseling</h3><p>HUD-certified 1-on-1 sessions. CRA-aligned services Sunday.</p></div>
+    </div>
+  </div>
+  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Tickets &middot; Vendors &middot; VIP Sections Available</footer>
+</div>
+
+<!-- EVENTS -->
+<div id="events" class="page">
+  <div class="ev-hero">
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">July 3&ndash;6, 2025 &middot; Lovejoy, GA</div>
+    <h1>Full Lineup</h1>
+    <p>Vendors &middot; VIP Sections &middot; Tickets Available</p>
+  </div>
+  <div class="ev-wrap">
+    <div class="day-block">
+      <div class="db-head"><div class="db-num" style="color:var(--sky)">THU</div><div class="db-info"><h3 style="color:var(--sky)">Thursday, July 3</h3><p>Small Business Kickoff Vibes &middot; 5PM&ndash;11PM</p></div></div>
+      <div class="ecards">
+        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="etime">5:00 PM &ndash; 9:00 PM</div><h4>Small Business Mixer</h4><p>Networking, product showcases, and resources for local entrepreneurs.</p><a class="reg-btn" id="reg-thu-1" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register on Eventbrite &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="bdg-row"><span class="bdg bcra">CRA Component</span></div><div class="etime">7:00 PM &ndash; 9:00 PM</div><h4>Financial Literacy Workshop</h4><p>Free session on credit building, small business loans, and community reinvestment.</p><a class="reg-btn" id="reg-thu-2" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="bdg-row"><span class="bdg bvip">VIP Available</span></div><div class="etime">9:00 PM &ndash; 11:00 PM</div><h4>Vendor Showcase &amp; Night Vibe</h4><p>Local brand spotlight, DJ, food vendors, and community energy.</p><a class="reg-btn" id="reg-thu-3" href="https://www.eventbrite.com" target="_blank" rel="noopener">Get Tickets &rarr;</a></div>
+      </div>
+    </div>
+    <div class="day-block">
+      <div class="db-head"><div class="db-num" style="color:var(--green)">FRI</div><div class="db-info"><h3 style="color:var(--green)">Friday, July 4 🎆</h3><p>Taste of Atlanta Outside Fest &middot; 2PM&ndash;Until</p></div></div>
+      <div class="ecards">
+        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="etime">2:00 PM &ndash; 8:00 PM</div><h4>Taste of Lovejoy</h4><p>Food trucks, local restaurants, live DJs, culture, games, and community vibes.</p><a class="reg-btn" id="reg-fri-1" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--green);color:#000">Register &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="bdg-row"><span class="bdg bkids">Kids Zone</span></div><div class="etime">2:00 PM &ndash; 6:00 PM</div><h4>Kids Carnival &amp; Games</h4><p>Face painting, carnival games, prizes, and supervised play for ages 4&ndash;12.</p><a class="reg-btn" id="reg-fri-2" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--green);color:#000">Register Kids &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="etime">9:00 PM</div><h4>July 4th Fireworks 🎆</h4><p>Outdoor fireworks show to cap off Independence Day. Free family event.</p><a class="reg-btn" id="reg-fri-3" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--green);color:#000">Free RSVP &rarr;</a></div>
+      </div>
+    </div>
+    <div class="day-block">
+      <div class="db-head"><div class="db-num" style="color:var(--pink)">SAT</div><div class="db-info"><h3 style="color:var(--pink)">Saturday, July 5 &mdash; The Main Event</h3><p>Cars, Bikes &amp; Vibes &middot; 12PM&ndash;Late</p></div></div>
+      <div class="ecards">
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="etime">12PM &ndash; All Day</div><h4>Car Show &amp; Bike Life</h4><p>Custom rides, lowriders, classic cars, and bike crews. Old school + new school.</p><a class="reg-btn" id="reg-sat-1" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bkids">Kids Zone</span></div><div class="etime">12PM &ndash; 6:00 PM</div><h4>Bubbles + Water Slides</h4><p>Giant inflatables, bubble cannons, splash zones. Waivers required under 18.</p><a class="reg-btn" id="reg-sat-2" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register + Waiver &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bkids">All Ages</span></div><div class="etime">12PM &ndash; 6:00 PM</div><h4>Gamers Lounge + Laser Tag</h4><p>PS5 &amp; Xbox, laser tag arena, and tournaments with prizes all day.</p><a class="reg-btn" id="reg-sat-3" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bvip">VIP Section</span></div><div class="etime">6:00 PM &ndash; Late</div><h4>Evening Block Party</h4><p>DJ, food trucks, dancing, and the main celebration. Water Fest &middot; Music.</p><a class="reg-btn" id="reg-sat-4" href="https://www.eventbrite.com" target="_blank" rel="noopener">Get Tickets &rarr;</a></div>
+      </div>
+    </div>
+    <div class="day-block">
+      <div class="db-head"><div class="db-num" style="color:var(--gold)">SUN</div><div class="db-info"><h3 style="color:var(--gold)">Sunday, July 6 &mdash; Day Party Finale</h3><p>Let's Skate &middot; 2PM&ndash;10PM</p></div></div>
+      <div class="ecards">
+        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="etime">2:00 PM &ndash; 6:00 PM</div><h4>Let's Skate! Roller Party 🛼</h4><p>Classic jams, day vibes, roller skating for all skill levels. Rentals available.</p><a class="reg-btn" id="reg-sun-1" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--gold);color:#000">Register &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="bdg-row"><span class="bdg bcra">Housing Counseling</span></div><div class="etime">11:00 AM &ndash; 3:00 PM</div><h4>Housing Counseling Fair 🏠</h4><p>HUD-certified 1-on-1 sessions. Homeownership, down payment assistance, foreclosure prevention.</p><a class="reg-btn" id="reg-sun-2" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--gold);color:#000">Book Session &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="etime">7:00 PM &ndash; 10:00 PM</div><h4>Community Awards &amp; Closeout</h4><p>Celebrating local heroes, small businesses, youth leaders, and community partners.</p><a class="reg-btn" id="reg-sun-3" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--gold);color:#000">Free RSVP &rarr;</a></div>
+      </div>
+    </div>
+  </div>
+  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Tickets &middot; Vendors &middot; VIP Sections Available</footer>
+</div>
+
+<!-- SPONSORS -->
+<div id="sponsors" class="page">
+  <div class="sp-hero">
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Sponsor The Collective Block Party 2025</div>
+    <h1>More Than a Donation.<br><span style="color:var(--gold)">A Marketing Partnership.</span></h1>
+    <p>Reach 800+ engaged community members across 4 days. Real demographics, real ZIP code data, real ROI &mdash; aligned with your CRA and marketing goals.</p>
+    <button class="btn-hot" onclick="document.getElementById('sponModal').classList.add('open')">Sponsor Login / Apply</button>
+  </div>
+  <div class="sp-wrap">
+    <div class="tiers">
+      <div class="tier plat" onclick="pickTier(this,'Platinum')"><div class="tbadge">Platinum</div><div class="tamt" style="color:#D0D0F0">$10K</div><div class="tname">Presenting Sponsor</div><ul class="tperks"><li>Title naming rights</li><li>Stage branding all 4 days</li><li>Full email list (3,200+ contacts)</li><li>Premium booth placement</li><li>All digital &amp; print materials</li><li>CRA documentation package</li><li>Post-event impact report</li></ul><button class="pick-btn">Select Platinum</button></div>
+      <div class="tier gold" onclick="pickTier(this,'Gold')"><div class="tbadge">Gold</div><div class="tamt" style="color:var(--gold)">$5K</div><div class="tname">Event Day Sponsor</div><ul class="tperks"><li>Sponsor one full event day</li><li>Branded activation booth</li><li>5 social media spotlights</li><li>Logo on signage + website</li><li>Email campaign inclusion</li><li>CRA documentation</li></ul><button class="pick-btn">Select Gold</button></div>
+      <div class="tier silv" onclick="pickTier(this,'Silver')"><div class="tbadge">Silver</div><div class="tamt" style="color:#C0C0E0">$2,500</div><div class="tname">Activity Sponsor</div><ul class="tperks"><li>Sponsor one activity zone</li><li>Branded signage at zone</li><li>3 social media mentions</li><li>Logo on website</li><li>CRA documentation</li></ul><button class="pick-btn">Select Silver</button></div>
+      <div class="tier comm" onclick="pickTier(this,'Community')"><div class="tbadge">Community</div><div class="tamt" style="color:var(--sky)">$500</div><div class="tname">Community Partner</div><ul class="tperks"><li>Vendor table at event</li><li>Logo on community board</li><li>1 social media shout-out</li><li>Name in event program</li></ul><button class="pick-btn">Select Community</button></div>
+    </div>
+    <div class="sec-eye">Your Audience</div>
+    <div class="sec-title" style="background:linear-gradient(90deg,var(--gold),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">Demographic Reach Data</div>
+    <div class="demo-two">
+      <div class="dcrd"><h4>Age Breakdown</h4>
+        <div class="dbi"><div class="dbl"><span>Under 12</span><span>24%</span></div><div class="dbt"><div class="dbf" style="width:24%;background:var(--green)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>13&ndash;17</span><span>14%</span></div><div class="dbt"><div class="dbf" style="width:14%;background:var(--sky)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>18&ndash;34</span><span>31%</span></div><div class="dbt"><div class="dbf" style="width:31%;background:var(--gold)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>35&ndash;54</span><span>22%</span></div><div class="dbt"><div class="dbf" style="width:22%;background:var(--orange)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>55+</span><span>9%</span></div><div class="dbt"><div class="dbf" style="width:9%;background:rgba(255,255,255,.2)"></div></div></div>
+      </div>
+      <div class="dcrd"><h4>Marketing Interests</h4>
+        <div class="dbi"><div class="dbl"><span>Food &amp; Dining</span><span>74%</span></div><div class="dbt"><div class="dbf" style="width:74%;background:var(--pink)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>Family &amp; Parenting</span><span>68%</span></div><div class="dbt"><div class="dbf" style="width:68%;background:var(--green)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>Home &amp; Real Estate</span><span>52%</span></div><div class="dbt"><div class="dbf" style="width:52%;background:var(--sky)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>Financial Services</span><span>47%</span></div><div class="dbt"><div class="dbf" style="width:47%;background:var(--gold)"></div></div></div>
+        <div class="dbi"><div class="dbl"><span>Gaming &amp; Tech</span><span>41%</span></div><div class="dbt"><div class="dbf" style="width:41%;background:var(--purple)"></div></div></div>
+      </div>
+    </div>
+    <div class="map-crd"><h4>ZIP Code Reach &middot; Henry County &amp; South Metro Atlanta</h4>
+      <div class="map-vis"><div class="mgrid"></div>
+        <div class="mpin" style="top:48%;left:45%;color:var(--pink);background:var(--pink)"></div>
+        <div class="mpin" style="top:36%;left:53%;color:var(--gold);background:var(--gold);animation-delay:.5s"></div>
+        <div class="mpin" style="top:56%;left:39%;color:var(--sky);background:var(--sky);animation-delay:1s"></div>
+        <div class="mpin" style="top:42%;left:36%;color:var(--green);background:var(--green);animation-delay:1.4s"></div>
+        <div class="mpin" style="top:62%;left:57%;color:var(--orange);background:var(--orange);animation-delay:1.8s"></div>
+      </div>
+      <div class="zips"><span class="zip">30228</span><span class="zip">30281</span><span class="zip">30236</span><span class="zip">30253</span><span class="zip">30238</span><span class="zip">30252</span><span class="zip">30260</span><span class="zip">30273</span><span class="zip">30274</span><span class="zip">30297</span></div>
+      <div class="reach-row">
+        <div class="ritem"><div class="rval">10+</div><div class="rlbl">ZIP Codes</div></div>
+        <div class="ritem"><div class="rval">800+</div><div class="rlbl">Attendees</div></div>
+        <div class="ritem"><div class="rval">3,200+</div><div class="rlbl">Email Reach</div></div>
+        <div class="ritem"><div class="rval">Henry Co.</div><div class="rlbl">Primary Market</div></div>
+      </div>
+    </div>
+    <div class="cra-box"><h3>CRA Credit for Sponsors</h3><p>Partnering with this event may qualify your financial institution for Community Reinvestment Act (CRA) credit. We provide full documentation &mdash; attendee demographics, LMI ZIP code data, HUD counseling logs, and a post-event impact report.</p>
+      <div class="cra4">
+        <div class="ct"><h4>CRA Docs</h4><p>Full compliance packet</p></div>
+        <div class="ct"><h4>LMI Community</h4><p>Majority from low-to-moderate income ZIPs</p></div>
+        <div class="ct"><h4>HUD Services</h4><p>Certified counseling hours</p></div>
+        <div class="ct"><h4>Impact Report</h4><p>Post-event metrics &amp; testimonials</p></div>
+      </div>
+    </div>
+  </div>
+  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; sponsors@collectiveblockparty.com</footer>
+</div>
+
+
+<!-- REGISTRATION PAGE -->
+<div id="registration" class="page">
+  <div class="ev-hero">
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Secure Your Spot</div>
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">Register Now</h1>
+    <p style="font-size:14px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;">July 3&ndash;6, 2025 &middot; Lovejoy, GA &middot; Outside All Weekend</p>
+  </div>
+
+  <div style="max-width:980px;margin:0 auto;padding:0 20px 60px;">
+
+    <!-- Event Selector Tabs -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px;" id="evtTabs">
+      <button class="evt-tab active" onclick="showEvt('all',this)">All Events</button>
+      <button class="evt-tab" onclick="showEvt('thu',this)">THU &mdash; Biz Mixer</button>
+      <button class="evt-tab" onclick="showEvt('fri',this)">FRI &mdash; Taste of ATL</button>
+      <button class="evt-tab" onclick="showEvt('sat',this)">SAT &mdash; Block Party</button>
+      <button class="evt-tab" onclick="showEvt('sun',this)">SUN &mdash; Let's Skate</button>
+    </div>
+
+    <!-- Registration Cards Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;" id="regCards">
+
+      <!-- THU -->
+      <div class="reg-card thu-card" data-day="thu" data-eb-event-id="EB_THU_MIXER_ID">
+        <div class="rc-accent" style="background:var(--sky)"></div>
+        <div class="rc-badge eb-status" id="status-thu-mixer" style="display:none"></div>
+        <div class="rc-day" style="color:var(--sky)">THU &mdash; JULY 3</div>
+        <div class="rc-title">Small Business Mixer</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 5:00 PM &ndash; 11:00 PM</div>
+        <div class="rc-desc">Networking, vendor showcase, and community vibes for local entrepreneurs.</div>
+        <div class="rc-price-row" id="prices-thu-mixer">
+          <div><div class="rc-price-label" id="lbl1-thu-mixer">Early Bird</div><div class="rc-price" id="p1-thu-mixer">Free</div></div>
+          <div><div class="rc-price-label" id="lbl2-thu-mixer">VIP Access</div><div class="rc-price" style="color:var(--gold)" id="p2-thu-mixer">$25</div></div>
+        </div>
+        <button class="rc-btn" onclick="openReg('thu-mixer')" id="btn-thu-mixer"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
+      </div>
+
+      <div class="reg-card thu-card" data-day="thu">
+        <div class="rc-accent" style="background:var(--sky)"></div>
+        <div class="rc-day" style="color:var(--sky)">THU &mdash; JULY 3</div>
+        <div class="rc-badge bcra">CRA Component</div>
+        <div class="rc-title">Financial Literacy Workshop</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 7:00 PM &ndash; 9:00 PM</div>
+        <div class="rc-desc">Free session on credit building, small business loans, and community reinvestment.</div>
+        <div class="rc-price-row" id="prices-thu-workshop">
+          <div><div class="rc-price-label" id="lbl1-thu-workshop">Admission</div><div class="rc-price" style="color:var(--green)" id="p1-thu-workshop">FREE</div></div>
+          <div><div class="rc-price-label" id="lbl2-thu-workshop">Seats Available</div><div class="rc-price" id="p2-thu-workshop">50</div></div>
+        </div>
+        <button class="rc-btn" onclick="openReg('thu-workshop')" id="btn-thu-workshop"><i class="ti ti-ticket" aria-hidden="true"></i> Reserve Seat &rarr;</button>
+      </div>
+
+      <!-- FRI -->
+      <div class="reg-card fri-card" data-day="fri" data-eb-event-id="EB_FRI_TASTE_ID">
+        <div class="rc-accent" style="background:var(--green)"></div>
+        <div class="rc-badge eb-status" id="status-fri-taste" style="display:none"></div>
+        <div class="rc-day" style="color:var(--green)">FRI &mdash; JULY 4</div>
+        <div class="rc-title">Taste of Lovejoy</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 2:00 PM &ndash; Until</div>
+        <div class="rc-desc">Food trucks, live DJs, culture, games, fireworks, and community vibes all day.</div>
+        <div class="rc-price-row" id="prices-fri-taste">
+          <div><div class="rc-price-label" id="lbl1-fri-taste">General</div><div class="rc-price" id="p1-fri-taste">$15</div></div>
+          <div><div class="rc-price-label" id="lbl2-fri-taste">VIP</div><div class="rc-price" style="color:var(--gold)" id="p2-fri-taste">$40</div></div>
+        </div>
+        <button class="rc-btn" style="background:rgba(0,255,106,0.15);border-color:rgba(0,255,106,0.4);color:var(--green)" onclick="openReg('fri-taste')" id="btn-fri-taste"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
+      </div>
+
+      <div class="reg-card fri-card" data-day="fri">
+        <div class="rc-accent" style="background:var(--green)"></div>
+        <div class="rc-day" style="color:var(--green)">FRI &mdash; JULY 4</div>
+        <div class="rc-badge bkids">Kids Zone</div>
+        <div class="rc-title">Kids Carnival &amp; Games</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 2:00 PM &ndash; 6:00 PM</div>
+        <div class="rc-desc">Face painting, carnival games, prizes, and supervised play for ages 4&ndash;12.</div>
+        <div class="rc-price-row" id="prices-fri-kids">
+          <div><div class="rc-price-label" id="lbl1-fri-kids">Per Child</div><div class="rc-price" id="p1-fri-kids">$10</div></div>
+          <div><div class="rc-price-label" id="lbl2-fri-kids">Ages</div><div class="rc-price" id="p2-fri-kids">4 &ndash; 12</div></div>
+        </div>
+        <button class="rc-btn" style="background:rgba(0,255,106,0.15);border-color:rgba(0,255,106,0.4);color:var(--green)" onclick="openReg('fri-kids')" id="btn-fri-kids"><i class="ti ti-ticket" aria-hidden="true"></i> Register Kids &rarr;</button>
+      </div>
+
+      <!-- SAT -->
+      <div class="reg-card sat-card" data-day="sat" data-eb-event-id="EB_SAT_MAIN_ID">
+        <div class="rc-accent" style="background:var(--pink)"></div>
+        <div class="rc-day" style="color:var(--pink)">SAT &mdash; JULY 5</div>
+        <div class="rc-badge bvip">Main Event</div>
+        <div class="rc-badge eb-status" id="status-sat-main" style="display:none"></div>
+        <div class="rc-title">Cars, Bikes &amp; Vibes</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 12:00 PM &ndash; Late</div>
+        <div class="rc-desc">Car show, bike life, water slides, gamers lounge, laser tag, and evening block party.</div>
+        <div class="rc-price-row" id="prices-sat-main">
+          <div><div class="rc-price-label" id="lbl1-sat-main">General</div><div class="rc-price" id="p1-sat-main">$20</div></div>
+          <div><div class="rc-price-label" id="lbl2-sat-main">VIP</div><div class="rc-price" style="color:var(--gold)" id="p2-sat-main">$60</div></div>
+        </div>
+        <button class="rc-btn" onclick="openReg('sat-main')" id="btn-sat-main"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
+      </div>
+
+      <div class="reg-card sat-card" data-day="sat">
+        <div class="rc-accent" style="background:var(--pink)"></div>
+        <div class="rc-day" style="color:var(--pink)">SAT &mdash; JULY 5</div>
+        <div class="rc-badge bkids">Kids Zone</div>
+        <div class="rc-title">Water Slides &amp; Bubbles</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 12:00 PM &ndash; 6:00 PM</div>
+        <div class="rc-desc">Giant inflatables, bubble cannons, splash zones. Waiver required for all under 18.</div>
+        <div class="rc-price-row" id="prices-sat-slides">
+          <div><div class="rc-price-label" id="lbl1-sat-slides">Per Child</div><div class="rc-price" id="p1-sat-slides">$15</div></div>
+          <div><div class="rc-price-label" id="lbl2-sat-slides">Waiver</div><div class="rc-price" style="color:var(--orange)" id="p2-sat-slides">Required</div></div>
+        </div>
+        <button class="rc-btn" onclick="openReg('sat-slides')" id="btn-sat-slides"><i class="ti ti-ticket" aria-hidden="true"></i> Register + Waiver &rarr;</button>
+      </div>
+
+      <div class="reg-card sat-card" data-day="sat">
+        <div class="rc-accent" style="background:var(--pink)"></div>
+        <div class="rc-day" style="color:var(--pink)">SAT &mdash; JULY 5</div>
+        <div class="rc-badge bkids">All Ages</div>
+        <div class="rc-title">Gamers Lounge + Laser Tag</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 12:00 PM &ndash; 6:00 PM</div>
+        <div class="rc-desc">PS5 &amp; Xbox multi-player, laser tag arena, and tournaments with prizes all day.</div>
+        <div class="rc-price-row" id="prices-sat-gamers">
+          <div><div class="rc-price-label" id="lbl1-sat-gamers">Per Person</div><div class="rc-price" id="p1-sat-gamers">$15</div></div>
+          <div><div class="rc-price-label" id="lbl2-sat-gamers">Tournament</div><div class="rc-price" style="color:var(--gold)" id="p2-sat-gamers">Free Entry</div></div>
+        </div>
+        <button class="rc-btn" onclick="openReg('sat-gamers')" id="btn-sat-gamers"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
+      </div>
+
+      <!-- SUN -->
+      <div class="reg-card sun-card" data-day="sun" data-eb-event-id="EB_SUN_SKATE_ID">
+        <div class="rc-accent" style="background:var(--gold)"></div>
+        <div class="rc-badge eb-status" id="status-sun-skate" style="display:none"></div>
+        <div class="rc-day" style="color:var(--gold)">SUN &mdash; JULY 6</div>
+        <div class="rc-title">Let's Skate! Day Party Finale</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 2:00 PM &ndash; 10:00 PM</div>
+        <div class="rc-desc">Roller skating, classic jams, day vibes, and the ultimate closeout celebration.</div>
+        <div class="rc-price-row" id="prices-sun-skate">
+          <div><div class="rc-price-label" id="lbl1-sun-skate">General</div><div class="rc-price" id="p1-sun-skate">$15</div></div>
+          <div><div class="rc-price-label" id="lbl2-sun-skate">Skate Rental</div><div class="rc-price" id="p2-sun-skate">$10</div></div>
+        </div>
+        <button class="rc-btn" style="background:rgba(255,214,0,0.15);border-color:rgba(255,214,0,0.4);color:var(--gold)" onclick="openReg('sun-skate')" id="btn-sun-skate"><i class="ti ti-ticket" aria-hidden="true"></i> Register &rarr;</button>
+      </div>
+
+      <div class="reg-card sun-card" data-day="sun">
+        <div class="rc-accent" style="background:var(--gold)"></div>
+        <div class="rc-day" style="color:var(--gold)">SUN &mdash; JULY 6</div>
+        <div class="rc-badge bcra">Housing Counseling</div>
+        <div class="rc-title">Housing Counseling Fair</div>
+        <div class="rc-time"><i class="ti ti-clock" aria-hidden="true"></i> 11:00 AM &ndash; 3:00 PM</div>
+        <div class="rc-desc">HUD-certified 1-on-1 sessions. Homeownership, down payment assistance, foreclosure prevention.</div>
+        <div class="rc-price-row" id="prices-sun-housing">
+          <div><div class="rc-price-label" id="lbl1-sun-housing">Session</div><div class="rc-price" style="color:var(--green)" id="p1-sun-housing">FREE</div></div>
+          <div><div class="rc-price-label" id="lbl2-sun-housing">Duration</div><div class="rc-price" id="p2-sun-housing">45 min</div></div>
+        </div>
+        <button class="rc-btn" style="background:rgba(255,214,0,0.15);border-color:rgba(255,214,0,0.4);color:var(--gold)" onclick="openReg('sun-housing')" id="btn-sun-housing"><i class="ti ti-ticket" aria-hidden="true"></i> Book Session &rarr;</button>
+      </div>
+
+      <!-- Weekend Pass -->
+      <div class="reg-card" data-day="all" style="background:linear-gradient(135deg,rgba(255,0,160,0.1),rgba(155,0,255,0.08));border-color:rgba(255,0,160,0.3);grid-column:1/-1;">
+        <div class="rc-accent" style="background:linear-gradient(90deg,var(--pink),var(--gold),var(--green))"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+          <div style="flex:1;min-width:220px;">
+            <div class="rc-badge bvip" style="margin-bottom:8px">Best Value</div>
+            <div class="rc-title" style="font-size:22px;">Full Weekend Pass</div>
+            <div class="rc-time"><i class="ti ti-calendar" aria-hidden="true"></i> July 3&ndash;6 &mdash; All 4 Days</div>
+            <div class="rc-desc" style="margin-top:8px">Access to all events, activities, and experiences across the entire weekend. Includes priority entry and weekend program.</div>
+          </div>
+          <div style="text-align:center;padding:16px 24px;background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:4px;">Weekend Pass</div>
+            <div style="font-family:'Permanent Marker',cursive;font-size:48px;color:var(--gold);line-height:1;">$45</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;">Save up to $65 vs. individual tickets</div>
+            <button class="rc-btn primary-btn" onclick="openReg('weekend-pass')"><i class="ti ti-star" aria-hidden="true"></i> Get Weekend Pass &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Eventbrite Embed Section -->
+    <div id="ebEmbedSection" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+        <div>
+          <div class="sec-eye" style="margin-bottom:4px">Eventbrite Secure Registration</div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--gold)" id="ebEventTitle">Event Name</div>
+        </div>
+        <button onclick="closeReg()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;"><i class="ti ti-x" aria-hidden="true"></i> Close</button>
+      </div>
+
+      <!-- Eventbrite embed frame -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;position:relative;">
+        <!-- placeholder shown until real EB URL is set -->
+        <div id="ebPlaceholder" style="padding:48px 32px;text-align:center;">
+          <div style="font-size:48px;margin-bottom:16px;">🎟️</div>
+          <div style="font-family:'Teko',sans-serif;font-size:28px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Eventbrite Registration</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.5);max-width:440px;margin:0 auto 24px;line-height:1.6;">To embed your live Eventbrite registration form here, paste your Eventbrite event URL in the organizer dashboard under API Settings &rarr; Eventbrite Event URL.</div>
+          <div style="background:rgba(255,214,0,0.08);border:1px solid rgba(255,214,0,0.2);border-radius:10px;padding:16px 20px;display:inline-block;margin-bottom:24px;text-align:left;max-width:500px;">
+            <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,214,0,0.7);margin-bottom:8px;">How to embed:</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;">
+              1. Create your event on Eventbrite.com<br>
+              2. Copy your event URL<br>
+              3. Log in &rarr; Dashboard &rarr; API Settings<br>
+              4. Paste URL in &ldquo;Eventbrite Event URL&rdquo;<br>
+              5. Save &mdash; all buttons update instantly
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <a id="ebDirectLink" href="https://www.eventbrite.com" target="_blank" rel="noopener" class="btn-hot" style="display:inline-flex;"><i class="ti ti-external-link" style="font-size:15px" aria-hidden="true"></i> Register on Eventbrite</a>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);">Powered by Eventbrite &middot; Secure SSL checkout</div>
+        </div>
+        <!-- real EB iframe — shown when URL is set -->
+        <iframe id="ebIframe" src="" style="display:none;width:100%;min-height:600px;border:none;" title="Eventbrite Registration" loading="lazy"></iframe>
+      </div>
+
+      <!-- trust badges -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.4);"><i class="ti ti-lock" style="font-size:14px;color:var(--green)" aria-hidden="true"></i>SSL Secured</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.4);"><i class="ti ti-shield-check" style="font-size:14px;color:var(--green)" aria-hidden="true"></i>Safe Checkout</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.4);"><i class="ti ti-credit-card" style="font-size:14px;color:var(--green)" aria-hidden="true"></i>All Cards Accepted</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.4);"><i class="ti ti-refresh" style="font-size:14px;color:var(--green)" aria-hidden="true"></i>Instant Confirmation</div>
+      </div>
+    </div>
+
+  </div>
+  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Powered by Eventbrite</footer>
+</div>
+
+<!-- SPONSOR MODAL -->
+<div class="modal-ov" id="sponModal">
+  <div class="mbox">
+    <h2>Sponsor Portal</h2>
+    <p class="msub-txt">Apply for a sponsorship or log in to your partner dashboard.</p>
+    <div class="mf"><label>Company Name</label><input type="text" placeholder="e.g. First National Bank"></div>
+    <div class="mf"><label>Contact Email</label><input type="email" placeholder="you@company.com"></div>
+    <div class="mf"><label>Sponsorship Level</label>
+      <select id="sponLevel">
+        <option>Platinum &mdash; $10,000</option>
+        <option>Gold &mdash; $5,000</option>
+        <option>Silver &mdash; $2,500</option>
+        <option>Community &mdash; $500</option>
+        <option>Custom / In-Kind</option>
+      </select>
+    </div>
+    <div class="mf"><label>Marketing Goal</label>
+      <select>
+        <option>Brand awareness in South Metro Atlanta</option>
+        <option>CRA / Community compliance credit</option>
+        <option>Product sampling / direct sales</option>
+        <option>Recruitment &amp; community hiring</option>
+        <option>General community goodwill</option>
+      </select>
+    </div>
+    <div class="mbtns">
+      <button class="mcancel" onclick="document.getElementById('sponModal').classList.remove('open')">Cancel</button>
+      <button class="msub-btn" onclick="submitSpon()">Submit Interest &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="page">
+  <div class="login-wrap">
+    <div class="login-icon"><i class="ti ti-lock"></i></div>
+    <div class="login-title">Staff &amp; Partner Portal</div>
+    <div class="login-sub">The Collective Block Party &middot; 2025</div>
+    <div class="login-box">
+      <div class="role-tabs">
+        <button class="rtab active" onclick="setRole('organizer',this)">Organizer</button>
+        <button class="rtab" onclick="setRole('staff',this)">Staff</button>
+        <button class="rtab" onclick="setRole('sponsor',this)">Sponsor</button>
+      </div>
+      <div class="ff"><label>Email</label><input type="email" id="lEmail" placeholder="you@email.com" autocomplete="username"></div>
+      <div class="ff">
+        <label>Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="lPass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
+          <button class="pw-toggle" onclick="togglePw('lPass',this)" type="button" aria-label="Show password"><i class="ti ti-eye"></i></button>
+        </div>
+      </div>
+      <div class="demo-hint" id="demoHint"><b>Demo:</b> admin@collectivebp.com / admin123</div>
+      <button class="btn-signin" onclick="doLogin()"><i class="ti ti-login" style="font-size:15px"></i>Sign In</button>
+      <div class="login-err" id="lErr"></div>
+    </div>
+
+    <!-- API KEYS — organizer only -->
+    <div class="api-panel" id="apiPanel">
+      <div class="api-panel-header" id="apiToggle" onclick="toggleApiPanel()">
+        <span><i class="ti ti-settings lbl"></i>API &amp; Integration Keys</span>
+        <i class="ti ti-chevron-down api-chevron" id="apiChevron"></i>
+      </div>
+      <div class="api-body" id="apiBody">
+        <p class="api-note">Paste your API keys here. They are saved in your browser only &mdash; never sent to any server. You will need these to connect live Eventbrite, MailChimp, and Firebase data to your dashboard.</p>
+        <div class="api-field">
+          <label><i class="ti ti-ticket"></i>Eventbrite API Key</label>
+          <div class="api-input-wrap">
+            <input type="password" id="key-eventbrite" placeholder="Paste your Eventbrite Private Token">
+            <button class="api-eye" onclick="togglePw('key-eventbrite',this)" type="button" aria-label="Show key"><i class="ti ti-eye"></i></button>
+          </div>
+        </div>
+        <div class="api-field">
+          <label><i class="ti ti-mail"></i>MailChimp API Key</label>
+          <div class="api-input-wrap">
+            <input type="password" id="key-mailchimp" placeholder="Paste your MailChimp API Key">
+            <button class="api-eye" onclick="togglePw('key-mailchimp',this)" type="button" aria-label="Show key"><i class="ti ti-eye"></i></button>
+          </div>
+        </div>
+        <div class="api-field">
+          <label><i class="ti ti-brand-firebase"></i>Firebase Config (JSON)</label>
+          <div class="api-input-wrap">
+            <input type="password" id="key-firebase" placeholder='{"apiKey":"...","projectId":"..."}'>
+            <button class="api-eye" onclick="togglePw('key-firebase',this)" type="button" aria-label="Show key"><i class="ti ti-eye"></i></button>
+          </div>
+        </div>
+        <div class="api-field">
+          <label><i class="ti ti-world"></i>Eventbrite Organization ID</label>
+          <div class="api-input-wrap">
+            <input type="text" id="key-orgid" placeholder="Your Eventbrite Org ID (numbers only)">
+          </div>
+        </div>
+        <div class="api-field">
+          <label><i class="ti ti-link"></i>Eventbrite Event URL (updates all Register buttons)</label>
+          <div class="api-input-wrap">
+            <input type="text" id="key-eburl" placeholder="https://www.eventbrite.com/e/your-event-id">
+          </div>
+        </div>
+        <button class="api-save" onclick="saveApiKeys()"><i class="ti ti-device-floppy" style="font-size:14px"></i>Save Keys to Browser</button>
+        <div class="api-saved" id="apiSaved"><i class="ti ti-check" style="font-size:12px;vertical-align:-1px"></i> Keys saved successfully</div>
+      </div>
+    </div>
+
+    <div class="back-link" onclick="go('home',document.querySelectorAll('.nav-btn')[0])">
+      <i class="ti ti-arrow-left" style="font-size:14px"></i> Back to website
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashPage" class="page">
+  <div class="dash-bar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="live-dot">Live</div>
+      <span style="font-size:11px;letter-spacing:1px;color:rgba(255,255,255,0.3);">Synced just now</span>
+    </div>
+    <div class="dash-user">
+      <div class="d-avatar" id="dAvatar" style="background:rgba(255,0,160,0.2);color:var(--pink);">AD</div>
+      <div><div class="d-name" id="dName">Admin</div><div class="d-role rp-org" id="dRole">Organizer</div></div>
+      <button class="btn-out" onclick="doLogout()"><i class="ti ti-logout" style="font-size:13px"></i>Logout</button>
+    </div>
+  </div>
+  <div class="dash-body">
+    <div class="sidebar" id="dashSidebar"></div>
+    <div class="main" id="dashMain"></div>
+  </div>
+</div>
+
+<script>
+const USERS={
+  'admin@collectivebp.com':   {pass:'admin123',  role:'organizer',name:'Admin',             init:'AD',roleLabel:'Organizer',roleClass:'rp-org', avatarBg:'rgba(255,0,160,0.2)',  avatarColor:'var(--pink)'},
+  'staff@collectivebp.com':   {pass:'staff123',  role:'staff',    name:'Staff Member',       init:'ST',roleLabel:'Staff',    roleClass:'rp-staff',avatarBg:'rgba(0,207,255,0.18)',avatarColor:'var(--sky)'},
+  'sponsor@collectivebp.com': {pass:'sponsor123',role:'sponsor',  name:'First National Bank',init:'FN',roleLabel:'Sponsor', roleClass:'rp-spon', avatarBg:'rgba(255,214,0,0.18)',avatarColor:'var(--gold)'},
+};
+const HINTS={organizer:'admin@collectivebp.com / admin123',staff:'staff@collectivebp.com / staff123',sponsor:'sponsor@collectivebp.com / sponsor123'};
+let currentRole='organizer',loggedIn=false;
+
+function go(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function goDash(btn){
+  if(loggedIn){go('dashPage',btn);btn.querySelector('i').className='ti ti-layout-dashboard';btn.querySelector('span').textContent='Dashboard';}
+  else{go('loginPage',btn);btn.querySelector('i').className='ti ti-lock';btn.querySelector('span').textContent='Login';}
+}
+function setRole(role,btn){
+  currentRole=role;
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('demoHint').innerHTML='<b>Demo:</b> '+HINTS[role];
+  document.getElementById('lErr').textContent='';
+  document.getElementById('apiPanel').style.display=role==='organizer'?'block':'none';
+}
+function togglePw(id,btn){
+  const inp=document.getElementById(id);
+  const showing=inp.type==='text';
+  inp.type=showing?'password':'text';
+  btn.querySelector('i').className=showing?'ti ti-eye':'ti ti-eye-off';
+}
+function toggleApiPanel(){
+  const body=document.getElementById('apiBody');
+  const hdr=document.getElementById('apiToggle');
+  const open=body.classList.toggle('open');
+  hdr.classList.toggle('open',open);
+}
+function loadApiKeys(){
+  ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
+    const saved=localStorage.getItem('cbp_key_'+k);
+    if(saved){const el=document.getElementById('key-'+k);if(el)el.value=saved;}
+  });
+  const eventKeys=['thu-mixer','thu-workshop','fri-taste','fri-kids','sat-main','sat-slides','sat-gamers','sun-skate','sun-housing'];
+  eventKeys.forEach(k=>{
+    const saved=localStorage.getItem('cbp_eb_id_'+k);
+    if(saved){
+      const el=document.getElementById('dk-eb-'+k);
+      if(el)el.value=saved;
+      const card=document.querySelector('[data-eb-event-id="EB_'+k.toUpperCase().replace(/-/g,'_')+'_ID"]');
+      if(card)card.setAttribute('data-eb-event-id',saved);
+    }
+  });
+}
+function saveApiKeys(){
+  ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
+    const el=document.getElementById('key-'+k);
+    if(el&&el.value.trim())localStorage.setItem('cbp_key_'+k,el.value.trim());
+  });
+  const urlEl=document.getElementById('key-eburl');
+  if(urlEl&&urlEl.value.trim())setEventbriteUrl(urlEl.value.trim());
+  const s=document.getElementById('apiSaved');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',3000);
+}
+function setEventbriteUrl(url){
+  if(!url||!url.startsWith('http'))return;
+  document.querySelectorAll('[id^="reg-"]').forEach(el=>el.href=url);
+  document.getElementById('ticketLink').href=url;
+  document.getElementById('heroTicketBtn').href=url;
+}
+function doLogin(){
+  const email=document.getElementById('lEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('lPass').value;
+  const u=USERS[email];
+  const err=document.getElementById('lErr');
+  if(!u||u.pass!==pass){err.textContent='Incorrect email or password.';return;}
+  if(u.role!==currentRole){err.textContent='That account is a '+u.role+' — select the correct role tab.';return;}
+  err.textContent='';loggedIn=true;
+  document.getElementById('dAvatar').textContent=u.init;
+  document.getElementById('dAvatar').style.background=u.avatarBg;
+  document.getElementById('dAvatar').style.color=u.avatarColor;
+  document.getElementById('dName').textContent=u.name;
+  const dr=document.getElementById('dRole');dr.textContent=u.roleLabel;dr.className='d-role '+u.roleClass;
+  buildDash(u.role);
+  const nb=document.getElementById('dashNavBtn');
+  nb.querySelector('i').className='ti ti-layout-dashboard';
+  nb.querySelector('span').textContent='Dashboard';
+  go('dashPage',nb);
+}
+function doLogout(){
+  loggedIn=false;
+  document.getElementById('lEmail').value='';
+  document.getElementById('lPass').value='';
+  document.getElementById('lErr').textContent='';
+  const nb=document.getElementById('dashNavBtn');
+  nb.querySelector('i').className='ti ti-lock';
+  nb.querySelector('span').textContent='Login';
+  go('loginPage',nb);
+}
+function buildDash(role){
+  const sidebar=document.getElementById('dashSidebar');
+  const main=document.getElementById('dashMain');
+  if(role==='organizer'){
+    sidebar.innerHTML=`
+      <div class="sb-sec">Main</div>
+      <button class="ni active" onclick="sp('o-overview',this)"><i class="ti ti-layout-dashboard"></i><span>Overview</span></button>
+      <button class="ni" onclick="sp('o-regs',this)"><i class="ti ti-users"></i><span>Registrations</span></button>
+      <button class="ni" onclick="sp('o-waivers',this)"><i class="ti ti-file-check"></i><span>Waivers</span></button>
+      <div class="sb-sec">Comms</div>
+      <button class="ni" onclick="sp('o-mailchimp',this)"><i class="ti ti-mail"></i><span>MailChimp</span></button>
+      <button class="ni" onclick="sp('o-sponsors',this)"><i class="ti ti-building"></i><span>Sponsors</span></button>
+      <div class="sb-sec">Admin</div>
+      <button class="ni" onclick="sp('o-settings',this)"><i class="ti ti-settings"></i><span>API Settings</span></button>
+      <button class="ni" onclick="sp('o-staff',this)"><i class="ti ti-id-badge"></i><span>Staff</span></button>
+      <button class="ni" onclick="sp('o-cra',this)"><i class="ti ti-home"></i><span>CRA/Housing</span></button>`;
+    main.innerHTML=`
+      <div id="o-overview" class="dpanel active">
+        <div class="ptitle">Overview</div>
+        <div class="sg">
+          <div class="sc"><div class="sl">Total Reg.</div><div class="sv" style="color:var(--pink)">847</div><div class="ss">&#x2191; 43 today</div></div>
+          <div class="sc"><div class="sl">Adults</div><div class="sv" style="color:var(--sky)">521</div><div class="ss">61.5%</div></div>
+          <div class="sc"><div class="sl">Kids</div><div class="sv" style="color:var(--green)">326</div><div class="ss">38.5%</div></div>
+          <div class="sc"><div class="sl">Waivers</div><div class="sv" style="color:var(--orange)">289</div><div class="ss">of 326</div></div>
+          <div class="sc"><div class="sl">Sponsors</div><div class="sv" style="color:var(--gold)">7</div><div class="ss">$42,500</div></div>
+          <div class="sc"><div class="sl">MC Synced</div><div class="sv" style="color:var(--green)">831</div><div class="ss">16 pending</div></div>
+        </div>
+        <div class="two-col">
+          <div class="dcrd2"><h3>Registrations by event</h3>
+            <div class="pi"><div class="pl"><span>Saturday Block Party</span><span style="color:var(--pink)">312</span></div><div class="pt"><div class="pf" style="width:90%;background:var(--pink)"></div></div></div>
+            <div class="pi"><div class="pl"><span>Friday Taste of ATL</span><span style="color:var(--green)">218</span></div><div class="pt"><div class="pf" style="width:63%;background:var(--green)"></div></div></div>
+            <div class="pi"><div class="pl"><span>Gamers Lounge</span><span style="color:var(--gold)">197</span></div><div class="pt"><div class="pf" style="width:57%;background:var(--gold)"></div></div></div>
+            <div class="pi"><div class="pl"><span>Thursday Mixer</span><span style="color:var(--sky)">143</span></div><div class="pt"><div class="pf" style="width:41%;background:var(--sky)"></div></div></div>
+            <div class="pi"><div class="pl"><span>Sunday Skate</span><span style="color:rgba(255,255,255,.4)">98</span></div><div class="pt"><div class="pf" style="width:28%;background:rgba(255,255,255,.2)"></div></div></div>
+          </div>
+          <div class="dcrd2"><h3>Quick actions</h3>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <button class="act-btn primary"><i class="ti ti-download" style="font-size:13px"></i>Export Registrations CSV</button>
+              <button class="act-btn"><i class="ti ti-mail" style="font-size:13px"></i>Sync MailChimp Now</button>
+              <button class="act-btn"><i class="ti ti-file-check" style="font-size:13px"></i>Send Waiver Reminders</button>
+              <button class="act-btn"><i class="ti ti-external-link" style="font-size:13px"></i>Open Eventbrite</button>
+              <button class="act-btn"><i class="ti ti-chart-bar" style="font-size:13px"></i>Download Impact Report</button>
+            </div>
+          </div>
+        </div>
+        <div class="int-row">
+          <div class="itile"><div style="font-size:20px">&#127903;&#65039;</div><div class="iname">Eventbrite</div><div class="ist">&#9679; Connected</div><div class="icnt">847</div></div>
+          <div class="itile"><div style="font-size:20px">&#9993;&#65039;</div><div class="iname">MailChimp</div><div class="ist">&#9679; Auto-syncing</div><div class="icnt">831</div></div>
+          <div class="itile"><div style="font-size:20px">&#128203;</div><div class="iname">Waivers</div><div class="ist">&#9679; Active</div><div class="icnt">289/326</div></div>
+        </div>
+      </div>
+      <div id="o-settings" class="dpanel">
+        <div class="ptitle">API Settings</div>
+        <div class="api-dash-card">
+          <h3><i class="ti ti-key"></i>Integration Keys</h3>
+          <p style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.6">Paste your keys below. Saved to browser local storage. After saving, refresh to activate live syncing.</p>
+          <div class="api-row">
+            <div class="api-field"><label><i class="ti ti-ticket"></i>Eventbrite Token</label><div class="api-input-wrap"><input type="password" id="dk-eventbrite" placeholder="Eventbrite Private Token"><button class="api-eye" onclick="togglePw('dk-eventbrite',this)" type="button" aria-label="Show"><i class="ti ti-eye"></i></button></div></div>
+            <div class="api-field"><label><i class="ti ti-mail"></i>MailChimp API Key</label><div class="api-input-wrap"><input type="password" id="dk-mailchimp" placeholder="MailChimp API Key"><button class="api-eye" onclick="togglePw('dk-mailchimp',this)" type="button" aria-label="Show"><i class="ti ti-eye"></i></button></div></div>
+            <div class="api-field"><label><i class="ti ti-world"></i>Eventbrite Org ID</label><div class="api-input-wrap"><input type="text" id="dk-orgid" placeholder="Org ID (numbers)"></div></div>
+            <div class="api-field"><label><i class="ti ti-brand-firebase"></i>Firebase Config JSON</label><div class="api-input-wrap"><input type="password" id="dk-firebase" placeholder='{"apiKey":"...","projectId":"..."}' ><button class="api-eye" onclick="togglePw('dk-firebase',this)" type="button" aria-label="Show"><i class="ti ti-eye"></i></button></div></div>
+          </div>
+          <div class="api-field" style="margin-top:8px"><label><i class="ti ti-link"></i>Eventbrite Event URL (updates all Register buttons)</label><div class="api-input-wrap"><input type="text" id="dk-eburl" placeholder="https://www.eventbrite.com/e/your-event-id"></div></div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.07)">
+            <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:12px;line-height:1.6"><i class="ti ti-refresh" style="font-size:12px;color:var(--gold)"></i> <b style="color:rgba(255,214,0,0.7)">Live Price Sync</b> — Paste your Eventbrite Event IDs below (the number in your event URL, e.g. eventbrite.com/e/<b>123456789</b>). Prices, ticket names, and availability will update automatically from the Eventbrite API whenever a visitor loads the registration page.</p>
+            <div class="api-row">
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>THU — Small Business Mixer ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-thu-mixer" placeholder="e.g. 123456789"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>THU — Financial Literacy Workshop ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-thu-workshop" placeholder="e.g. 123456790"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>FRI — Taste of Lovejoy ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-fri-taste" placeholder="e.g. 123456791"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>FRI — Kids Carnival ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-fri-kids" placeholder="e.g. 123456792"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>SAT — Cars, Bikes &amp; Vibes ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-sat-main" placeholder="e.g. 123456793"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>SAT — Water Slides ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-sat-slides" placeholder="e.g. 123456794"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>SAT — Gamers Lounge ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-sat-gamers" placeholder="e.g. 123456795"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>SUN — Let's Skate ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-sun-skate" placeholder="e.g. 123456796"></div></div>
+              <div class="api-field"><label><i class="ti ti-calendar-event"></i>SUN — Housing Counseling ID</label><div class="api-input-wrap"><input type="text" id="dk-eb-sun-housing" placeholder="e.g. 123456797"></div></div>
+            </div>
+          </div>
+          <button class="api-save" onclick="saveDashKeys()" style="margin-top:10px"><i class="ti ti-device-floppy" style="font-size:14px"></i>Save All Keys</button>
+          <div class="api-saved" id="dkSaved"><i class="ti ti-check" style="font-size:12px;vertical-align:-1px"></i> Saved successfully</div>
+        </div>
+      </div>
+      <div id="o-regs" class="dpanel">
+        <div class="ptitle">Registrations</div>
+        <div class="dcrd2"><h3>Recent sign-ups</h3>
+          <table class="dtable"><thead><tr><th>Name</th><th>Event</th><th>Type</th><th>Waiver</th><th>MC</th></tr></thead>
+          <tbody>
+            <tr><td>Jordan M.</td><td>Block Party</td><td>Adult</td><td><span class="sb sb-ok">Done</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
+            <tr><td>Aaliyah R.</td><td>Gamers Lounge</td><td>Kid</td><td><span class="sb sb-need">Pending</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
+            <tr><td>Marcus T.</td><td>Biz Mixer</td><td>Adult</td><td><span class="sb sb-ok">Done</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
+            <tr><td>Zoe + 2 kids</td><td>Water Slides</td><td>Family</td><td><span class="sb sb-need">Needed</span></td><td><span class="sb sb-pend">Pending</span></td></tr>
+            <tr><td>David W.</td><td>Housing Fair</td><td>Adult</td><td><span class="sb sb-ok">Done</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
+          </tbody></table>
+          <div class="act-row"><button class="act-btn primary"><i class="ti ti-download" style="font-size:13px"></i>Export CSV</button><button class="act-btn"><i class="ti ti-filter" style="font-size:13px"></i>Filter</button></div>
+        </div>
+      </div>
+      <div id="o-waivers" class="dpanel">
+        <div class="ptitle">Waivers</div>
+        <div class="sg"><div class="sc"><div class="sl">Required</div><div class="sv">326</div></div><div class="sc"><div class="sl">Signed</div><div class="sv" style="color:var(--green)">289</div><div class="ss">88.6%</div></div><div class="sc"><div class="sl">Outstanding</div><div class="sv" style="color:var(--pink)">37</div></div></div>
+        <div class="dcrd2"><h3>Outstanding waivers</h3>
+          <table class="dtable"><thead><tr><th>Name</th><th>Event</th><th>Days Since</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Aaliyah R.</td><td>Gamers Lounge</td><td>1 day</td><td><button class="act-btn" style="padding:4px 10px;font-size:11px">Send Reminder</button></td></tr>
+            <tr><td>Zoe H. + kids</td><td>Water Slides</td><td>2 days</td><td><button class="act-btn" style="padding:4px 10px;font-size:11px">Send Reminder</button></td></tr>
+            <tr><td>Tyrone B.</td><td>Slides + Show</td><td>4 days</td><td><button class="act-btn" style="padding:4px 10px;font-size:11px">Send Reminder</button></td></tr>
+          </tbody></table>
+          <div class="act-row"><button class="act-btn primary"><i class="ti ti-send" style="font-size:13px"></i>Send All Reminders</button></div>
+        </div>
+      </div>
+      <div id="o-mailchimp" class="dpanel">
+        <div class="ptitle">MailChimp</div>
+        <div class="sg"><div class="sc"><div class="sl">List Size</div><div class="sv" style="color:var(--gold)">3,241</div></div><div class="sc"><div class="sl">From Event</div><div class="sv" style="color:var(--green)">831</div></div><div class="sc"><div class="sl">Pending</div><div class="sv" style="color:var(--pink)">16</div></div><div class="sc"><div class="sl">Open Rate</div><div class="sv" style="color:var(--sky)">34%</div></div></div>
+        <div class="act-row"><button class="act-btn primary"><i class="ti ti-refresh" style="font-size:13px"></i>Sync Now</button><button class="act-btn"><i class="ti ti-plus" style="font-size:13px"></i>New Campaign</button></div>
+      </div>
+      <div id="o-sponsors" class="dpanel">
+        <div class="ptitle">Sponsors</div>
+        <div class="dcrd2"><h3>Active sponsors</h3>
+          <table class="dtable"><thead><tr><th>Company</th><th>Tier</th><th>Amount</th><th>Contract</th><th>Payment</th></tr></thead>
+          <tbody>
+            <tr><td>First National Bank</td><td><span class="sb" style="background:rgba(200,200,230,0.12);color:#D0D0F0">Platinum</span></td><td>$10,000</td><td><span class="sb sb-ok">Signed</span></td><td><span class="sb sb-ok">Paid</span></td></tr>
+            <tr><td>ATL Auto Group</td><td><span class="sb" style="background:rgba(255,214,0,0.12);color:var(--gold)">Gold</span></td><td>$5,000</td><td><span class="sb sb-ok">Signed</span></td><td><span class="sb sb-pend">50%</span></td></tr>
+            <tr><td>Henry Co. Realty</td><td><span class="sb" style="background:rgba(255,214,0,0.12);color:var(--gold)">Gold</span></td><td>$5,000</td><td><span class="sb sb-ok">Signed</span></td><td><span class="sb sb-ok">Paid</span></td></tr>
+            <tr><td>GameStop Stockbridge</td><td><span class="sb" style="background:rgba(160,160,190,0.1);color:#B0B0D0">Silver</span></td><td>$2,500</td><td><span class="sb sb-pend">Pending</span></td><td><span class="sb sb-need">Unpaid</span></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div id="o-staff" class="dpanel">
+        <div class="ptitle">Staff Accounts</div>
+        <div class="dcrd2"><h3>Active staff logins</h3>
+          <table class="dtable"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Tasha R.</td><td>tasha@collectivebp.com</td><td>Check-in Lead</td><td><span class="sb sb-ok">Active</span></td></tr>
+            <tr><td>Marcus J.</td><td>marcus@collectivebp.com</td><td>Vendor Coord.</td><td><span class="sb sb-ok">Active</span></td></tr>
+            <tr><td>DeShawn L.</td><td>deshawn@collectivebp.com</td><td>Security</td><td><span class="sb sb-pend">Invite Sent</span></td></tr>
+          </tbody></table>
+          <div class="act-row"><button class="act-btn primary"><i class="ti ti-plus" style="font-size:13px"></i>Add Staff</button><button class="act-btn"><i class="ti ti-key" style="font-size:13px"></i>Reset Password</button></div>
+        </div>
+      </div>
+      <div id="o-cra" class="dpanel">
+        <div class="ptitle">CRA &amp; Housing</div>
+        <div class="sg"><div class="sc"><div class="sl">Sessions</div><div class="sv" style="color:var(--sky)">76</div><div class="ss">Booked</div></div><div class="sc"><div class="sl">CRA Hours</div><div class="sv" style="color:var(--green)">152</div></div><div class="sc"><div class="sl">Partner Banks</div><div class="sv" style="color:var(--gold)">3</div></div></div>
+      </div>`;
+    setTimeout(()=>{
+      ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
+        const v=localStorage.getItem('cbp_key_'+k);
+        if(v){const el=document.getElementById('dk-'+k);if(el)el.value=v;}
+      });
+    },100);
+  } else if(role==='staff'){
+    sidebar.innerHTML=`
+      <div class="sb-sec">My Tools</div>
+      <button class="ni active" onclick="sp('s-checkin',this)"><i class="ti ti-qrcode"></i><span>Check-In</span></button>
+      <button class="ni" onclick="sp('s-kids',this)"><i class="ti ti-mood-happy"></i><span>Kids Zone</span></button>
+      <button class="ni" onclick="sp('s-schedule',this)"><i class="ti ti-calendar"></i><span>Schedule</span></button>
+      <button class="ni" onclick="sp('s-waivers',this)"><i class="ti ti-file-check"></i><span>Waivers</span></button>`;
+    main.innerHTML=`
+      <div id="s-checkin" class="dpanel active">
+        <div class="ptitle">Check-In</div>
+        <div class="sg"><div class="sc"><div class="sl">Checked In</div><div class="sv" style="color:var(--green)">342</div></div><div class="sc"><div class="sl">Expected</div><div class="sv" style="color:var(--gold)">505</div></div><div class="sc"><div class="sl">Walk-ins</div><div class="sv" style="color:var(--sky)">28</div></div></div>
+        <div class="dcrd2"><h3>Search attendee</h3>
+          <div style="display:flex;gap:9px;margin-bottom:14px"><input type="text" placeholder="Name, email or confirmation #" style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.11);border-radius:7px;padding:10px 13px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;outline:none"><button class="act-btn primary"><i class="ti ti-search" style="font-size:13px"></i>Look Up</button></div>
+          <table class="dtable"><thead><tr><th>Name</th><th>Event</th><th>Waiver</th><th>Check In</th></tr></thead>
+          <tbody>
+            <tr><td>Jordan M.</td><td>Block Party</td><td><span class="sb sb-ok">Done</span></td><td><button class="act-btn primary" style="padding:4px 10px;font-size:11px">Check In</button></td></tr>
+            <tr><td>Aaliyah R.</td><td>Gamers Lounge</td><td><span class="sb sb-need">Needed</span></td><td><button class="act-btn" style="padding:4px 10px;font-size:11px;color:var(--pink)">Get Waiver First</button></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div id="s-kids" class="dpanel">
+        <div class="ptitle">Kids Zone</div>
+        <div class="sg"><div class="sc"><div class="sl">Kids Registered</div><div class="sv" style="color:var(--green)">326</div></div><div class="sc"><div class="sl">Waivers Done</div><div class="sv" style="color:var(--gold)">289</div></div><div class="sc"><div class="sl">In Zone Now</div><div class="sv" style="color:var(--pink)">47</div></div></div>
+      </div>
+      <div id="s-schedule" class="dpanel">
+        <div class="ptitle">Today's Schedule</div>
+        <div class="dcrd2"><h3>Saturday July 5</h3>
+          <table class="dtable"><thead><tr><th>Time</th><th>Event</th><th>Your Role</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--gold);font-weight:700">10AM</td><td>Setup &amp; Venue Prep</td><td>Setup Crew</td></tr>
+            <tr><td style="color:var(--gold);font-weight:700">12PM</td><td>Gates Open &mdash; Check-In</td><td>Check-In Staff</td></tr>
+            <tr><td style="color:var(--gold);font-weight:700">12PM</td><td>Kids Zone Opens</td><td>Kids Monitor</td></tr>
+            <tr><td style="color:var(--gold);font-weight:700">6PM</td><td>Evening Block Party</td><td>Crowd Management</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div id="s-waivers" class="dpanel">
+        <div class="ptitle">Waivers</div>
+        <div class="dcrd2"><h3>On-site collection</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px">For families arriving without a signed waiver, show the QR or text the link.</p>
+          <div class="act-row"><button class="act-btn primary"><i class="ti ti-qrcode" style="font-size:13px"></i>Show QR Code</button><button class="act-btn"><i class="ti ti-send" style="font-size:13px"></i>Text Link</button><button class="act-btn"><i class="ti ti-printer" style="font-size:13px"></i>Print</button></div>
+        </div>
+      </div>`;
+  } else {
+    sidebar.innerHTML=`
+      <div class="sb-sec">My Sponsorship</div>
+      <button class="ni active" onclick="sp('p-overview',this)"><i class="ti ti-layout-dashboard"></i><span>Overview</span></button>
+      <button class="ni" onclick="sp('p-benefits',this)"><i class="ti ti-star"></i><span>Benefits</span></button>
+      <button class="ni" onclick="sp('p-demo',this)"><i class="ti ti-chart-bar"></i><span>Demographics</span></button>
+      <button class="ni" onclick="sp('p-cra',this)"><i class="ti ti-file-description"></i><span>CRA Docs</span></button>`;
+    main.innerHTML=`
+      <div id="p-overview" class="dpanel active">
+        <div class="ptitle">My Sponsorship</div>
+        <div class="dcrd2" style="margin-bottom:14px"><div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px"><div><div style="display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;padding:4px 12px;border-radius:100px;background:rgba(200,200,230,0.15);color:#D0D0F0;margin-bottom:8px;text-transform:uppercase">Platinum Sponsor</div><div style="font-family:'Teko',sans-serif;font-size:24px;font-weight:700;text-transform:uppercase">First National Bank</div><div style="font-size:12px;color:rgba(255,255,255,.45)">Presenting Sponsor &middot; $10,000 &middot; Contract Signed</div></div><div style="text-align:right"><div style="font-family:'Teko',sans-serif;font-size:36px;font-weight:700;color:var(--green)">$10,000</div><div style="font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px">PAID IN FULL</div></div></div></div>
+        <div class="sg"><div class="sc"><div class="sl">Reach</div><div class="sv" style="color:var(--gold)">800+</div></div><div class="sc"><div class="sl">Email Reach</div><div class="sv" style="color:var(--sky)">3,241</div></div><div class="sc"><div class="sl">Social Posts</div><div class="sv" style="color:var(--pink)">8</div></div><div class="sc"><div class="sl">Event Days</div><div class="sv" style="color:var(--green)">4</div></div></div>
+      </div>
+      <div id="p-benefits" class="dpanel">
+        <div class="ptitle">My Benefits</div>
+        <div class="dcrd2"><h3>Platinum &mdash; all benefits</h3>
+          <table class="dtable"><thead><tr><th>Benefit</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Title naming rights</td><td><span class="sb sb-ok">Active</span></td></tr>
+            <tr><td>Stage branding + MC mentions all 4 days</td><td><span class="sb sb-pend">Upcoming</span></td></tr>
+            <tr><td>Full email list access (3,241 contacts)</td><td><span class="sb sb-ok">Active</span></td></tr>
+            <tr><td>Premium vendor booth &mdash; main entrance</td><td><span class="sb sb-ok">Confirmed</span></td></tr>
+            <tr><td>8 dedicated social media spotlights</td><td><span class="sb sb-pend">Scheduled</span></td></tr>
+            <tr><td>CRA documentation package</td><td><span class="sb sb-ok">Available</span></td></tr>
+            <tr><td>Post-event impact report</td><td><span class="sb sb-pend">After Event</span></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div id="p-demo" class="dpanel">
+        <div class="ptitle">Demographics</div>
+        <div class="dcrd2"><h3>Financial services interest</h3>
+          <div class="dbi"><div class="dbl"><span>Homeownership interest</span><span>52%</span></div><div class="dbt"><div class="dbf" style="width:52%;background:var(--gold)"></div></div></div>
+          <div class="dbi"><div class="dbl"><span>Interested in banking</span><span>47%</span></div><div class="dbt"><div class="dbf" style="width:47%;background:var(--sky)"></div></div></div>
+          <div class="dbi"><div class="dbl"><span>First-time homebuyers</span><span>31%</span></div><div class="dbt"><div class="dbf" style="width:31%;background:var(--pink)"></div></div></div>
+          <div class="dbi"><div class="dbl"><span>Small business owners</span><span>18%</span></div><div class="dbt"><div class="dbf" style="width:18%;background:var(--green)"></div></div></div>
+          <div class="act-row"><button class="act-btn primary"><i class="ti ti-download" style="font-size:13px"></i>Download Full Demographics PDF</button></div>
+        </div>
+      </div>
+      <div id="p-cra" class="dpanel">
+        <div class="ptitle">CRA Documents</div>
+        <div class="dcrd2"><h3>Your CRA package</h3>
+          <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px">Everything your compliance team needs.</p>
+          <table class="dtable"><thead><tr><th>Document</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>LMI Service Area Report</td><td><span class="sb sb-ok">Ready</span></td><td><button class="act-btn" style="padding:4px 10px;font-size:11px"><i class="ti ti-download" style="font-size:11px"></i>Download</button></td></tr>
+            <tr><td>Attendee Demographics Summary</td><td><span class="sb sb-ok">Ready</span></td><td><button class="act-btn" style="padding:4px 10px;font-size:11px"><i class="ti ti-download" style="font-size:11px"></i>Download</button></td></tr>
+            <tr><td>HUD Counseling Hours Letter</td><td><span class="sb sb-ok">Ready</span></td><td><button class="act-btn" style="padding:4px 10px;font-size:11px"><i class="ti ti-download" style="font-size:11px"></i>Download</button></td></tr>
+            <tr><td>Post-Event Impact Report</td><td><span class="sb sb-pend">After Event</span></td><td>&mdash;</td></tr>
+          </tbody></table>
+        </div>
+      </div>`;
+  }
+}
+function saveDashKeys(){
+  ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
+    const el=document.getElementById('dk-'+k);
+    if(el&&el.value.trim())localStorage.setItem('cbp_key_'+k,el.value.trim());
+  });
+  const eventKeys=['thu-mixer','thu-workshop','fri-taste','fri-kids','sat-main','sat-slides','sat-gamers','sun-skate','sun-housing'];
+  eventKeys.forEach(k=>{
+    const el=document.getElementById('dk-eb-'+k);
+    if(el&&el.value.trim()){
+      localStorage.setItem('cbp_eb_id_'+k,el.value.trim());
+      const card=document.querySelector('[data-eb-event-id="EB_'+k.toUpperCase().replace(/-/g,'_')+'_ID"]');
+      if(card)card.setAttribute('data-eb-event-id',el.value.trim());
+    }
+  });
+  const urlEl=document.getElementById('dk-eburl');
+  if(urlEl&&urlEl.value.trim())setEventbriteUrl(urlEl.value.trim());
+  const s=document.getElementById('dkSaved');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',3000);
+  fetchAllEventbritePrices();
+}
+function sp(panelId,btn){
+  document.querySelectorAll('#dashMain .dpanel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  document.querySelectorAll('#dashSidebar .ni').forEach(n=>n.classList.remove('active'));
+  btn.classList.add('active');
+}
+function pickTier(card,name){
+  document.querySelectorAll('.tier').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  document.getElementById('sponModal').classList.add('open');
+  const sel=document.getElementById('sponLevel');
+  for(let o of sel.options){if(o.text.toLowerCase().startsWith(name.toLowerCase())){sel.value=o.value;break;}}
+}
+function submitSpon(){
+  document.getElementById('sponModal').classList.remove('open');
+  alert('Thank you! Our team will reach out within 24 hours with your full sponsorship packet and CRA documentation preview.');
+}
+document.getElementById('lEmail').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('lPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+
+const EVENT_NAMES = {
+  'thu-mixer': 'Small Business Mixer — Thu July 3',
+  'thu-workshop': 'Financial Literacy Workshop — Thu July 3',
+  'fri-taste': 'Taste of Lovejoy — Fri July 4',
+  'fri-kids': 'Kids Carnival & Games — Fri July 4',
+  'sat-main': 'Cars, Bikes & Vibes — Sat July 5',
+  'sat-slides': 'Water Slides & Bubbles — Sat July 5',
+  'sat-gamers': 'Gamers Lounge + Laser Tag — Sat July 5',
+  'sun-skate': 'Let\'s Skate! Day Party Finale — Sun July 6',
+  'sun-housing': 'Housing Counseling Fair — Sun July 6',
+  'weekend-pass': 'Full Weekend Pass — July 3–6'
+};
+function openReg(evtKey) {
+  const ebUrl = localStorage.getItem('cbp_key_eburl') || '';
+  document.getElementById('ebEventTitle').textContent = EVENT_NAMES[evtKey] || 'Registration';
+  document.getElementById('ebEmbedSection').style.display = 'block';
+  const iframe = document.getElementById('ebIframe');
+  const placeholder = document.getElementById('ebPlaceholder');
+  const directLink = document.getElementById('ebDirectLink');
+  if (ebUrl && ebUrl.startsWith('http')) {
+    iframe.src = ebUrl;
+    iframe.style.display = 'block';
+    placeholder.style.display = 'none';
+    directLink.href = ebUrl;
+  } else {
+    iframe.style.display = 'none';
+    placeholder.style.display = 'block';
+  }
+  document.getElementById('ebEmbedSection').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function closeReg() {
+  document.getElementById('ebEmbedSection').style.display = 'none';
+  document.getElementById('ebIframe').src = '';
+}
+function showEvt(day, btn) {
+  document.querySelectorAll('.evt-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.reg-card').forEach(c => {
+    if (day === 'all') { c.style.display = 'flex'; }
+    else { c.style.display = (c.dataset.day === day || c.dataset.day === 'all') ? 'flex' : 'none'; }
+  });
+}
+
+loadApiKeys();
+const savedUrl=localStorage.getItem('cbp_key_eburl');
+if(savedUrl)setEventbriteUrl(savedUrl);
+
+/* ═══════════════════════════════════════════════════
+   EVENTBRITE LIVE PRICE SYNC
+   Fetches ticket_classes for each event via the
+   Eventbrite public API and updates price cards.
+   CORS note: Eventbrite blocks direct browser calls,
+   so we route through a tiny public CORS proxy.
+   When you deploy to a real server, replace the proxy
+   with a server-side endpoint for production security.
+═══════════════════════════════════════════════════ */
+
+const EB_CARD_MAP = {
+  'thu-mixer':    {p1:'p1-thu-mixer',    lbl1:'lbl1-thu-mixer',    p2:'p2-thu-mixer',    lbl2:'lbl2-thu-mixer',    statusId:'status-thu-mixer',    btnId:'btn-thu-mixer'},
+  'thu-workshop': {p1:'p1-thu-workshop', lbl1:'lbl1-thu-workshop', p2:'p2-thu-workshop', lbl2:'lbl2-thu-workshop', statusId:'status-thu-workshop', btnId:'btn-thu-workshop'},
+  'fri-taste':    {p1:'p1-fri-taste',    lbl1:'lbl1-fri-taste',    p2:'p2-fri-taste',    lbl2:'lbl2-fri-taste',    statusId:'status-fri-taste',    btnId:'btn-fri-taste'},
+  'fri-kids':     {p1:'p1-fri-kids',     lbl1:'lbl1-fri-kids',     p2:'p2-fri-kids',     lbl2:'lbl2-fri-kids',     statusId:'status-fri-kids',     btnId:'btn-fri-kids'},
+  'sat-main':     {p1:'p1-sat-main',     lbl1:'lbl1-sat-main',     p2:'p2-sat-main',     lbl2:'lbl2-sat-main',     statusId:'status-sat-main',     btnId:'btn-sat-main'},
+  'sat-slides':   {p1:'p1-sat-slides',   lbl1:'lbl1-sat-slides',   p2:'p2-sat-slides',   lbl2:'lbl2-sat-slides',   statusId:'status-sat-slides',   btnId:'btn-sat-slides'},
+  'sat-gamers':   {p1:'p1-sat-gamers',   lbl1:'lbl1-sat-gamers',   p2:'p2-sat-gamers',   lbl2:'lbl2-sat-gamers',   statusId:'status-sat-gamers',   btnId:'btn-sat-gamers'},
+  'sun-skate':    {p1:'p1-sun-skate',    lbl1:'lbl1-sun-skate',    p2:'p2-sun-skate',    lbl2:'lbl2-sun-skate',    statusId:'status-sun-skate',    btnId:'btn-sun-skate'},
+  'sun-housing':  {p1:'p1-sun-housing',  lbl1:'lbl1-sun-housing',  p2:'p2-sun-housing',  lbl2:'lbl2-sun-housing',  statusId:'status-sun-housing',  btnId:'btn-sun-housing'},
+};
+
+function fmtPrice(cost) {
+  if (!cost || cost.currency === 'FREE' || parseInt(cost.value) === 0) return 'FREE';
+  const cents = parseInt(cost.value || 0);
+  const dollars = cents / 100;
+  return '$' + (dollars % 1 === 0 ? dollars.toFixed(0) : dollars.toFixed(2));
+}
+
+function setCardLoading(key) {
+  const ids = EB_CARD_MAP[key];
+  if (!ids) return;
+  const p1 = document.getElementById(ids.p1);
+  const p2 = document.getElementById(ids.p2);
+  if (p1) { p1.style.opacity = '0.4'; p1.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite;display:inline-block;font-size:16px"></i>'; }
+  if (p2) { p2.style.opacity = '0.4'; p2.innerHTML = '—'; }
+}
+
+function applyEventData(key, data) {
+  const ids = EB_CARD_MAP[key];
+  if (!ids || !data) return;
+
+  const tickets = (data.ticket_classes || []).filter(t => !t.hidden && t.on_sale_status !== 'UNAVAILABLE');
+  const statusEl = document.getElementById(ids.statusId);
+  const btnEl = document.getElementById(ids.btnId);
+
+  if (data.status === 'completed' || data.status === 'canceled') {
+    if (statusEl) { statusEl.textContent = data.status === 'canceled' ? 'Canceled' : 'Event Ended'; statusEl.className = 'rc-badge'; statusEl.style.background = 'rgba(255,0,160,0.15)'; statusEl.style.color = 'var(--pink)'; statusEl.style.display = 'block'; }
+    if (btnEl) { btnEl.disabled = true; btnEl.style.opacity = '0.4'; btnEl.textContent = 'Unavailable'; }
+    return;
+  }
+
+  const soldOut = tickets.length > 0 && tickets.every(t => t.quantity_sold >= t.quantity_total);
+  if (soldOut) {
+    if (statusEl) { statusEl.textContent = 'Sold Out'; statusEl.className = 'rc-badge'; statusEl.style.background = 'rgba(255,0,160,0.15)'; statusEl.style.color = 'var(--pink)'; statusEl.style.display = 'block'; }
+    if (btnEl) { btnEl.disabled = true; btnEl.style.opacity = '0.4'; btnEl.textContent = 'Sold Out'; }
+    return;
+  }
+
+  const fewLeft = tickets.some(t => (t.quantity_total - t.quantity_sold) <= 20 && (t.quantity_total - t.quantity_sold) > 0);
+  if (fewLeft && statusEl) {
+    const remaining = tickets.reduce((min, t) => Math.min(min, t.quantity_total - t.quantity_sold), Infinity);
+    statusEl.textContent = remaining + ' tickets left!';
+    statusEl.className = 'rc-badge';
+    statusEl.style.background = 'rgba(255,107,0,0.15)';
+    statusEl.style.color = 'var(--orange)';
+    statusEl.style.display = 'block';
+  } else if (statusEl) {
+    statusEl.textContent = 'On Sale';
+    statusEl.className = 'rc-badge';
+    statusEl.style.background = 'rgba(0,255,106,0.12)';
+    statusEl.style.color = 'var(--green)';
+    statusEl.style.display = 'block';
+  }
+
+  const p1El = document.getElementById(ids.p1);
+  const p2El = document.getElementById(ids.p2);
+  const lbl1El = document.getElementById(ids.lbl1);
+  const lbl2El = document.getElementById(ids.lbl2);
+
+  if (tickets.length >= 1 && p1El) {
+    p1El.style.opacity = '1';
+    p1El.textContent = fmtPrice(tickets[0].cost);
+    if (lbl1El) lbl1El.textContent = tickets[0].name || 'General';
+  }
+  if (tickets.length >= 2 && p2El) {
+    p2El.style.opacity = '1';
+    p2El.textContent = fmtPrice(tickets[1].cost);
+    if (lbl2El) lbl2El.textContent = tickets[1].name || 'VIP';
+  } else if (tickets.length === 1 && p2El) {
+    const avail = tickets[0].quantity_total - tickets[0].quantity_sold;
+    p2El.style.opacity = '1';
+    p2El.textContent = avail > 0 ? avail + ' left' : 'Sold Out';
+    if (lbl2El) lbl2El.textContent = 'Remaining';
+  }
+}
+
+async function fetchEventbriteEvent(eventId, token) {
+  const PROXY = 'https://corsproxy.io/?';
+  const url = PROXY + encodeURIComponent('https://www.eventbriteapi.com/v3/events/' + eventId + '/?expand=ticket_classes');
+  try {
+    const res = await fetch(url, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  } catch (e) {
+    console.warn('Eventbrite fetch failed for event', eventId, e.message);
+    return null;
+  }
+}
+
+async function fetchAllEventbritePrices() {
+  const token = localStorage.getItem('cbp_key_eventbrite');
+  if (!token) return;
+  const eventKeys = Object.keys(EB_CARD_MAP);
+  for (const key of eventKeys) {
+    const eventId = localStorage.getItem('cbp_eb_id_' + key);
+    if (!eventId || eventId.startsWith('EB_')) continue;
+    setCardLoading(key);
+    const data = await fetchEventbriteEvent(eventId, token);
+    if (data) applyEventData(key, data);
+    else {
+      const p1 = document.getElementById(EB_CARD_MAP[key].p1);
+      const p2 = document.getElementById(EB_CARD_MAP[key].p2);
+      if (p1) { p1.style.opacity = '1'; }
+      if (p2) { p2.style.opacity = '1'; }
+    }
+  }
+}
+
+if (!document.getElementById('eb-spin-style')) {
+  const s = document.createElement('style');
+  s.id = 'eb-spin-style';
+  s.textContent = '@keyframes spin{to{transform:rotate(360deg)}}';
+  document.head.appendChild(s);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('cbp_key_eventbrite');
+  if (token) fetchAllEventbritePrices();
+});
+
+</script>
+</body>
+</html>
