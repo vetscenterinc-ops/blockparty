@@ -1,0 +1,364 @@
+/* ============================================================
+   The Collective Block Party — Event Detail Pages
+   Interactive per-event pages with embedded Eventbrite,
+   sponsor showcase, and activity-specific content.
+   ============================================================ */
+
+/* ── Event page data ─────────────────────────────────────────────────────
+   Each event has: meta, sponsors, activities, ebDayKey
+   ──────────────────────────────────────────────────────────────────────── */
+const EVENT_DATA = {
+  'thu-mixer': {
+    title: 'Small Business Mixer',
+    day: 'THU', date: 'July 3, 2025', time: '5:00 PM – 11:00 PM',
+    tagline: 'Network. Grow. Vibe.',
+    color: '#00CFFF', colorDim: 'rgba(0,207,255,0.15)',
+    emoji: '💼',
+    description: 'The Collective Block Party kicks off Thursday night with an electric Small Business Mixer. Local entrepreneurs, vendors, and community builders come together to network, showcase products, and connect with resources. Live DJ, food, and good energy all night.',
+    highlights: ['Local brand showcases','Resource tables & community orgs','Live DJ & food vendors','VIP networking lounge','Pitch corner for entrepreneurs'],
+    ebDayKey: 'thu',
+    sponsors: ['thu','general'],
+    activities: [
+      {icon:'🎤', name:'Networking Floor', desc:'Open floor mingling with local business owners and community leaders.'},
+      {icon:'📋', name:'Resource Tables', desc:'SBDC, HUD counselors, credit unions, and community organizations on site.'},
+      {icon:'🎵', name:'Live DJ', desc:'Background beats keeping the energy flowing all night.'},
+      {icon:'🍽️', name:'Food & Drinks', desc:'Local caterers and vendors keeping everyone fed and refreshed.'},
+    ]
+  },
+  'thu-workshop': {
+    title: 'Financial Literacy Workshop',
+    day: 'THU', date: 'July 3, 2025', time: '7:00 PM – 9:00 PM',
+    tagline: 'Build Credit. Build Wealth. Build Community.',
+    color: '#00CFFF', colorDim: 'rgba(0,207,255,0.15)',
+    emoji: '📚',
+    description: 'A free, high-value financial literacy session covering credit building, small business financing, community reinvestment opportunities, and down payment assistance programs. Led by HUD-certified counselors and local financial experts.',
+    highlights: ['Credit building strategies','Small business loan resources','Down payment assistance programs','CRA community reinvestment info','Free one-on-one consults available'],
+    ebDayKey: 'thu',
+    sponsors: ['thu','cra'],
+    activities: [
+      {icon:'💳', name:'Credit Building', desc:'Practical steps to improve your credit score starting this week.'},
+      {icon:'🏦', name:'Banking Resources', desc:'Connect with community banks offering LMI-friendly products.'},
+      {icon:'🏠', name:'Homeownership Path', desc:'Step-by-step guide to qualifying for your first home.'},
+      {icon:'📊', name:'Business Financing', desc:'Micro-loans, grants, and crowdfunding options for small businesses.'},
+    ]
+  },
+  'fri-taste': {
+    title: 'Taste of Lovejoy',
+    day: 'FRI', date: 'July 4, 2025', time: '2:00 PM – Until',
+    tagline: 'Food. Music. Fireworks. Freedom.',
+    color: '#00FF6A', colorDim: 'rgba(0,255,106,0.15)',
+    emoji: '🍑',
+    description: 'Celebrate Independence Day the Lovejoy way — food trucks, live DJs, cultural showcases, games, and a stunning fireworks finale at 9PM. The Taste of Lovejoy is a full sensory experience celebrating the flavors, sounds, and culture of our community.',
+    highlights: ['10+ local food vendors & trucks','Live DJ sets all afternoon','Cultural performances & showcases','Kids games & activities','July 4th fireworks at 9PM'],
+    ebDayKey: 'fri',
+    sponsors: ['fri','food','general'],
+    activities: [
+      {icon:'🌮', name:'Food Truck Row', desc:'10+ local vendors serving cuisines from across the South Metro.'},
+      {icon:'🎶', name:'Live DJ Sets', desc:'Non-stop music from afternoon through the fireworks.'},
+      {icon:'🎆', name:'Fireworks Show', desc:'Spectacular July 4th fireworks display at 9PM sharp.'},
+      {icon:'🎮', name:'Community Games', desc:'Cornhole, dominoes, and other community favorites.'},
+    ]
+  },
+  'fri-kids': {
+    title: 'Kids Carnival & Games',
+    day: 'FRI', date: 'July 4, 2025', time: '2:00 PM – 6:00 PM',
+    tagline: 'Fun, Safe & Supervised for Ages 4–12',
+    color: '#00FF6A', colorDim: 'rgba(0,255,106,0.15)',
+    emoji: '🎠',
+    description: 'A dedicated, fully supervised kids zone with face painting, carnival games, prizes, bounce activities, and crafts. Every child is checked in and monitored by trained staff. Parents can enjoy the Taste of Lovejoy knowing their kids are having the time of their lives.',
+    highlights: ['Face painting & temporary tattoos','Carnival games with prizes','Bounce house & inflatable fun','Arts & crafts station','Fully supervised — ratio 1:8'],
+    ebDayKey: 'fri',
+    sponsors: ['kids','fri','general'],
+    activities: [
+      {icon:'🎨', name:'Face Painting', desc:'Professional face painters creating amazing designs for every kid.'},
+      {icon:'🎯', name:'Carnival Games', desc:'Ring toss, duck pond, and classic carnival games with prizes.'},
+      {icon:'🏆', name:'Prize Station', desc:'Every participant wins something — big prize wheel for winners.'},
+      {icon:'✂️', name:'Arts & Crafts', desc:'Guided crafts station with take-home projects.'},
+    ]
+  },
+  'sat-main': {
+    title: 'Cars, Bikes & Vibes',
+    day: 'SAT', date: 'July 5, 2025', time: '12:00 PM – Late',
+    tagline: 'The Main Event. Outside All Day.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.15)',
+    emoji: '🚗',
+    description: 'Saturday is THE day. Cars, bikes, water slides, gamers lounge, laser tag, food, music, and an epic evening block party. The largest community celebration in Henry County. Old school meets new school. Families, car enthusiasts, gamers, and community members all in one place.',
+    highlights: ['Custom car & bike show','Evening block party with DJ','VIP sections available','Food trucks & vendors','Water fest + gamers lounge + laser tag'],
+    ebDayKey: 'sat',
+    sponsors: ['sat','auto','general'],
+    activities: [
+      {icon:'🚗', name:'Car Show', desc:'Custom builds, lowriders, classics, and exotic rides judged by community vote.'},
+      {icon:'🏍️', name:'Bike Life', desc:'Bike crews roll in from across the South Metro for the biggest showcase of the year.'},
+      {icon:'🎵', name:'Block Party', desc:'Evening block party with DJ, dancing, and celebration from 6PM to late.'},
+      {icon:'🍔', name:'Food Village', desc:'Dozens of food vendors and trucks serving up everything you could want.'},
+    ]
+  },
+  'sat-slides': {
+    title: 'Water Slides & Bubbles',
+    day: 'SAT', date: 'July 5, 2025', time: '12:00 PM – 6:00 PM',
+    tagline: 'Splash. Slide. Bubble. Repeat.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.15)',
+    emoji: '💦',
+    description: 'Giant inflatable water slides, bubble cannon zones, splash pads, and foam pits for the ultimate summer experience. Supervised by trained staff. Waiver required for all participants under 18 — sign digitally before the event or on-site at check-in.',
+    highlights: ['2 giant water slides (30ft+)','Bubble cannon zone','Foam pit & splash pad','On-site waiver signing available','Towel & changing area provided'],
+    ebDayKey: 'sat',
+    sponsors: ['kids','sat','general'],
+    activities: [
+      {icon:'🌊', name:'30ft Water Slide', desc:'The main attraction — a massive double-lane water slide for all ages.'},
+      {icon:'🫧', name:'Bubble Cannon Zone', desc:'Walk-through bubble experience — kids and adults absolutely love it.'},
+      {icon:'🏊', name:'Splash Pad', desc:'Ground-level splash zone perfect for younger kids.'},
+      {icon:'📋', name:'On-site Waivers', desc:'Sign digitally at check-in — takes under 2 minutes on your phone.'},
+    ]
+  },
+  'sat-gamers': {
+    title: 'Gamers Lounge + Laser Tag',
+    day: 'SAT', date: 'July 5, 2025', time: '12:00 PM – 6:00 PM',
+    tagline: 'Level Up. All Ages. All Day.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.15)',
+    emoji: '🎮',
+    description: 'An indoor-outdoor gamers paradise featuring PS5 and Xbox multi-player stations, a competitive laser tag arena, tournament brackets with prizes, and a showcase of indie games from local developers. Whether you\'re a casual player or a serious competitor — this is your zone.',
+    highlights: ['PS5 & Xbox multi-player stations','Outdoor laser tag arena','Live tournament with cash prizes','Local indie game showcase','Gaming merch & sponsor giveaways'],
+    ebDayKey: 'sat',
+    sponsors: ['gaming','sat','general'],
+    activities: [
+      {icon:'🎮', name:'PS5 Zone', desc:'Multiple PS5 stations running FIFA, NBA 2K, Fortnite, and more.'},
+      {icon:'🕹️', name:'Xbox Arena', desc:'Xbox multi-player stations with Halo, Madden, and racing titles.'},
+      {icon:'🔫', name:'Laser Tag', desc:'Outdoor laser tag arena — team battles in 15-minute rounds all day.'},
+      {icon:'🏆', name:'Tournament', desc:'Open bracket tournament starting at 2PM. Register at the venue. Cash prizes.'},
+    ]
+  },
+  'sun-skate': {
+    title: "Let's Skate! Day Party Finale",
+    day: 'SUN', date: 'July 6, 2025', time: '2:00 PM – 10:00 PM',
+    tagline: 'Classic Jams. Smooth Wheels. Sunday Vibes.',
+    color: '#FFD600', colorDim: 'rgba(255,214,0,0.15)',
+    emoji: '🛼',
+    description: 'Close out the weekend the right way — on wheels. The Sunday Day Party Finale brings together roller skating for all skill levels, classic jam sessions, and a closing ceremony celebrating community. Skate rentals available on-site. Open to all ages.',
+    highlights: ['Open skate session all afternoon','Classic jams & R&B DJ set','Skate rentals available','Beginner-friendly sessions','Community awards ceremony at 7PM'],
+    ebDayKey: 'sun',
+    sponsors: ['sun','general'],
+    activities: [
+      {icon:'🛼', name:'Open Skate', desc:'Smooth surface open skating for all skill levels from 2PM onwards.'},
+      {icon:'🎵', name:'Classic Jams DJ', desc:'R&B, hip-hop, old school, and neo-soul — the perfect Sunday vibe.'},
+      {icon:'👟', name:'Skate Rentals', desc:'Full fleet of inline and quad skates available at the venue for $10.'},
+      {icon:'🏆', name:'Community Awards', desc:'7PM ceremony honoring local heroes, youth leaders, and sponsors.'},
+    ]
+  },
+  'sun-housing': {
+    title: 'Housing Counseling Fair',
+    day: 'SUN', date: 'July 6, 2025', time: '11:00 AM – 3:00 PM',
+    tagline: 'Your Path to Homeownership Starts Here.',
+    color: '#FFD600', colorDim: 'rgba(255,214,0,0.15)',
+    emoji: '🏠',
+    description: 'HUD-certified housing counselors available for free 45-minute one-on-one sessions covering homeownership readiness, down payment assistance programs, credit repair strategies, mortgage literacy, and foreclosure prevention. All sessions are confidential and completely free.',
+    highlights: ['Free 45-min 1-on-1 counseling sessions','HUD-certified counselors on site','Down payment assistance info','Credit repair strategies','CRA qualifying community service'],
+    ebDayKey: 'sun',
+    sponsors: ['cra','housing','general'],
+    activities: [
+      {icon:'🏡', name:'Homeownership Path', desc:'Step-by-step counseling on qualifying for your first home.'},
+      {icon:'💰', name:'Down Payment Help', desc:'Discover grants and assistance programs you may qualify for today.'},
+      {icon:'📊', name:'Credit Strategy', desc:'Personalized credit improvement plan from a certified counselor.'},
+      {icon:'🛡️', name:'Foreclosure Prevention', desc:'Resources and options for homeowners facing financial hardship.'},
+    ]
+  },
+  'weekend-pass': {
+    title: 'Full Weekend Pass',
+    day: 'ALL', date: 'July 3–6, 2025', time: 'All 4 Days',
+    tagline: 'All Access. All Weekend. Best Value.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.12)',
+    emoji: '⭐',
+    description: 'The Full Weekend Pass gives you access to all events, all activities, and all experiences across the entire 4-day Collective Block Party. Priority entry at all venues. One wristband, four days of memories.',
+    highlights: ['Access to all 4 days','Priority entry at all venues','All activities included','Weekend program guide','Save $65 vs individual tickets'],
+    ebDayKey: 'thu',
+    sponsors: ['general'],
+    activities: [
+      {icon:'💼', name:'Thursday Mixer', desc:'Small Business Kickoff Vibes, 5PM–11PM.'},
+      {icon:'🍑', name:'Friday Taste', desc:'Taste of Lovejoy + July 4th Fireworks, 2PM–Until.'},
+      {icon:'🚗', name:'Saturday Main Event', desc:'Cars, Bikes & Vibes — the biggest day, 12PM–Late.'},
+      {icon:'🛼', name:'Sunday Finale', desc:"Let's Skate Day Party + Housing Fair, 2PM–10PM."},
+    ]
+  }
+};
+
+/* ── Sponsor data ─────────────────────────────────────────────────────────
+   Sponsors are tagged by category so each event shows relevant partners.
+   ──────────────────────────────────────────────────────────────────────── */
+const SPONSOR_DATA = {
+  general: [
+    { name:'First National Bank', tier:'Platinum', tagline:'Presenting Sponsor', logo:'🏦', color:'rgba(200,200,230,0.15)', textColor:'#D0D0F0', deal:'Exclusive title rights + booth all 4 days', cta:'Become a Platinum Sponsor', ctaUrl:'#sponsors' },
+    { name:'Henry Co. Realty', tier:'Gold', tagline:'Event Sponsor', logo:'🏘️', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Brand presence across all 4 days', cta:'Join as Gold Sponsor', ctaUrl:'#sponsors' },
+  ],
+  auto: [
+    { name:'ATL Auto Group', tier:'Gold', tagline:'Car Show Sponsor', logo:'🚗', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Title sponsor of the Car & Bike Show', cta:'Sponsor Car Show', ctaUrl:'#sponsors' },
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Auto Activity Sponsor', logo:'🏎️', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Branded signage at the car show', cta:'Claim This Spot', ctaUrl:'#sponsors', available:true },
+  ],
+  gaming: [
+    { name:'GameStop Stockbridge', tier:'Silver', tagline:'Gamers Lounge Sponsor', logo:'🎮', color:'rgba(160,160,190,0.1)', textColor:'#B0B0D0', deal:'Branded gaming stations + giveaways', cta:'Sponsor Gaming', ctaUrl:'#sponsors' },
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Laser Tag Sponsor', logo:'🔫', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Laser tag naming rights + signage', cta:'Claim This Spot — $5K', ctaUrl:'#sponsors', available:true },
+  ],
+  kids: [
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Kids Zone Presenting Sponsor', logo:'🎈', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Brand on all kids zone materials + wristbands', cta:'Sponsor the Kids Zone — $2,500', ctaUrl:'#sponsors', available:true },
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Water Slides Sponsor', logo:'💦', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Naming rights to the water slide zone', cta:'Claim This Spot — $5K', ctaUrl:'#sponsors', available:true },
+  ],
+  food: [
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Taste of Lovejoy Food Sponsor', logo:'🌮', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Brand on all food vendor tables + cups + napkins', cta:'Sponsor the Taste — $5K', ctaUrl:'#sponsors', available:true },
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Beverage Sponsor', logo:'🥤', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Branded cups + coolers across all vendors', cta:'Claim Beverage Spot — $2,500', ctaUrl:'#sponsors', available:true },
+  ],
+  cra: [
+    { name:'YOUR INSTITUTION HERE', tier:'CRA Partner', tagline:'CRA Community Credit Sponsor', logo:'🏛️', color:'rgba(0,207,255,0.1)', textColor:'#00CFFF', deal:'Full CRA documentation + LMI service credit', cta:'Earn CRA Credit — Contact Us', ctaUrl:'#sponsors', available:true },
+  ],
+  housing: [
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Housing Fair Sponsor', logo:'🏠', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Branded counseling materials + booth placement', cta:'Sponsor the Housing Fair', ctaUrl:'#sponsors', available:true },
+  ],
+  thu: [], fri: [], sat: [], sun: []
+};
+
+/* ── Open event detail page ───────────────────────────────────────────────
+   Called by each registration card's Register button.
+   ──────────────────────────────────────────────────────────────────────── */
+function openEventPage(cardKey) {
+  const data = EVENT_DATA[cardKey];
+  if (!data) { openReg(cardKey); return; }
+
+  const day     = (typeof CARD_TO_DAY !== 'undefined') ? CARD_TO_DAY[cardKey] || '' : '';
+  const dayCfg  = (typeof EB_DAY_MAP  !== 'undefined') ? EB_DAY_MAP[day]   || {} : {};
+  const dayId   = dayCfg.ebId || localStorage.getItem('cbp_eb_id_' + day) || '';
+  const globalUrl = localStorage.getItem('cbp_key_eburl') || '';
+  const ebUrl   = dayId ? 'https://www.eventbrite.com/e/' + dayId : (globalUrl || '');
+
+  /* Build sponsor cards HTML */
+  const sponsorKeys = data.sponsors || ['general'];
+  let sponsorCards = '';
+  const seen = new Set();
+  sponsorKeys.forEach(sk => {
+    (SPONSOR_DATA[sk] || []).forEach(sp => {
+      if (seen.has(sp.name)) return;
+      seen.add(sp.name);
+      if (sp.available) {
+        sponsorCards += `
+        <div class="ep-sponsor-card ep-sponsor-avail" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])">
+          <div class="ep-spon-logo" style="background:rgba(255,0,160,0.12);color:var(--pink)">${sp.logo}</div>
+          <div class="ep-spon-body">
+            <div class="ep-spon-tier" style="color:var(--pink)">${sp.tier}</div>
+            <div class="ep-spon-name">${sp.name}</div>
+            <div class="ep-spon-tagline">${sp.tagline}</div>
+            <div class="ep-spon-deal">${sp.deal}</div>
+          </div>
+          <button class="ep-spon-cta avail-cta">${sp.cta} →</button>
+        </div>`;
+      } else {
+        sponsorCards += `
+        <div class="ep-sponsor-card">
+          <div class="ep-spon-logo" style="background:${sp.color};color:${sp.textColor}">${sp.logo}</div>
+          <div class="ep-spon-body">
+            <div class="ep-spon-tier" style="color:${sp.textColor}">${sp.tier}</div>
+            <div class="ep-spon-name">${sp.name}</div>
+            <div class="ep-spon-tagline">${sp.tagline}</div>
+            <div class="ep-spon-deal">${sp.deal}</div>
+          </div>
+          <span class="ep-spon-badge">Sponsor</span>
+        </div>`;
+      }
+    });
+  });
+
+  /* Activities HTML */
+  const activitiesHTML = data.activities.map(a => `
+    <div class="ep-activity">
+      <div class="ep-act-icon">${a.icon}</div>
+      <div><div class="ep-act-name">${a.name}</div><div class="ep-act-desc">${a.desc}</div></div>
+    </div>`).join('');
+
+  /* Highlights */
+  const highlightsHTML = data.highlights.map(h => `<div class="ep-highlight"><i class="ti ti-check"></i>${h}</div>`).join('');
+
+  /* Eventbrite embed / fallback */
+  const ebSection = ebUrl ? `
+    <div class="ep-eb-frame">
+      <iframe src="${ebUrl}" title="Register for ${data.title}" loading="lazy"
+        style="width:100%;min-height:580px;border:none;border-radius:12px;"></iframe>
+    </div>` : `
+    <div class="ep-eb-placeholder">
+      <div style="font-size:40px;margin-bottom:12px">🎟️</div>
+      <div class="ep-eb-ph-title">Eventbrite Registration</div>
+      <p class="ep-eb-ph-body">Your organizer hasn't connected Eventbrite yet. Log in → Organizer → API Keys → paste your Event ID to embed live registration here.</p>
+      <a href="https://www.eventbrite.com" target="_blank" rel="noopener" class="ep-reg-btn">Register on Eventbrite →</a>
+    </div>`;
+
+  /* Full page HTML */
+  const page = document.getElementById('eventDetailPage');
+  page.innerHTML = `
+    <div class="ep-hero" style="--ep-color:${data.color};--ep-dim:${data.colorDim}">
+      <div class="ep-hero-bg"></div>
+      <button class="ep-back" onclick="closeEventPage()"><i class="ti ti-arrow-left"></i> Back to Register</button>
+      <div class="ep-hero-content">
+        <div class="ep-day-badge" style="color:${data.color};border-color:${data.color}">${data.day} · ${data.date}</div>
+        <div class="ep-hero-emoji">${data.emoji}</div>
+        <h1 class="ep-title">${data.title}</h1>
+        <p class="ep-tagline" style="color:${data.color}">${data.tagline}</p>
+        <div class="ep-meta-row">
+          <span><i class="ti ti-clock"></i> ${data.time}</span>
+          <span><i class="ti ti-map-pin"></i> Lovejoy, GA</span>
+          <span><i class="ti ti-users"></i> All Ages Welcome</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ep-body">
+
+      <div class="ep-layout">
+
+        <!-- LEFT: info + activities + sponsors -->
+        <div class="ep-left">
+
+          <div class="ep-section">
+            <div class="ep-sec-label">About This Event</div>
+            <p class="ep-desc">${data.description}</p>
+            <div class="ep-highlights">${highlightsHTML}</div>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-sec-label">What's Inside</div>
+            <div class="ep-activities">${activitiesHTML}</div>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-sec-label" style="display:flex;align-items:center;justify-content:space-between">
+              <span>Event Sponsors</span>
+              <button class="ep-become-spon" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])">Become a Sponsor →</button>
+            </div>
+            <div class="ep-sponsors">${sponsorCards || '<div class="ep-no-spon">No sponsors listed yet — <button class="ep-link-btn" onclick="go(\'sponsors\',document.querySelectorAll(\'.nav-btn\')[2])">Be the first to sponsor this event →</button></div>'}</div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: Eventbrite embed -->
+        <div class="ep-right">
+          <div class="ep-reg-panel">
+            <div class="ep-reg-header">
+              <div class="ep-reg-title">Register for This Event</div>
+              <div class="ep-reg-sub">Secure checkout powered by Eventbrite</div>
+            </div>
+            ${ebSection}
+            <div class="ep-trust-row">
+              <span><i class="ti ti-lock" style="color:var(--green)"></i> SSL Secured</span>
+              <span><i class="ti ti-shield-check" style="color:var(--green)"></i> Safe Checkout</span>
+              <span><i class="ti ti-refresh" style="color:var(--green)"></i> Instant Confirmation</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+
+  const regBtn2 = Array.from(document.querySelectorAll('.nav-btn'))
+    .find(b => b.querySelector('i.ti-ticket') || b.textContent.trim().toLowerCase().includes('register'));
+  go('eventDetailPage', regBtn2 || null);
+}
+
+function closeEventPage() {
+  /* Find the Register nav button by its icon class */
+  const regBtn = Array.from(document.querySelectorAll('.nav-btn'))
+    .find(b => b.querySelector('i.ti-ticket') || b.textContent.trim().toLowerCase().includes('register'));
+  go('registration', regBtn || document.querySelectorAll('.nav-btn')[3]);
+}
