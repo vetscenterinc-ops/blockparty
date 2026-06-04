@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Collective Block Party — Lovejoy, GA · July 3–6, 2025</title>
+<title>The Collective Block Party — Lovejoy, GA · July 3–6, 2026</title>
 <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,9 +31,9 @@
     <button class="nav-btn" onclick="go('registration',this)"><i class="ti ti-ticket"></i><span>Register</span></button>
     <button class="nav-btn" id="dashNavBtn" onclick="goDash(this)"><i class="ti ti-lock"></i><span>Login</span></button>
   </div>
-  <a class="nav-cta" id="ticketLink" href="https://www.eventbrite.com" target="_blank" rel="noopener">
+  <button class="nav-cta" id="ticketLink" onclick="go('registration',document.querySelectorAll('.nav-btn')[3])">
     <i class="ti ti-ticket" style="font-size:14px"></i>Get Tickets
-  </a>
+  </button>
 </nav>
 
 <!-- HOME -->
@@ -45,12 +45,12 @@
       <div class="h-the">The</div>
       <div class="h-col">COLLECTIVE</div>
       <div class="h-bp">BLOCK PARTY</div>
-      <div class="h-loc">Lovejoy, GA &nbsp;&middot;&nbsp; July 3&ndash;6, 2025</div>
+      <div class="h-loc">Lovejoy, GA &nbsp;&middot;&nbsp; July 3&ndash;6, 2026</div>
       <div class="h-tag">Outside All Weekend</div>
       <div class="hero-btns">
-        <a class="btn-hot" id="heroTicketBtn" href="https://www.eventbrite.com" target="_blank" rel="noopener">
+        <button class="btn-hot" id="heroTicketBtn" onclick="go('registration',document.querySelectorAll('.nav-btn')[3])">
           <i class="ti ti-ticket" style="font-size:16px"></i>Get Tickets Now
-        </a>
+        </button>
         <button class="btn-ol" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">View Full Lineup</button>
       </div>
       <div class="meet">Meet Me In Lovejoy 🍑</div>
@@ -101,13 +101,13 @@
       <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">🏠</div><h3>Housing Counseling</h3><p>HUD-certified 1-on-1 sessions. CRA-aligned services Sunday.</p></div>
     </div>
   </div>
-  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Tickets &middot; Vendors &middot; VIP Sections Available</footer>
+  <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Tickets &middot; Vendors &middot; VIP Sections Available</footer>
 </div>
 
 <!-- EVENTS -->
 <div id="events" class="page">
   <div class="ev-hero">
-    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">July 3&ndash;6, 2025 &middot; Lovejoy, GA</div>
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">July 3&ndash;6, 2026 &middot; Lovejoy, GA</div>
     <h1>Full Lineup</h1>
     <p>Vendors &middot; VIP Sections &middot; Tickets Available</p>
   </div>
@@ -115,44 +115,44 @@
     <div class="day-block">
       <div class="db-head"><div class="db-num" style="color:var(--sky)">THU</div><div class="db-info"><h3 style="color:var(--sky)">Thursday, July 3</h3><p>Small Business Kickoff Vibes &middot; 5PM&ndash;11PM</p></div></div>
       <div class="ecards">
-        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="etime">5:00 PM &ndash; 9:00 PM</div><h4>Small Business Mixer</h4><p>Networking, product showcases, and resources for local entrepreneurs.</p><a class="reg-btn" id="reg-thu-1" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register on Eventbrite &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="bdg-row"><span class="bdg bcra">CRA Component</span></div><div class="etime">7:00 PM &ndash; 9:00 PM</div><h4>Financial Literacy Workshop</h4><p>Free session on credit building, small business loans, and community reinvestment.</p><a class="reg-btn" id="reg-thu-2" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="bdg-row"><span class="bdg bvip">VIP Available</span></div><div class="etime">9:00 PM &ndash; 11:00 PM</div><h4>Vendor Showcase &amp; Night Vibe</h4><p>Local brand spotlight, DJ, food vendors, and community energy.</p><a class="reg-btn" id="reg-thu-3" href="https://www.eventbrite.com" target="_blank" rel="noopener">Get Tickets &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="etime">5:00 PM &ndash; 9:00 PM</div><h4>Small Business Mixer</h4><p>Networking, product showcases, and resources for local entrepreneurs.</p><button class="reg-btn" id="reg-thu-1" onclick="openEventPage('thu-mixer')">Register on Eventbrite &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="bdg-row"><span class="bdg bcra">CRA Component</span></div><div class="etime">7:00 PM &ndash; 9:00 PM</div><h4>Financial Literacy Workshop</h4><p>Free session on credit building, small business loans, and community reinvestment.</p><button class="reg-btn" id="reg-thu-2" onclick="openEventPage('thu-workshop')">Register &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--sky)"></div><div class="bdg-row"><span class="bdg bvip">VIP Available</span></div><div class="etime">9:00 PM &ndash; 11:00 PM</div><h4>Vendor Showcase &amp; Night Vibe</h4><p>Local brand spotlight, DJ, food vendors, and community energy.</p><button class="reg-btn" id="reg-thu-3" onclick="openEventPage('thu-mixer')">Get Tickets &rarr;</button></div>
       </div>
     </div>
     <div class="day-block">
       <div class="db-head"><div class="db-num" style="color:var(--green)">FRI</div><div class="db-info"><h3 style="color:var(--green)">Friday, July 4 🎆</h3><p>Taste of Atlanta Outside Fest &middot; 2PM&ndash;Until</p></div></div>
       <div class="ecards">
-        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="etime">2:00 PM &ndash; 8:00 PM</div><h4>Taste of Lovejoy</h4><p>Food trucks, local restaurants, live DJs, culture, games, and community vibes.</p><a class="reg-btn" id="reg-fri-1" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--green);color:#000">Register &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="bdg-row"><span class="bdg bkids">Kids Zone</span></div><div class="etime">2:00 PM &ndash; 6:00 PM</div><h4>Kids Carnival &amp; Games</h4><p>Face painting, carnival games, prizes, and supervised play for ages 4&ndash;12.</p><a class="reg-btn" id="reg-fri-2" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--green);color:#000">Register Kids &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="etime">9:00 PM</div><h4>July 4th Fireworks 🎆</h4><p>Outdoor fireworks show to cap off Independence Day. Free family event.</p><a class="reg-btn" id="reg-fri-3" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--green);color:#000">Free RSVP &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="etime">2:00 PM &ndash; 8:00 PM</div><h4>Taste of Lovejoy</h4><p>Food trucks, local restaurants, live DJs, culture, games, and community vibes.</p><button class="reg-btn" id="reg-fri-1" onclick="openEventPage('fri-taste')" style="background:var(--green);color:#000">Register &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="bdg-row"><span class="bdg bkids">Kids Zone</span></div><div class="etime">2:00 PM &ndash; 6:00 PM</div><h4>Kids Carnival &amp; Games</h4><p>Face painting, carnival games, prizes, and supervised play for ages 4&ndash;12.</p><button class="reg-btn" id="reg-fri-2" onclick="openEventPage('fri-kids')" style="background:var(--green);color:#000">Register Kids &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--green)"></div><div class="etime">9:00 PM</div><h4>July 4th Fireworks 🎆</h4><p>Outdoor fireworks show to cap off Independence Day. Free family event.</p><button class="reg-btn" id="reg-fri-3" onclick="openEventPage('fri-taste')" style="background:var(--green);color:#000">Free RSVP &rarr;</button></div>
       </div>
     </div>
     <div class="day-block">
       <div class="db-head"><div class="db-num" style="color:var(--pink)">SAT</div><div class="db-info"><h3 style="color:var(--pink)">Saturday, July 5 &mdash; The Main Event</h3><p>Cars, Bikes &amp; Vibes &middot; 12PM&ndash;Late</p></div></div>
       <div class="ecards">
-        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="etime">12PM &ndash; All Day</div><h4>Car Show &amp; Bike Life</h4><p>Custom rides, lowriders, classic cars, and bike crews. Old school + new school.</p><a class="reg-btn" id="reg-sat-1" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bkids">Kids Zone</span></div><div class="etime">12PM &ndash; 6:00 PM</div><h4>Bubbles + Water Slides</h4><p>Giant inflatables, bubble cannons, splash zones. Waivers required under 18.</p><a class="reg-btn" id="reg-sat-2" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register + Waiver &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bkids">All Ages</span></div><div class="etime">12PM &ndash; 6:00 PM</div><h4>Gamers Lounge + Laser Tag</h4><p>PS5 &amp; Xbox, laser tag arena, and tournaments with prizes all day.</p><a class="reg-btn" id="reg-sat-3" href="https://www.eventbrite.com" target="_blank" rel="noopener">Register &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bvip">VIP Section</span></div><div class="etime">6:00 PM &ndash; Late</div><h4>Evening Block Party</h4><p>DJ, food trucks, dancing, and the main celebration. Water Fest &middot; Music.</p><a class="reg-btn" id="reg-sat-4" href="https://www.eventbrite.com" target="_blank" rel="noopener">Get Tickets &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="etime">12PM &ndash; All Day</div><h4>Car Show &amp; Bike Life</h4><p>Custom rides, lowriders, classic cars, and bike crews. Old school + new school.</p><button class="reg-btn" id="reg-sat-1" onclick="openEventPage('sat-main')">Register &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bkids">Kids Zone</span></div><div class="etime">12PM &ndash; 6:00 PM</div><h4>Bubbles + Water Slides</h4><p>Giant inflatables, bubble cannons, splash zones. Waivers required under 18.</p><button class="reg-btn" id="reg-sat-2" onclick="openEventPage('sat-slides')">Register + Waiver &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bkids">All Ages</span></div><div class="etime">12PM &ndash; 6:00 PM</div><h4>Gamers Lounge + Laser Tag</h4><p>PS5 &amp; Xbox, laser tag arena, and tournaments with prizes all day.</p><button class="reg-btn" id="reg-sat-3" onclick="openEventPage('sat-gamers')">Register &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--pink)"></div><div class="bdg-row"><span class="bdg bvip">VIP Section</span></div><div class="etime">6:00 PM &ndash; Late</div><h4>Evening Block Party</h4><p>DJ, food trucks, dancing, and the main celebration. Water Fest &middot; Music.</p><button class="reg-btn" id="reg-sat-4" onclick="openEventPage('sat-main')">Get Tickets &rarr;</button></div>
       </div>
     </div>
     <div class="day-block">
       <div class="db-head"><div class="db-num" style="color:var(--gold)">SUN</div><div class="db-info"><h3 style="color:var(--gold)">Sunday, July 6 &mdash; Day Party Finale</h3><p>Let's Skate &middot; 2PM&ndash;10PM</p></div></div>
       <div class="ecards">
-        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="etime">2:00 PM &ndash; 6:00 PM</div><h4>Let's Skate! Roller Party 🛼</h4><p>Classic jams, day vibes, roller skating for all skill levels. Rentals available.</p><a class="reg-btn" id="reg-sun-1" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--gold);color:#000">Register &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="bdg-row"><span class="bdg bcra">Housing Counseling</span></div><div class="etime">11:00 AM &ndash; 3:00 PM</div><h4>Housing Counseling Fair 🏠</h4><p>HUD-certified 1-on-1 sessions. Homeownership, down payment assistance, foreclosure prevention.</p><a class="reg-btn" id="reg-sun-2" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--gold);color:#000">Book Session &rarr;</a></div>
-        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="etime">7:00 PM &ndash; 10:00 PM</div><h4>Community Awards &amp; Closeout</h4><p>Celebrating local heroes, small businesses, youth leaders, and community partners.</p><a class="reg-btn" id="reg-sun-3" href="https://www.eventbrite.com" target="_blank" rel="noopener" style="background:var(--gold);color:#000">Free RSVP &rarr;</a></div>
+        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="etime">2:00 PM &ndash; 6:00 PM</div><h4>Let's Skate! Roller Party 🛼</h4><p>Classic jams, day vibes, roller skating for all skill levels. Rentals available.</p><button class="reg-btn" id="reg-sun-1" onclick="openEventPage('sun-skate')" style="background:var(--gold);color:#000">Register &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="bdg-row"><span class="bdg bcra">Housing Counseling</span></div><div class="etime">11:00 AM &ndash; 3:00 PM</div><h4>Housing Counseling Fair 🏠</h4><p>HUD-certified 1-on-1 sessions. Homeownership, down payment assistance, foreclosure prevention.</p><button class="reg-btn" id="reg-sun-2" onclick="openEventPage('sun-housing')" style="background:var(--gold);color:#000">Book Session &rarr;</button></div>
+        <div class="ecard"><div class="acc" style="background:var(--gold)"></div><div class="etime">7:00 PM &ndash; 10:00 PM</div><h4>Community Awards &amp; Closeout</h4><p>Celebrating local heroes, small businesses, youth leaders, and community partners.</p><button class="reg-btn" id="reg-sun-3" onclick="openEventPage('sun-skate')" style="background:var(--gold);color:#000">Free RSVP &rarr;</button></div>
       </div>
     </div>
   </div>
-  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Tickets &middot; Vendors &middot; VIP Sections Available</footer>
+  <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Tickets &middot; Vendors &middot; VIP Sections Available</footer>
 </div>
 
 <!-- SPONSORS -->
 <div id="sponsors" class="page">
   <div class="sp-hero">
-    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Sponsor The Collective Block Party 2025</div>
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Sponsor The Collective Block Party 2026</div>
     <h1>More Than a Donation.<br><span style="color:var(--gold)">A Marketing Partnership.</span></h1>
     <p>Reach 800+ engaged community members across 4 days. Real demographics, real ZIP code data, real ROI &mdash; aligned with your CRA and marketing goals.</p>
     <button class="btn-hot" onclick="document.getElementById('sponModal').classList.add('open')">Sponsor Login / Apply</button>
@@ -207,7 +207,7 @@
       </div>
     </div>
   </div>
-  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; sponsors@collectiveblockparty.com</footer>
+  <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; sponsors@collectiveblockparty.com</footer>
 </div>
 
 <!-- REGISTRATION PAGE -->
@@ -215,7 +215,7 @@
   <div class="ev-hero">
     <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Secure Your Spot</div>
     <h1 style="font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">Register Now</h1>
-    <p style="font-size:14px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;">July 3&ndash;6, 2025 &middot; Lovejoy, GA &middot; Outside All Weekend</p>
+    <p style="font-size:14px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;">July 3&ndash;6, 2026 &middot; Lovejoy, GA &middot; Outside All Weekend</p>
   </div>
 
   <div style="max-width:980px;margin:0 auto;padding:0 20px 60px;">
@@ -434,7 +434,7 @@
     </div>
 
   </div>
-  <footer>&copy; 2025 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Powered by Eventbrite</footer>
+  <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Powered by Eventbrite</footer>
 </div>
 
 <!-- EVENT DETAIL PAGE -->
@@ -479,7 +479,7 @@
   <div class="login-wrap">
     <div class="login-icon"><i class="ti ti-lock"></i></div>
     <div class="login-title">Staff &amp; Partner Portal</div>
-    <div class="login-sub">The Collective Block Party &middot; 2025</div>
+    <div class="login-sub">The Collective Block Party &middot; 2026</div>
     <div class="login-box">
       <div class="role-tabs">
         <button class="rtab active" onclick="setRole('organizer',this)">Organizer</button>
