@@ -29,6 +29,7 @@
     <button class="nav-btn" onclick="go('events',this)"><i class="ti ti-calendar"></i><span>Events</span></button>
     <button class="nav-btn" onclick="go('sponsors',this)"><i class="ti ti-building"></i><span>Sponsors</span></button>
     <button class="nav-btn" onclick="go('registration',this)"><i class="ti ti-ticket"></i><span>Register</span></button>
+    <button class="nav-btn" onclick="go('vendorPage',this)"><i class="ti ti-store"></i><span>Vendors</span></button>
     <button class="nav-btn" id="dashNavBtn" onclick="goDash(this)"><i class="ti ti-lock"></i><span>Login</span></button>
   </div>
   <button class="nav-cta" id="ticketLink" onclick="go('registration',document.querySelectorAll('.nav-btn')[3])">
@@ -437,6 +438,178 @@
   <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; Lovejoy, GA &middot; Powered by Eventbrite</footer>
 </div>
 
+
+<!-- VENDOR PAGE -->
+<div id="vendorPage" class="page">
+  <div class="ev-hero" style="background:radial-gradient(ellipse at 50% 0%,rgba(255,107,0,0.2),transparent 55%);">
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">The Collective Block Party 2026</div>
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(38px,7vw,72px);background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">Vendor Portal</h1>
+    <p style="font-size:14px;letter-spacing:3px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;">Apply &middot; Register &middot; Manage Your Booth</p>
+  </div>
+
+  <div style="max-width:980px;margin:0 auto;padding:0 20px 60px;">
+
+    <!-- Role toggle -->
+    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:28px;flex-wrap:wrap;">
+      <button class="vendor-tab active" id="vtab-apply" onclick="showVendorTab('apply',this)"><i class="ti ti-forms"></i> Apply as Vendor</button>
+      <button class="vendor-tab" id="vtab-login" onclick="showVendorTab('login',this)"><i class="ti ti-login"></i> Vendor Login</button>
+      <button class="vendor-tab" id="vtab-info" onclick="showVendorTab('info',this)"><i class="ti ti-info-circle"></i> Booth Info & Pricing</button>
+    </div>
+
+    <!-- APPLY PANEL -->
+    <div id="vendor-apply" class="vendor-panel">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,107,0,0.25);border-radius:14px;padding:24px;">
+          <div style="font-family:'Permanent Marker',cursive;font-size:22px;color:var(--orange);margin-bottom:4px;">Apply for a Booth</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;line-height:1.6">Fill out the form below. Applications reviewed within 48 hours. You'll receive a confirmation email with payment instructions.</p>
+          <div class="vform-field"><label>Business Name <span style="color:var(--pink)">*</span></label><input type="text" placeholder="e.g. Mama T's Kitchen" id="v-bizname"></div>
+          <div class="vform-field"><label>Your Full Name <span style="color:var(--pink)">*</span></label><input type="text" placeholder="First and last name" id="v-name"></div>
+          <div class="vform-field"><label>Email Address <span style="color:var(--pink)">*</span></label><input type="email" placeholder="you@email.com" id="v-email"></div>
+          <div class="vform-field"><label>Phone Number</label><input type="tel" placeholder="(XXX) XXX-XXXX" id="v-phone"></div>
+          <div class="vform-field"><label>Vendor Category <span style="color:var(--pink)">*</span></label>
+            <select id="v-cat">
+              <option value="">Select category...</option>
+              <option>Food &amp; Beverage</option>
+              <option>Retail &amp; Merchandise</option>
+              <option>Arts &amp; Crafts</option>
+              <option>Health &amp; Wellness</option>
+              <option>Services &amp; Information</option>
+              <option>Kids &amp; Family</option>
+              <option>Non-Profit / Community Org</option>
+            </select>
+          </div>
+          <div class="vform-field"><label>Which Day(s)? <span style="color:var(--pink)">*</span></label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+              <label class="vcheck"><input type="checkbox" value="thu"> THU July 3</label>
+              <label class="vcheck"><input type="checkbox" value="fri"> FRI July 4</label>
+              <label class="vcheck"><input type="checkbox" value="sat"> SAT July 5</label>
+              <label class="vcheck"><input type="checkbox" value="sun"> SUN July 6</label>
+            </div>
+          </div>
+          <div class="vform-field"><label>Booth Size Needed</label>
+            <select id="v-size">
+              <option>10x10 (standard)</option>
+              <option>10x20 (double)</option>
+              <option>Food Truck Space</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="vform-field"><label>Brief Description of What You're Selling / Offering</label>
+            <textarea id="v-desc" rows="3" placeholder="Tell us about your products or services..." style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.11);border-radius:8px;padding:10px 13px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;outline:none;resize:vertical;line-height:1.5;"></textarea>
+          </div>
+          <button class="vendor-submit-btn" onclick="submitVendorApp()"><i class="ti ti-send"></i> Submit Application</button>
+          <div id="vendor-success" style="display:none;margin-top:12px;background:rgba(0,255,106,0.08);border:1px solid rgba(0,255,106,0.25);border-radius:9px;padding:12px 16px;font-size:13px;color:var(--green);">
+            <i class="ti ti-check" style="font-size:14px;vertical-align:-1px;margin-right:6px"></i>Application submitted! Check your email within 48 hours for next steps.
+          </div>
+        </div>
+
+        <!-- right side info -->
+        <div>
+          <div style="background:rgba(255,107,0,0.07);border:1px solid rgba(255,107,0,0.2);border-radius:13px;padding:20px;margin-bottom:14px;">
+            <div style="font-family:'Teko',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">Why Vend With Us?</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-users" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>800+ attendees across 4 days</div>
+              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-map-pin" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Prime South Metro ATL location, Lovejoy GA</div>
+              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-star" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Featured on event website &amp; social media</div>
+              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-tool" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Setup support &amp; on-site event staff</div>
+              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-heart" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Community-first audience — engaged &amp; buying</div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:20px;">
+            <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:12px;">Important Dates</div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(255,255,255,0.65);">
+              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Applications Open</span><span style="color:var(--gold)">Now</span></div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Early Bird Deadline</span><span style="color:var(--gold)">May 1, 2026</span></div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Final Application Deadline</span><span style="color:var(--gold)">Jun 15, 2026</span></div>
+              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Vendor Confirmation Sent</span><span style="color:var(--gold)">Jun 20, 2026</span></div>
+              <div style="display:flex;justify-content:space-between"><span>Setup Day</span><span style="color:var(--gold)">Jul 3, 2026 — AM</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div id="vendor-login" class="vendor-panel" style="display:none;">
+      <div style="max-width:420px;margin:0 auto;">
+        <div id="vl-form" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,0,0.25);border-radius:18px;padding:28px;">
+          <div style="font-family:'Permanent Marker',cursive;font-size:24px;background:linear-gradient(90deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;">Vendor Login</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:20px;">Access your booth dashboard, payment status, and event details.</p>
+          <div class="vform-field"><label>Email Address</label><input type="email" id="vl-email" placeholder="you@email.com" autocomplete="username"></div>
+          <div class="vform-field"><label>Password</label>
+            <div style="position:relative">
+              <input type="password" id="vl-pass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password" style="padding-right:40px">
+              <button onclick="togglePw('vl-pass',this)" type="button" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.35);cursor:pointer;font-size:15px" aria-label="Show password"><i class="ti ti-eye"></i></button>
+            </div>
+          </div>
+          <button class="vendor-submit-btn" onclick="vendorLogin()" style="margin-top:4px"><i class="ti ti-login"></i> Sign In</button>
+          <div id="vl-err" style="color:#FF6B6B;font-size:12px;text-align:center;min-height:16px;margin-top:8px"></div>
+          <div style="text-align:center;margin-top:14px;font-size:12px;color:rgba(255,255,255,0.4)">
+            Don't have an account? <button onclick="showVendorTab('apply',document.getElementById('vtab-apply'))" style="background:none;border:none;color:var(--orange);cursor:pointer;font-size:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700">Apply as a Vendor →</button>
+          </div>
+        </div>
+
+        <!-- Logged-in vendor dashboard (shown after login) -->
+        <div id="vendor-dashboard" style="display:none;margin-top:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,107,0,0.2);border-radius:14px;padding:22px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+            <div>
+              <div style="font-family:'Teko',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;">Welcome back, <span id="vd-name" style="color:var(--orange)">Vendor</span></div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4)">Booth #<span id="vd-booth">A-12</span> &middot; <span id="vd-cat">Food &amp; Beverage</span></div>
+            </div>
+            <button onclick="vendorLogout()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 13px;border-radius:6px;cursor:pointer;">Logout</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px;">
+            <div class="sc"><div class="sl">Payment</div><div class="sv" style="color:var(--green)">Paid</div></div>
+            <div class="sc"><div class="sl">Booth Size</div><div class="sv" style="color:var(--gold)">10x10</div></div>
+            <div class="sc"><div class="sl">Setup Time</div><div class="sv" style="color:var(--sky)">8AM</div></div>
+            <div class="sc"><div class="sl">Days Active</div><div class="sv" style="color:var(--orange)">SAT+SUN</div></div>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.45);background:rgba(0,207,255,0.06);border:1px solid rgba(0,207,255,0.15);border-radius:8px;padding:10px 14px;line-height:1.6">
+            <i class="ti ti-info-circle" style="font-size:13px;vertical-align:-1px;margin-right:5px;color:var(--sky)"></i>
+            Your vendor packet with load-in map, rules, and parking info will be emailed 2 weeks before the event.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFO PANEL -->
+    <div id="vendor-info" class="vendor-panel" style="display:none;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:24px;">
+        <div style="background:rgba(255,107,0,0.07);border:1px solid rgba(255,107,0,0.25);border-radius:13px;padding:20px;">
+          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--orange);margin-bottom:4px;">$150</div>
+          <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Single Day</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;">10x10 space, 1 table &amp; 2 chairs, electricity access, vendor listing on website</div>
+        </div>
+        <div style="background:rgba(255,214,0,0.07);border:2px solid rgba(255,214,0,0.35);border-radius:13px;padding:20px;position:relative;">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 12px;border-radius:100px;">Best Value</div>
+          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--gold);margin-bottom:4px;">$450</div>
+          <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Full Weekend</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;">All 4 days, 10x10 space, featured on site &amp; social media, priority placement</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:20px;">
+          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--pink);margin-bottom:4px;">$300</div>
+          <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Food Truck</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;">Dedicated truck space, hookup access, listing in food vendor map</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:20px;">
+        <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:14px;">What's Included</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:rgba(255,255,255,0.65);">
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>10x10 booth space</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>1 folding table &amp; 2 chairs</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Electricity access (20A)</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Vendor listing on website</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Load-in &amp; setup support</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>On-site event staff</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Shared WiFi access</div>
+          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Vendor parking pass</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; vendors@collectiveblockparty.com</footer>
+</div>
+
 <!-- EVENT DETAIL PAGE -->
 <div id="eventDetailPage" class="page">
   <!-- Populated dynamically by openEventPage() in event-pages.js -->
@@ -524,9 +697,426 @@
     <div class="main" id="dashMain"></div>
   </div>
 </div>
-  <!-- Event pages -->
-  <script src="./assets/js/event-pages.js"></script>
+  <!-- Event pages (inlined to prevent MIME issues) -->
+  <script>
+/* ============================================================
+   The Collective Block Party — Event Detail Pages
+   Interactive per-event pages with embedded Eventbrite,
+   sponsor showcase, and activity-specific content.
+   ============================================================ */
+
+/* ── Event page data ─────────────────────────────────────────────────────
+   Each event has: meta, sponsors, activities, ebDayKey
+   ──────────────────────────────────────────────────────────────────────── */
+const EVENT_DATA = {
+  'thu-mixer': {
+    title: 'Small Business Mixer',
+    day: 'THU', date: 'July 3, 2026', time: '5:00 PM – 11:00 PM',
+    tagline: 'Network. Grow. Vibe.',
+    color: '#00CFFF', colorDim: 'rgba(0,207,255,0.15)',
+    emoji: '💼',
+    description: 'The Collective Block Party kicks off Thursday night with an electric Small Business Mixer. Local entrepreneurs, vendors, and community builders come together to network, showcase products, and connect with resources. Live DJ, food, and good energy all night.',
+    highlights: ['Local brand showcases','Resource tables & community orgs','Live DJ & food vendors','VIP networking lounge','Pitch corner for entrepreneurs'],
+    ebDayKey: 'thu',
+    sponsors: ['thu','general'],
+    activities: [
+      {icon:'🎤', name:'Networking Floor', desc:'Open floor mingling with local business owners and community leaders.'},
+      {icon:'📋', name:'Resource Tables', desc:'SBDC, HUD counselors, credit unions, and community organizations on site.'},
+      {icon:'🎵', name:'Live DJ', desc:'Background beats keeping the energy flowing all night.'},
+      {icon:'🍽️', name:'Food & Drinks', desc:'Local caterers and vendors keeping everyone fed and refreshed.'},
+    ]
+  },
+  'thu-workshop': {
+    title: 'Financial Literacy Workshop',
+    day: 'THU', date: 'July 3, 2026', time: '7:00 PM – 9:00 PM',
+    tagline: 'Build Credit. Build Wealth. Build Community.',
+    color: '#00CFFF', colorDim: 'rgba(0,207,255,0.15)',
+    emoji: '📚',
+    description: 'A free, high-value financial literacy session covering credit building, small business financing, community reinvestment opportunities, and down payment assistance programs. Led by HUD-certified counselors and local financial experts.',
+    highlights: ['Credit building strategies','Small business loan resources','Down payment assistance programs','CRA community reinvestment info','Free one-on-one consults available'],
+    ebDayKey: 'thu',
+    sponsors: ['thu','cra'],
+    activities: [
+      {icon:'💳', name:'Credit Building', desc:'Practical steps to improve your credit score starting this week.'},
+      {icon:'🏦', name:'Banking Resources', desc:'Connect with community banks offering LMI-friendly products.'},
+      {icon:'🏠', name:'Homeownership Path', desc:'Step-by-step guide to qualifying for your first home.'},
+      {icon:'📊', name:'Business Financing', desc:'Micro-loans, grants, and crowdfunding options for small businesses.'},
+    ]
+  },
+  'fri-taste': {
+    title: 'Taste of Lovejoy',
+    day: 'FRI', date: 'July 4, 2026', time: '2:00 PM – Until',
+    tagline: 'Food. Music. Fireworks. Freedom.',
+    color: '#00FF6A', colorDim: 'rgba(0,255,106,0.15)',
+    emoji: '🍑',
+    description: 'Celebrate Independence Day the Lovejoy way — food trucks, live DJs, cultural showcases, games, and a stunning fireworks finale at 9PM. The Taste of Lovejoy is a full sensory experience celebrating the flavors, sounds, and culture of our community.',
+    highlights: ['10+ local food vendors & trucks','Live DJ sets all afternoon','Cultural performances & showcases','Kids games & activities','July 4th fireworks at 9PM'],
+    ebDayKey: 'fri',
+    sponsors: ['fri','food','general'],
+    activities: [
+      {icon:'🌮', name:'Food Truck Row', desc:'10+ local vendors serving cuisines from across the South Metro.'},
+      {icon:'🎶', name:'Live DJ Sets', desc:'Non-stop music from afternoon through the fireworks.'},
+      {icon:'🎆', name:'Fireworks Show', desc:'Spectacular July 4th fireworks display at 9PM sharp.'},
+      {icon:'🎮', name:'Community Games', desc:'Cornhole, dominoes, and other community favorites.'},
+    ]
+  },
+  'fri-kids': {
+    title: 'Kids Carnival & Games',
+    day: 'FRI', date: 'July 4, 2026', time: '2:00 PM – 6:00 PM',
+    tagline: 'Fun, Safe & Supervised for Ages 4–12',
+    color: '#00FF6A', colorDim: 'rgba(0,255,106,0.15)',
+    emoji: '🎠',
+    description: 'A dedicated, fully supervised kids zone with face painting, carnival games, prizes, bounce activities, and crafts. Every child is checked in and monitored by trained staff. Parents can enjoy the Taste of Lovejoy knowing their kids are having the time of their lives.',
+    highlights: ['Face painting & temporary tattoos','Carnival games with prizes','Bounce house & inflatable fun','Arts & crafts station','Fully supervised — ratio 1:8'],
+    ebDayKey: 'fri',
+    sponsors: ['kids','fri','general'],
+    activities: [
+      {icon:'🎨', name:'Face Painting', desc:'Professional face painters creating amazing designs for every kid.'},
+      {icon:'🎯', name:'Carnival Games', desc:'Ring toss, duck pond, and classic carnival games with prizes.'},
+      {icon:'🏆', name:'Prize Station', desc:'Every participant wins something — big prize wheel for winners.'},
+      {icon:'✂️', name:'Arts & Crafts', desc:'Guided crafts station with take-home projects.'},
+    ]
+  },
+  'sat-main': {
+    title: 'Cars, Bikes & Vibes',
+    day: 'SAT', date: 'July 5, 2026', time: '12:00 PM – Late',
+    tagline: 'The Main Event. Outside All Day.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.15)',
+    emoji: '🚗',
+    description: 'Saturday is THE day. Cars, bikes, water slides, gamers lounge, laser tag, food, music, and an epic evening block party. The largest community celebration in Henry County. Old school meets new school. Families, car enthusiasts, gamers, and community members all in one place.',
+    highlights: ['Custom car & bike show','Evening block party with DJ','VIP sections available','Food trucks & vendors','Water fest + gamers lounge + laser tag'],
+    ebDayKey: 'sat',
+    sponsors: ['sat','auto','general'],
+    activities: [
+      {icon:'🚗', name:'Car Show', desc:'Custom builds, lowriders, classics, and exotic rides judged by community vote.'},
+      {icon:'🏍️', name:'Bike Life', desc:'Bike crews roll in from across the South Metro for the biggest showcase of the year.'},
+      {icon:'🎵', name:'Block Party', desc:'Evening block party with DJ, dancing, and celebration from 6PM to late.'},
+      {icon:'🍔', name:'Food Village', desc:'Dozens of food vendors and trucks serving up everything you could want.'},
+    ]
+  },
+  'sat-slides': {
+    title: 'Water Slides & Bubbles',
+    day: 'SAT', date: 'July 5, 2026', time: '12:00 PM – 6:00 PM',
+    tagline: 'Splash. Slide. Bubble. Repeat.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.15)',
+    emoji: '💦',
+    description: 'Giant inflatable water slides, bubble cannon zones, splash pads, and foam pits for the ultimate summer experience. Supervised by trained staff. Waiver required for all participants under 18 — sign digitally before the event or on-site at check-in.',
+    highlights: ['2 giant water slides (30ft+)','Bubble cannon zone','Foam pit & splash pad','On-site waiver signing available','Towel & changing area provided'],
+    ebDayKey: 'sat',
+    sponsors: ['kids','sat','general'],
+    activities: [
+      {icon:'🌊', name:'30ft Water Slide', desc:'The main attraction — a massive double-lane water slide for all ages.'},
+      {icon:'🫧', name:'Bubble Cannon Zone', desc:'Walk-through bubble experience — kids and adults absolutely love it.'},
+      {icon:'🏊', name:'Splash Pad', desc:'Ground-level splash zone perfect for younger kids.'},
+      {icon:'📋', name:'On-site Waivers', desc:'Sign digitally at check-in — takes under 2 minutes on your phone.'},
+    ]
+  },
+  'sat-gamers': {
+    title: 'Gamers Lounge + Laser Tag',
+    day: 'SAT', date: 'July 5, 2026', time: '12:00 PM – 6:00 PM',
+    tagline: 'Level Up. All Ages. All Day.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.15)',
+    emoji: '🎮',
+    description: 'An indoor-outdoor gamers paradise featuring PS5 and Xbox multi-player stations, a competitive laser tag arena, tournament brackets with prizes, and a showcase of indie games from local developers. Whether you\'re a casual player or a serious competitor — this is your zone.',
+    highlights: ['PS5 & Xbox multi-player stations','Outdoor laser tag arena','Live tournament with cash prizes','Local indie game showcase','Gaming merch & sponsor giveaways'],
+    ebDayKey: 'sat',
+    sponsors: ['gaming','sat','general'],
+    activities: [
+      {icon:'🎮', name:'PS5 Zone', desc:'Multiple PS5 stations running FIFA, NBA 2K, Fortnite, and more.'},
+      {icon:'🕹️', name:'Xbox Arena', desc:'Xbox multi-player stations with Halo, Madden, and racing titles.'},
+      {icon:'🔫', name:'Laser Tag', desc:'Outdoor laser tag arena — team battles in 15-minute rounds all day.'},
+      {icon:'🏆', name:'Tournament', desc:'Open bracket tournament starting at 2PM. Register at the venue. Cash prizes.'},
+    ]
+  },
+  'sun-skate': {
+    title: "Let's Skate! Day Party Finale",
+    day: 'SUN', date: 'July 6, 2026', time: '2:00 PM – 10:00 PM',
+    tagline: 'Classic Jams. Smooth Wheels. Sunday Vibes.',
+    color: '#FFD600', colorDim: 'rgba(255,214,0,0.15)',
+    emoji: '🛼',
+    description: 'Close out the weekend the right way — on wheels. The Sunday Day Party Finale brings together roller skating for all skill levels, classic jam sessions, and a closing ceremony celebrating community. Skate rentals available on-site. Open to all ages.',
+    highlights: ['Open skate session all afternoon','Classic jams & R&B DJ set','Skate rentals available','Beginner-friendly sessions','Community awards ceremony at 7PM'],
+    ebDayKey: 'sun',
+    sponsors: ['sun','general'],
+    activities: [
+      {icon:'🛼', name:'Open Skate', desc:'Smooth surface open skating for all skill levels from 2PM onwards.'},
+      {icon:'🎵', name:'Classic Jams DJ', desc:'R&B, hip-hop, old school, and neo-soul — the perfect Sunday vibe.'},
+      {icon:'👟', name:'Skate Rentals', desc:'Full fleet of inline and quad skates available at the venue for $10.'},
+      {icon:'🏆', name:'Community Awards', desc:'7PM ceremony honoring local heroes, youth leaders, and sponsors.'},
+    ]
+  },
+  'sun-housing': {
+    title: 'Housing Counseling Fair',
+    day: 'SUN', date: 'July 6, 2026', time: '11:00 AM – 3:00 PM',
+    tagline: 'Your Path to Homeownership Starts Here.',
+    color: '#FFD600', colorDim: 'rgba(255,214,0,0.15)',
+    emoji: '🏠',
+    description: 'HUD-certified housing counselors available for free 45-minute one-on-one sessions covering homeownership readiness, down payment assistance programs, credit repair strategies, mortgage literacy, and foreclosure prevention. All sessions are confidential and completely free.',
+    highlights: ['Free 45-min 1-on-1 counseling sessions','HUD-certified counselors on site','Down payment assistance info','Credit repair strategies','CRA qualifying community service'],
+    ebDayKey: 'sun',
+    sponsors: ['cra','housing','general'],
+    activities: [
+      {icon:'🏡', name:'Homeownership Path', desc:'Step-by-step counseling on qualifying for your first home.'},
+      {icon:'💰', name:'Down Payment Help', desc:'Discover grants and assistance programs you may qualify for today.'},
+      {icon:'📊', name:'Credit Strategy', desc:'Personalized credit improvement plan from a certified counselor.'},
+      {icon:'🛡️', name:'Foreclosure Prevention', desc:'Resources and options for homeowners facing financial hardship.'},
+    ]
+  },
+  'weekend-pass': {
+    title: 'Full Weekend Pass',
+    day: 'ALL', date: 'July 3–6, 2026', time: 'All 4 Days',
+    tagline: 'All Access. All Weekend. Best Value.',
+    color: '#FF0AA0', colorDim: 'rgba(255,0,160,0.12)',
+    emoji: '⭐',
+    description: 'The Full Weekend Pass gives you access to all events, all activities, and all experiences across the entire 4-day Collective Block Party. Priority entry at all venues. One wristband, four days of memories.',
+    highlights: ['Access to all 4 days','Priority entry at all venues','All activities included','Weekend program guide','Save $65 vs individual tickets'],
+    ebDayKey: 'thu',
+    sponsors: ['general'],
+    activities: [
+      {icon:'💼', name:'Thursday Mixer', desc:'Small Business Kickoff Vibes, 5PM–11PM.'},
+      {icon:'🍑', name:'Friday Taste', desc:'Taste of Lovejoy + July 4th Fireworks, 2PM–Until.'},
+      {icon:'🚗', name:'Saturday Main Event', desc:'Cars, Bikes & Vibes — the biggest day, 12PM–Late.'},
+      {icon:'🛼', name:'Sunday Finale', desc:"Let's Skate Day Party + Housing Fair, 2PM–10PM."},
+    ]
+  }
+};
+
+/* ── Sponsor data ─────────────────────────────────────────────────────────
+   Sponsors are tagged by category so each event shows relevant partners.
+   ──────────────────────────────────────────────────────────────────────── */
+const SPONSOR_DATA = {
+  general: [
+    { name:'First National Bank', tier:'Platinum', tagline:'Presenting Sponsor', logo:'🏦', color:'rgba(200,200,230,0.15)', textColor:'#D0D0F0', deal:'Exclusive title rights + booth all 4 days', cta:'Become a Platinum Sponsor', ctaUrl:'#sponsors' },
+    { name:'Henry Co. Realty', tier:'Gold', tagline:'Event Sponsor', logo:'🏘️', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Brand presence across all 4 days', cta:'Join as Gold Sponsor', ctaUrl:'#sponsors' },
+  ],
+  auto: [
+    { name:'ATL Auto Group', tier:'Gold', tagline:'Car Show Sponsor', logo:'🚗', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Title sponsor of the Car & Bike Show', cta:'Sponsor Car Show', ctaUrl:'#sponsors' },
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Auto Activity Sponsor', logo:'🏎️', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Branded signage at the car show', cta:'Claim This Spot', ctaUrl:'#sponsors', available:true },
+  ],
+  gaming: [
+    { name:'GameStop Stockbridge', tier:'Silver', tagline:'Gamers Lounge Sponsor', logo:'🎮', color:'rgba(160,160,190,0.1)', textColor:'#B0B0D0', deal:'Branded gaming stations + giveaways', cta:'Sponsor Gaming', ctaUrl:'#sponsors' },
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Laser Tag Sponsor', logo:'🔫', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Laser tag naming rights + signage', cta:'Claim This Spot — $5K', ctaUrl:'#sponsors', available:true },
+  ],
+  kids: [
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Kids Zone Presenting Sponsor', logo:'🎈', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Brand on all kids zone materials + wristbands', cta:'Sponsor the Kids Zone — $2,500', ctaUrl:'#sponsors', available:true },
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Water Slides Sponsor', logo:'💦', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Naming rights to the water slide zone', cta:'Claim This Spot — $5K', ctaUrl:'#sponsors', available:true },
+  ],
+  food: [
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Taste of Lovejoy Food Sponsor', logo:'🌮', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Brand on all food vendor tables + cups + napkins', cta:'Sponsor the Taste — $5K', ctaUrl:'#sponsors', available:true },
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Beverage Sponsor', logo:'🥤', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Branded cups + coolers across all vendors', cta:'Claim Beverage Spot — $2,500', ctaUrl:'#sponsors', available:true },
+  ],
+  cra: [
+    { name:'YOUR INSTITUTION HERE', tier:'CRA Partner', tagline:'CRA Community Credit Sponsor', logo:'🏛️', color:'rgba(0,207,255,0.1)', textColor:'#00CFFF', deal:'Full CRA documentation + LMI service credit', cta:'Earn CRA Credit — Contact Us', ctaUrl:'#sponsors', available:true },
+  ],
+  housing: [
+    { name:'YOUR BRAND HERE', tier:'Silver', tagline:'Housing Fair Sponsor', logo:'🏠', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Branded counseling materials + booth placement', cta:'Sponsor the Housing Fair', ctaUrl:'#sponsors', available:true },
+  ],
+  thu: [], fri: [], sat: [], sun: []
+};
+
+/* ── Open event detail page ───────────────────────────────────────────────
+   Called by each registration card's Register button.
+   ──────────────────────────────────────────────────────────────────────── */
+function openEventPage(cardKey) {
+  const data = EVENT_DATA[cardKey];
+  if (!data) { openReg(cardKey); return; }
+
+  const day     = (typeof CARD_TO_DAY !== 'undefined') ? CARD_TO_DAY[cardKey] || '' : '';
+  const dayCfg  = (typeof EB_DAY_MAP  !== 'undefined') ? EB_DAY_MAP[day]   || {} : {};
+  const dayId   = dayCfg.ebId || localStorage.getItem('cbp_eb_id_' + day) || '';
+  const globalUrl = localStorage.getItem('cbp_key_eburl') || '';
+  const ebUrl   = dayId ? 'https://www.eventbrite.com/e/' + dayId : (globalUrl || '');
+
+  /* Build sponsor cards HTML */
+  const sponsorKeys = data.sponsors || ['general'];
+  let sponsorCards = '';
+  const seen = new Set();
+  sponsorKeys.forEach(sk => {
+    (SPONSOR_DATA[sk] || []).forEach(sp => {
+      if (seen.has(sp.name)) return;
+      seen.add(sp.name);
+      if (sp.available) {
+        sponsorCards += `
+        <div class="ep-sponsor-card ep-sponsor-avail" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])">
+          <div class="ep-spon-logo" style="background:rgba(255,0,160,0.12);color:var(--pink)">${sp.logo}</div>
+          <div class="ep-spon-body">
+            <div class="ep-spon-tier" style="color:var(--pink)">${sp.tier}</div>
+            <div class="ep-spon-name">${sp.name}</div>
+            <div class="ep-spon-tagline">${sp.tagline}</div>
+            <div class="ep-spon-deal">${sp.deal}</div>
+          </div>
+          <button class="ep-spon-cta avail-cta">${sp.cta} →</button>
+        </div>`;
+      } else {
+        sponsorCards += `
+        <div class="ep-sponsor-card">
+          <div class="ep-spon-logo" style="background:${sp.color};color:${sp.textColor}">${sp.logo}</div>
+          <div class="ep-spon-body">
+            <div class="ep-spon-tier" style="color:${sp.textColor}">${sp.tier}</div>
+            <div class="ep-spon-name">${sp.name}</div>
+            <div class="ep-spon-tagline">${sp.tagline}</div>
+            <div class="ep-spon-deal">${sp.deal}</div>
+          </div>
+          <span class="ep-spon-badge">Sponsor</span>
+        </div>`;
+      }
+    });
+  });
+
+  /* Activities HTML */
+  const activitiesHTML = data.activities.map(a => `
+    <div class="ep-activity">
+      <div class="ep-act-icon">${a.icon}</div>
+      <div><div class="ep-act-name">${a.name}</div><div class="ep-act-desc">${a.desc}</div></div>
+    </div>`).join('');
+
+  /* Highlights */
+  const highlightsHTML = data.highlights.map(h => `<div class="ep-highlight"><i class="ti ti-check"></i>${h}</div>`).join('');
+
+  /* Eventbrite embed / fallback */
+  const ebSection = ebUrl ? `
+    <div class="ep-eb-frame">
+      <iframe src="${ebUrl}" title="Register for ${data.title}" loading="lazy"
+        style="width:100%;min-height:580px;border:none;border-radius:12px;"></iframe>
+    </div>` : `
+    <div class="ep-eb-placeholder">
+      <div style="font-size:40px;margin-bottom:12px">🎟️</div>
+      <div class="ep-eb-ph-title">Eventbrite Registration</div>
+      <p class="ep-eb-ph-body">Your organizer hasn't connected Eventbrite yet. Log in → Organizer → API Keys → paste your Event ID to embed live registration here.</p>
+      <a href="https://www.eventbrite.com" target="_blank" rel="noopener" class="ep-reg-btn">Register on Eventbrite →</a>
+    </div>`;
+
+  /* Full page HTML */
+  const page = document.getElementById('eventDetailPage');
+  page.innerHTML = `
+    <div class="ep-hero" style="--ep-color:${data.color};--ep-dim:${data.colorDim}">
+      <div class="ep-hero-bg"></div>
+      <button class="ep-back" onclick="closeEventPage()"><i class="ti ti-arrow-left"></i> Back to Register</button>
+      <div class="ep-hero-content">
+        <div class="ep-day-badge" style="color:${data.color};border-color:${data.color}">${data.day} · ${data.date}</div>
+        <div class="ep-hero-emoji">${data.emoji}</div>
+        <h1 class="ep-title">${data.title}</h1>
+        <p class="ep-tagline" style="color:${data.color}">${data.tagline}</p>
+        <div class="ep-meta-row">
+          <span><i class="ti ti-clock"></i> ${data.time}</span>
+          <span><i class="ti ti-map-pin"></i> Lovejoy, GA</span>
+          <span><i class="ti ti-users"></i> All Ages Welcome</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ep-body">
+
+      <div class="ep-layout">
+
+        <!-- LEFT: info + activities + sponsors -->
+        <div class="ep-left">
+
+          <div class="ep-section">
+            <div class="ep-sec-label">About This Event</div>
+            <p class="ep-desc">${data.description}</p>
+            <div class="ep-highlights">${highlightsHTML}</div>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-sec-label">What's Inside</div>
+            <div class="ep-activities">${activitiesHTML}</div>
+          </div>
+
+          <div class="ep-section">
+            <div class="ep-sec-label" style="display:flex;align-items:center;justify-content:space-between">
+              <span>Event Sponsors</span>
+              <button class="ep-become-spon" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])">Become a Sponsor →</button>
+            </div>
+            <div class="ep-sponsors">${sponsorCards || '<div class="ep-no-spon">No sponsors listed yet — <button class="ep-link-btn" onclick="go(\'sponsors\',document.querySelectorAll(\'.nav-btn\')[2])">Be the first to sponsor this event →</button></div>'}</div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: Eventbrite embed -->
+        <div class="ep-right">
+          <div class="ep-reg-panel">
+            <div class="ep-reg-header">
+              <div class="ep-reg-title">Register for This Event</div>
+              <div class="ep-reg-sub">Secure checkout powered by Eventbrite</div>
+            </div>
+            ${ebSection}
+            <div class="ep-trust-row">
+              <span><i class="ti ti-lock" style="color:var(--green)"></i> SSL Secured</span>
+              <span><i class="ti ti-shield-check" style="color:var(--green)"></i> Safe Checkout</span>
+              <span><i class="ti ti-refresh" style="color:var(--green)"></i> Instant Confirmation</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>`;
+
+  const regBtn2 = Array.from(document.querySelectorAll('.nav-btn'))
+    .find(b => b.querySelector('i.ti-ticket') || b.textContent.trim().toLowerCase().includes('register'));
+  go('eventDetailPage', regBtn2 || null);
+}
+
+function closeEventPage() {
+  /* Find the Register nav button by its icon class */
+  const regBtn = Array.from(document.querySelectorAll('.nav-btn'))
+    .find(b => b.querySelector('i.ti-ticket') || b.textContent.trim().toLowerCase().includes('register'));
+  go('registration', regBtn || document.querySelectorAll('.nav-btn')[3]);
+}
+
+  </script>
   <!-- App script -->
   <script src="./assets/js/app.js"></script>
+
+<!-- 24/7 CHAT WIDGET -->
+<div id="chatWidget" style="position:fixed;bottom:24px;right:24px;z-index:999;font-family:'Barlow Condensed',sans-serif;">
+
+  <!-- Chat bubble button -->
+  <button id="chatToggle" onclick="toggleChat()" aria-label="Open chat" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(255,0,160,0.4);transition:all .2s;position:relative;">
+    <i class="ti ti-message-circle" id="chatIcon" style="font-size:24px;color:#fff"></i>
+    <span id="chatBadge" style="position:absolute;top:0;right:0;width:16px;height:16px;background:var(--gold);border-radius:50%;font-size:9px;font-weight:800;color:#000;display:flex;align-items:center;justify-content:center;border:2px solid var(--dark)">1</span>
+  </button>
+
+  <!-- Chat window -->
+  <div id="chatWindow" style="display:none;position:absolute;bottom:68px;right:0;width:320px;background:#0E0E1C;border:1px solid rgba(255,0,160,0.3);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,rgba(255,0,160,0.3),rgba(155,0,255,0.2));padding:14px 16px;display:flex;align-items:center;gap:10px;">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🎉</div>
+      <div style="flex:1;">
+        <div style="font-family:'Teko',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Collective Block Party</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.55);display:flex;align-items:center;gap:4px;"><span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 1.5s infinite"></span>Online &middot; Usually replies in minutes</div>
+      </div>
+      <button onclick="toggleChat()" style="background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:18px;line-height:1;" aria-label="Close chat"><i class="ti ti-x"></i></button>
+    </div>
+
+    <!-- Messages area -->
+    <div id="chatMessages" style="height:280px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;">
+      <!-- Welcome message -->
+      <div class="chat-msg bot">
+        <div class="chat-bubble">Hey! 👋 Welcome to The Collective Block Party. I'm here 24/7 to help. Ask me anything about tickets, vendors, sponsorships, or the event!</div>
+        <div class="chat-time">Just now</div>
+      </div>
+      <div class="chat-msg bot">
+        <div class="chat-bubble">Here are some things people usually ask:</div>
+        <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px;">
+          <button class="chat-quick" onclick="sendQuick('How do I get tickets?')">🎟️ How do I get tickets?</button>
+          <button class="chat-quick" onclick="sendQuick('How do I apply as a vendor?')">🛒 How do I apply as a vendor?</button>
+          <button class="chat-quick" onclick="sendQuick('What are the sponsorship options?')">💼 Sponsorship options</button>
+          <button class="chat-quick" onclick="sendQuick('What is the event schedule?')">📅 Event schedule</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div style="padding:10px 12px;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:8px;align-items:flex-end;">
+      <textarea id="chatInput" rows="1" placeholder="Type a message..." onkeydown="chatKeyDown(event)" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:8px 12px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;outline:none;resize:none;min-height:36px;max-height:100px;line-height:1.4;"></textarea>
+      <button onclick="sendChatMessage()" style="width:36px;height:36px;border-radius:9px;background:var(--pink);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;" aria-label="Send message">
+        <i class="ti ti-send" style="font-size:16px;color:#fff"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
