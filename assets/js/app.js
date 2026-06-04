@@ -124,36 +124,46 @@ function buildDash(role){
     main.innerHTML=`
       <div id="o-overview" class="dpanel active">
         <div class="ptitle">Overview</div>
-        <div class="sg">
-          <div class="sc"><div class="sl">Total Reg.</div><div class="sv" style="color:var(--pink)">847</div><div class="ss">&#x2191; 43 today</div></div>
-          <div class="sc"><div class="sl">Adults</div><div class="sv" style="color:var(--sky)">521</div><div class="ss">61.5%</div></div>
-          <div class="sc"><div class="sl">Kids</div><div class="sv" style="color:var(--green)">326</div><div class="ss">38.5%</div></div>
-          <div class="sc"><div class="sl">Waivers</div><div class="sv" style="color:var(--orange)">289</div><div class="ss">of 326</div></div>
-          <div class="sc"><div class="sl">Sponsors</div><div class="sv" style="color:var(--gold)">7</div><div class="ss">$42,500</div></div>
-          <div class="sc"><div class="sl">MC Synced</div><div class="sv" style="color:var(--green)">831</div><div class="ss">16 pending</div></div>
-        </div>
-        <div class="two-col">
-          <div class="dcrd2"><h3>Registrations by event</h3>
-            <div class="pi"><div class="pl"><span>Saturday Block Party</span><span style="color:var(--pink)">312</span></div><div class="pt"><div class="pf" style="width:90%;background:var(--pink)"></div></div></div>
-            <div class="pi"><div class="pl"><span>Friday Taste of ATL</span><span style="color:var(--green)">218</span></div><div class="pt"><div class="pf" style="width:63%;background:var(--green)"></div></div></div>
-            <div class="pi"><div class="pl"><span>Gamers Lounge</span><span style="color:var(--gold)">197</span></div><div class="pt"><div class="pf" style="width:57%;background:var(--gold)"></div></div></div>
-            <div class="pi"><div class="pl"><span>Thursday Mixer</span><span style="color:var(--sky)">143</span></div><div class="pt"><div class="pf" style="width:41%;background:var(--sky)"></div></div></div>
-            <div class="pi"><div class="pl"><span>Sunday Skate</span><span style="color:rgba(255,255,255,.4)">98</span></div><div class="pt"><div class="pf" style="width:28%;background:rgba(255,255,255,.2)"></div></div></div>
-          </div>
-          <div class="dcrd2"><h3>Quick actions</h3>
-            <div style="display:flex;flex-direction:column;gap:7px">
-              <button class="act-btn primary"><i class="ti ti-download" style="font-size:13px"></i>Export Registrations CSV</button>
-              <button class="act-btn"><i class="ti ti-mail" style="font-size:13px"></i>Sync MailChimp Now</button>
-              <button class="act-btn"><i class="ti ti-file-check" style="font-size:13px"></i>Send Waiver Reminders</button>
-              <button class="act-btn"><i class="ti ti-external-link" style="font-size:13px"></i>Open Eventbrite</button>
-              <button class="act-btn"><i class="ti ti-chart-bar" style="font-size:13px"></i>Download Impact Report</button>
+        <div id="dash-empty-state" style="background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:14px;padding:40px 24px;text-align:center;margin-bottom:18px;">
+          <div style="font-size:36px;margin-bottom:14px;">🔌</div>
+          <div style="font-family:'Teko',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;margin-bottom:8px;color:rgba(255,255,255,0.7)">No data yet — connect your APIs</div>
+          <p style="font-size:13px;color:rgba(255,255,255,0.4);max-width:420px;margin:0 auto 20px;line-height:1.7">Your dashboard will show live registration counts, waiver status, MailChimp sync totals, and sponsor data once your API keys are connected.</p>
+          <div style="display:flex;flex-direction:column;gap:8px;max-width:320px;margin:0 auto 20px;text-align:left;">
+            <div class="api-status-row" id="status-eb">
+              <i class="ti ti-circle-x" style="color:rgba(255,255,255,0.25)"></i>
+              <span>Eventbrite</span><span class="api-status-badge not-set">Not connected</span>
+            </div>
+            <div class="api-status-row" id="status-mc">
+              <i class="ti ti-circle-x" style="color:rgba(255,255,255,0.25)"></i>
+              <span>MailChimp</span><span class="api-status-badge not-set">Not connected</span>
+            </div>
+            <div class="api-status-row" id="status-fb">
+              <i class="ti ti-circle-x" style="color:rgba(255,255,255,0.25)"></i>
+              <span>Firebase</span><span class="api-status-badge not-set">Not connected</span>
+            </div>
+            <div class="api-status-row" id="status-eb-days">
+              <i class="ti ti-circle-x" style="color:rgba(255,255,255,0.25)"></i>
+              <span>Eventbrite Event IDs</span><span class="api-status-badge not-set">Not set</span>
             </div>
           </div>
+          <button class="act-btn primary" onclick="sp('o-settings',document.querySelector('#dashSidebar .ni:nth-child(8)') || document.querySelectorAll('#dashSidebar .ni')[7])">
+            <i class="ti ti-settings" style="font-size:13px"></i>Go to API Settings
+          </button>
         </div>
-        <div class="int-row">
-          <div class="itile"><div style="font-size:20px">&#127903;&#65039;</div><div class="iname">Eventbrite</div><div class="ist">&#9679; Connected</div><div class="icnt">847</div></div>
-          <div class="itile"><div style="font-size:20px">&#9993;&#65039;</div><div class="iname">MailChimp</div><div class="ist">&#9679; Auto-syncing</div><div class="icnt">831</div></div>
-          <div class="itile"><div style="font-size:20px">&#128203;</div><div class="iname">Waivers</div><div class="ist">&#9679; Active</div><div class="icnt">289/326</div></div>
+        <div id="dash-live-data" style="display:none;">
+          <div class="sg" id="dash-stats-grid"></div>
+          <div class="two-col" id="dash-charts-row"></div>
+          <div class="int-row" id="dash-int-row"></div>
+        </div>
+        <div class="dcrd2" style="margin-top:0">
+          <h3>Quick actions</h3>
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <button class="act-btn primary" onclick="syncDashboard()"><i class="ti ti-refresh" style="font-size:13px"></i>Sync All APIs Now</button>
+            <button class="act-btn"><i class="ti ti-download" style="font-size:13px"></i>Export Registrations CSV</button>
+            <button class="act-btn"><i class="ti ti-mail" style="font-size:13px"></i>Sync MailChimp Now</button>
+            <button class="act-btn"><i class="ti ti-file-check" style="font-size:13px"></i>Send Waiver Reminders</button>
+            <button class="act-btn"><i class="ti ti-external-link" style="font-size:13px"></i>Open Eventbrite</button>
+          </div>
         </div>
       </div>
       <div id="o-settings" class="dpanel">
@@ -201,63 +211,67 @@ function buildDash(role){
       </div>
       <div id="o-regs" class="dpanel">
         <div class="ptitle">Registrations</div>
-        <div class="dcrd2"><h3>Recent sign-ups</h3>
-          <table class="dtable"><thead><tr><th>Name</th><th>Event</th><th>Type</th><th>Waiver</th><th>MC</th></tr></thead>
-          <tbody>
-            <tr><td>Jordan M.</td><td>Block Party</td><td>Adult</td><td><span class="sb sb-ok">Done</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
-            <tr><td>Aaliyah R.</td><td>Gamers Lounge</td><td>Kid</td><td><span class="sb sb-need">Pending</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
-            <tr><td>Marcus T.</td><td>Biz Mixer</td><td>Adult</td><td><span class="sb sb-ok">Done</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
-            <tr><td>Zoe + 2 kids</td><td>Water Slides</td><td>Family</td><td><span class="sb sb-need">Needed</span></td><td><span class="sb sb-pend">Pending</span></td></tr>
-            <tr><td>David W.</td><td>Housing Fair</td><td>Adult</td><td><span class="sb sb-ok">Done</span></td><td><span class="sb sb-ok">Synced</span></td></tr>
-          </tbody></table>
-          <div class="act-row"><button class="act-btn primary"><i class="ti ti-download" style="font-size:13px"></i>Export CSV</button><button class="act-btn"><i class="ti ti-filter" style="font-size:13px"></i>Filter</button></div>
+        <div class="dcrd2" id="regs-card">
+          <h3>Recent sign-ups</h3>
+          <div id="regs-empty" style="text-align:center;padding:32px 16px;">
+            <div style="font-size:28px;margin-bottom:10px;">🎟️</div>
+            <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;">No registrations yet</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:16px;">Connect your Eventbrite API key and event IDs to see live registrations here.</div>
+            <button class="act-btn primary" onclick="sp('o-settings',document.querySelectorAll('#dashSidebar .ni')[7])"><i class="ti ti-settings" style="font-size:13px"></i>Connect Eventbrite</button>
+          </div>
+          <div id="regs-table" style="display:none;">
+            <table class="dtable"><thead><tr><th>Name</th><th>Event</th><th>Type</th><th>Waiver</th><th>MC</th></tr></thead>
+            <tbody id="regs-tbody"></tbody></table>
+            <div class="act-row"><button class="act-btn primary"><i class="ti ti-download" style="font-size:13px"></i>Export CSV</button><button class="act-btn"><i class="ti ti-filter" style="font-size:13px"></i>Filter</button></div>
+          </div>
         </div>
       </div>
       <div id="o-waivers" class="dpanel">
         <div class="ptitle">Waivers</div>
-        <div class="sg"><div class="sc"><div class="sl">Required</div><div class="sv">326</div></div><div class="sc"><div class="sl">Signed</div><div class="sv" style="color:var(--green)">289</div><div class="ss">88.6%</div></div><div class="sc"><div class="sl">Outstanding</div><div class="sv" style="color:var(--pink)">37</div></div></div>
-        <div class="dcrd2"><h3>Outstanding waivers</h3>
-          <table class="dtable"><thead><tr><th>Name</th><th>Event</th><th>Days Since</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>Aaliyah R.</td><td>Gamers Lounge</td><td>1 day</td><td><button class="act-btn" style="padding:4px 10px;font-size:11px">Send Reminder</button></td></tr>
-            <tr><td>Zoe H. + kids</td><td>Water Slides</td><td>2 days</td><td><button class="act-btn" style="padding:4px 10px;font-size:11px">Send Reminder</button></td></tr>
-            <tr><td>Tyrone B.</td><td>Slides + Show</td><td>4 days</td><td><button class="act-btn" style="padding:4px 10px;font-size:11px">Send Reminder</button></td></tr>
-          </tbody></table>
-          <div class="act-row"><button class="act-btn primary"><i class="ti ti-send" style="font-size:13px"></i>Send All Reminders</button></div>
+        <div style="text-align:center;padding:40px 16px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:14px;">
+          <div style="font-size:28px;margin-bottom:10px;">📋</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;">No waiver data yet</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);max-width:340px;margin:0 auto 16px;line-height:1.6">Waiver tracking will populate automatically once participants register through Eventbrite. Waivers required for kids activities and water slides.</div>
+          <button class="act-btn"><i class="ti ti-send" style="font-size:13px"></i>Send Waiver Reminders</button>
         </div>
       </div>
       <div id="o-mailchimp" class="dpanel">
         <div class="ptitle">MailChimp</div>
-        <div class="sg"><div class="sc"><div class="sl">List Size</div><div class="sv" style="color:var(--gold)">3,241</div></div><div class="sc"><div class="sl">From Event</div><div class="sv" style="color:var(--green)">831</div></div><div class="sc"><div class="sl">Pending</div><div class="sv" style="color:var(--pink)">16</div></div><div class="sc"><div class="sl">Open Rate</div><div class="sv" style="color:var(--sky)">34%</div></div></div>
-        <div class="act-row"><button class="act-btn primary"><i class="ti ti-refresh" style="font-size:13px"></i>Sync Now</button><button class="act-btn"><i class="ti ti-plus" style="font-size:13px"></i>New Campaign</button></div>
+        <div style="text-align:center;padding:40px 16px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:14px;margin-bottom:14px;">
+          <div style="font-size:28px;margin-bottom:10px;">✉️</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;">MailChimp not connected</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);max-width:340px;margin:0 auto 16px;line-height:1.6">Paste your MailChimp API key in API Settings to see your list size, sync status, and campaign stats here.</div>
+          <button class="act-btn primary" onclick="sp('o-settings',document.querySelectorAll('#dashSidebar .ni')[7])"><i class="ti ti-settings" style="font-size:13px"></i>Connect MailChimp</button>
+        </div>
+        <div class="act-row"><button class="act-btn"><i class="ti ti-refresh" style="font-size:13px"></i>Sync Now</button><button class="act-btn"><i class="ti ti-plus" style="font-size:13px"></i>New Campaign</button></div>
       </div>
       <div id="o-sponsors" class="dpanel">
         <div class="ptitle">Sponsors</div>
-        <div class="dcrd2"><h3>Active sponsors</h3>
-          <table class="dtable"><thead><tr><th>Company</th><th>Tier</th><th>Amount</th><th>Contract</th><th>Payment</th></tr></thead>
-          <tbody>
-            <tr><td>First National Bank</td><td><span class="sb" style="background:rgba(200,200,230,0.12);color:#D0D0F0">Platinum</span></td><td>$10,000</td><td><span class="sb sb-ok">Signed</span></td><td><span class="sb sb-ok">Paid</span></td></tr>
-            <tr><td>ATL Auto Group</td><td><span class="sb" style="background:rgba(255,214,0,0.12);color:var(--gold)">Gold</span></td><td>$5,000</td><td><span class="sb sb-ok">Signed</span></td><td><span class="sb sb-pend">50%</span></td></tr>
-            <tr><td>Henry Co. Realty</td><td><span class="sb" style="background:rgba(255,214,0,0.12);color:var(--gold)">Gold</span></td><td>$5,000</td><td><span class="sb sb-ok">Signed</span></td><td><span class="sb sb-ok">Paid</span></td></tr>
-            <tr><td>GameStop Stockbridge</td><td><span class="sb" style="background:rgba(160,160,190,0.1);color:#B0B0D0">Silver</span></td><td>$2,500</td><td><span class="sb sb-pend">Pending</span></td><td><span class="sb sb-need">Unpaid</span></td></tr>
-          </tbody></table>
+        <div style="text-align:center;padding:40px 16px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:14px;">
+          <div style="font-size:28px;margin-bottom:10px;">🏢</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;">No sponsors added yet</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);max-width:360px;margin:0 auto 16px;line-height:1.6">When sponsors submit interest through the Sponsors page, they will appear here with their tier, contract status, and payment status.</div>
+          <button class="act-btn primary" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])"><i class="ti ti-building" style="font-size:13px"></i>View Sponsor Page</button>
         </div>
       </div>
       <div id="o-staff" class="dpanel">
         <div class="ptitle">Staff Accounts</div>
-        <div class="dcrd2"><h3>Active staff logins</h3>
-          <table class="dtable"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Tasha R.</td><td>tasha@collectivebp.com</td><td>Check-in Lead</td><td><span class="sb sb-ok">Active</span></td></tr>
-            <tr><td>Marcus J.</td><td>marcus@collectivebp.com</td><td>Vendor Coord.</td><td><span class="sb sb-ok">Active</span></td></tr>
-            <tr><td>DeShawn L.</td><td>deshawn@collectivebp.com</td><td>Security</td><td><span class="sb sb-pend">Invite Sent</span></td></tr>
-          </tbody></table>
-          <div class="act-row"><button class="act-btn primary"><i class="ti ti-plus" style="font-size:13px"></i>Add Staff</button><button class="act-btn"><i class="ti ti-key" style="font-size:13px"></i>Reset Password</button></div>
+        <div style="text-align:center;padding:40px 16px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:14px;margin-bottom:14px;">
+          <div style="font-size:28px;margin-bottom:10px;">👥</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;">No staff accounts yet</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);max-width:360px;margin:0 auto 16px;line-height:1.6">Add staff members in your Supabase dashboard. Set their role to <code style="font-family:monospace;font-size:11px;background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px">staff</code> in user_metadata and they will appear here automatically.</div>
+          <a class="act-btn primary" href="https://supabase.com/dashboard/project/mvftxnzvmmlzyrrqhitx/auth/users" target="_blank" rel="noopener"><i class="ti ti-external-link" style="font-size:13px"></i>Add Staff in Supabase</a>
         </div>
+        <div class="act-row"><button class="act-btn primary"><i class="ti ti-plus" style="font-size:13px"></i>Add Staff</button><button class="act-btn"><i class="ti ti-key" style="font-size:13px"></i>Reset Password</button></div>
       </div>
       <div id="o-cra" class="dpanel">
         <div class="ptitle">CRA &amp; Housing</div>
-        <div class="sg"><div class="sc"><div class="sl">Sessions</div><div class="sv" style="color:var(--sky)">76</div><div class="ss">Booked</div></div><div class="sc"><div class="sl">CRA Hours</div><div class="sv" style="color:var(--green)">152</div></div><div class="sc"><div class="sl">Partner Banks</div><div class="sv" style="color:var(--gold)">3</div></div></div>
+        <div style="text-align:center;padding:40px 16px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:14px;">
+          <div style="font-size:28px;margin-bottom:10px;">🏠</div>
+          <div style="font-size:14px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;">No CRA data yet</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.3);max-width:360px;margin:0 auto 16px;line-height:1.6">Housing counseling session bookings will appear here once registrations come in. CRA volunteer hours are tracked automatically as sessions are booked.</div>
+          <button class="act-btn" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><i class="ti ti-calendar" style="font-size:13px"></i>View Housing Counseling Event</button>
+        </div>
       </div>`;
     setTimeout(()=>{ loadApiKeys();
 
@@ -815,7 +829,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ── VENDOR PAGE ────────────────────────────────────────────── */
 const DEMO_VENDORS = {
-  'vendor@collectivebp.com': {pass:'vendor123', name:'Mama T's Kitchen', booth:'A-12', cat:'Food & Beverage', days:'SAT+SUN'}
+  'vendor@collectivebp.com': {pass:'vendor123', name:"Mama T's Kitchen", booth:'A-12', cat:'Food & Beverage', days:'SAT+SUN'}
 };
 
 function showVendorTab(tab, btn) {
@@ -959,4 +973,64 @@ function sendQuick(msg) {
 
 function chatKeyDown(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+}
+
+
+/* ── Dashboard sync ─────────────────────────────────────────────────────
+   Checks which API keys are saved and updates the connection status
+   indicators on the overview panel. When Eventbrite is connected it
+   fetches real registration data and populates the live data section.
+   ──────────────────────────────────────────────────────────────────── */
+function syncDashboard() {
+  const eb  = localStorage.getItem('cbp_key_eventbrite');
+  const mc  = localStorage.getItem('cbp_key_mailchimp');
+  const fb  = localStorage.getItem('cbp_key_firebase');
+  const thu = localStorage.getItem('cbp_eb_id_thu');
+  const fri = localStorage.getItem('cbp_eb_id_fri');
+  const sat = localStorage.getItem('cbp_eb_id_sat');
+  const sun = localStorage.getItem('cbp_eb_id_sun');
+  const hasEventIds = thu || fri || sat || sun;
+
+  function setStatus(id, connected, label) {
+    const row = document.getElementById(id);
+    if (!row) return;
+    const icon  = row.querySelector('i');
+    const badge = row.querySelector('.api-status-badge');
+    if (icon)  { icon.className = connected ? 'ti ti-circle-check' : 'ti ti-circle-x'; icon.style.color = connected ? 'var(--green)' : 'rgba(255,255,255,0.25)'; }
+    if (badge) { badge.textContent = label; badge.className = 'api-status-badge ' + (connected ? 'is-set' : 'not-set'); }
+  }
+
+  setStatus('status-eb',      !!eb,           eb       ? 'Connected' : 'Not connected');
+  setStatus('status-mc',      !!mc,           mc       ? 'Connected' : 'Not connected');
+  setStatus('status-fb',      !!fb,           fb       ? 'Connected' : 'Not connected');
+  setStatus('status-eb-days', !!hasEventIds,  hasEventIds ? 'IDs saved' : 'Not set');
+
+  const allConnected = eb && hasEventIds;
+  const emptyState = document.getElementById('dash-empty-state');
+  const liveData   = document.getElementById('dash-live-data');
+
+  if (allConnected) {
+    if (emptyState) emptyState.style.display = 'none';
+    if (liveData)   liveData.style.display   = 'block';
+    fetchAllEventbritePrices();
+    populateLiveStats();
+  } else {
+    if (emptyState) emptyState.style.display = 'block';
+    if (liveData)   liveData.style.display   = 'none';
+  }
+}
+
+function populateLiveStats() {
+  /* Placeholder — real data pulled once Eventbrite API integration
+     returns attendee counts. Renders the stat cards and chart area. */
+  const statsGrid = document.getElementById('dash-stats-grid');
+  const intRow    = document.getElementById('dash-int-row');
+  if (statsGrid) statsGrid.innerHTML = `
+    <div class="sc"><div class="sl">Eventbrite</div><div class="sv" style="color:var(--green)">Live</div><div class="ss">Fetching data...</div></div>
+    <div class="sc"><div class="sl">MailChimp</div><div class="sv" style="color:var(--gold)">—</div><div class="ss">Sync pending</div></div>
+    <div class="sc"><div class="sl">Waivers</div><div class="sv" style="color:var(--sky)">—</div><div class="ss">Awaiting data</div></div>`;
+  if (intRow) intRow.innerHTML = `
+    <div class="itile"><div style="font-size:20px">🎟️</div><div class="iname">Eventbrite</div><div class="ist" style="color:var(--green)">● Connected</div><div class="icnt">Live</div></div>
+    <div class="itile"><div style="font-size:20px">✉️</div><div class="iname">MailChimp</div><div class="ist">${localStorage.getItem('cbp_key_mailchimp') ? '● Connected' : '○ Not set'}</div><div class="icnt">—</div></div>
+    <div class="itile"><div style="font-size:20px">📋</div><div class="iname">Waivers</div><div class="ist">● Active</div><div class="icnt">—</div></div>`;
 }
