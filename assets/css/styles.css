@@ -389,3 +389,11 @@ footer span{color:var(--pink);}
 .ep-reg-btn:hover{filter:brightness(1.12);}
 .ep-trust-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.07);font-size:11px;color:rgba(255,255,255,0.35);}
 .ep-trust-row span{display:flex;align-items:center;gap:5px;}
+
+/* Dashboard empty state */
+.api-status-row{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;font-size:13px;color:rgba(255,255,255,0.6);}
+.api-status-row i{font-size:16px;flex-shrink:0;}
+.api-status-row span:nth-child(2){flex:1;}
+.api-status-badge{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:100px;text-transform:uppercase;flex-shrink:0;}
+.api-status-badge.not-set{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);}
+.api-status-badge.is-set{background:rgba(0,255,106,0.12);color:var(--green);}
