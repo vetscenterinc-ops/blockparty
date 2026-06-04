@@ -19,12 +19,10 @@
   if(b){ b.style.display='block'; setTimeout(function(){ b.style.display='none'; }, 3000); }
 })();
 
-const USERS={
-  'admin@collectivebp.com':   {pass:'admin123',  role:'organizer',name:'Admin',             init:'AD',roleLabel:'Organizer',roleClass:'rp-org', avatarBg:'rgba(255,0,160,0.2)',  avatarColor:'var(--pink)'},
-  'staff@collectivebp.com':   {pass:'staff123',  role:'staff',    name:'Staff Member',       init:'ST',roleLabel:'Staff',    roleClass:'rp-staff',avatarBg:'rgba(0,207,255,0.18)',avatarColor:'var(--sky)'},
-  'sponsor@collectivebp.com': {pass:'sponsor123',role:'sponsor',  name:'First National Bank',init:'FN',roleLabel:'Sponsor', roleClass:'rp-spon', avatarBg:'rgba(255,214,0,0.18)',avatarColor:'var(--gold)'},
-};
-const HINTS={organizer:'admin@collectivebp.com / admin123',staff:'staff@collectivebp.com / staff123',sponsor:'sponsor@collectivebp.com / sponsor123'};
+/* Demo credentials removed — Supabase handles all authentication.
+   Add users in: supabase.com/dashboard/project/mvftxnzvmmlzyrrqhitx/auth/users
+   Set role in user_metadata: {"role":"organizer"} / {"role":"staff"} / {"role":"sponsor"} / {"role":"vendor"} */
+const HINTS={organizer:'your-organizer@email.com',staff:'staff-member@email.com',sponsor:'sponsor@company.com'};
 let currentRole='organizer',loggedIn=false;
 
 function go(id,btn){
@@ -42,7 +40,7 @@ function setRole(role,btn){
   currentRole=role;
   document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('demoHint').innerHTML='<b>Demo:</b> '+HINTS[role];
+  document.getElementById('demoHint').innerHTML='<b>Email:</b> '+HINTS[role];
   document.getElementById('lErr').textContent='';
 }
 function togglePw(id,btn){
@@ -104,35 +102,9 @@ function setEventbriteUrl(url){
   });
   /* ticketLink and heroTicketBtn are now buttons → no href to update */
 }
-function doLogin(){
-  const email=document.getElementById('lEmail').value.trim().toLowerCase();
-  const pass=document.getElementById('lPass').value;
-  const u=USERS[email];
-  const err=document.getElementById('lErr');
-  if(!u||u.pass!==pass){err.textContent='Incorrect email or password.';return;}
-  if(u.role!==currentRole){err.textContent='That account is a '+u.role+' — select the correct role tab.';return;}
-  err.textContent='';loggedIn=true;
-  document.getElementById('dAvatar').textContent=u.init;
-  document.getElementById('dAvatar').style.background=u.avatarBg;
-  document.getElementById('dAvatar').style.color=u.avatarColor;
-  document.getElementById('dName').textContent=u.name;
-  const dr=document.getElementById('dRole');dr.textContent=u.roleLabel;dr.className='d-role '+u.roleClass;
-  buildDash(u.role);
-  const nb=document.getElementById('dashNavBtn');
-  nb.querySelector('i').className='ti ti-layout-dashboard';
-  nb.querySelector('span').textContent='Dashboard';
-  go('dashPage',nb);
-}
-function doLogout(){
-  loggedIn=false;
-  document.getElementById('lEmail').value='';
-  document.getElementById('lPass').value='';
-  document.getElementById('lErr').textContent='';
-  const nb=document.getElementById('dashNavBtn');
-  nb.querySelector('i').className='ti ti-lock';
-  nb.querySelector('span').textContent='Login';
-  go('loginPage',nb);
-}
+/* doLogin / doLogout now delegate to Supabase */
+function doLogin(){ doLoginSupabase(); }
+function doLogout(){ doLogoutSupabase(); }
 function buildDash(role){
   const sidebar=document.getElementById('dashSidebar');
   const main=document.getElementById('dashMain');
@@ -287,7 +259,176 @@ function buildDash(role){
         <div class="ptitle">CRA &amp; Housing</div>
         <div class="sg"><div class="sc"><div class="sl">Sessions</div><div class="sv" style="color:var(--sky)">76</div><div class="ss">Booked</div></div><div class="sc"><div class="sl">CRA Hours</div><div class="sv" style="color:var(--green)">152</div></div><div class="sc"><div class="sl">Partner Banks</div><div class="sv" style="color:var(--gold)">3</div></div></div>
       </div>`;
-    setTimeout(()=>{ loadApiKeys(); },150);
+    setTimeout(()=>{ loadApiKeys();
+
+
+/* ============================================================
+   SUPABASE AUTHENTICATION
+   Real auth replacing demo credentials.
+   URL:  https://mvftxnzvmmlzyrrqhitx.supabase.co
+   ============================================================ */
+
+const SUPABASE_URL  = 'https://mvftxnzvmmlzyrrqhitx.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12ZnR4bnp2bW1senlycnFoaXR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MzYyNDgsImV4cCI6MjA5NjExMjI0OH0.hfaw7npVZZ_aIXBuuv1dKup0kL0l_Pp7PPf0c6kIGA0';
+
+let _sb = null;
+function getSB() {
+  if (!_sb && window.supabase) {
+    _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  }
+  return _sb;
+}
+
+/* ── User role mapping ─────────────────────────────────────────
+   Roles are stored in the user's metadata when created in
+   Supabase dashboard: Authentication → Users → Edit user
+   → user_metadata → {"role":"organizer"} / {"role":"staff"} / {"role":"sponsor"} / {"role":"vendor"}
+   ──────────────────────────────────────────────────────────── */
+
+async function doLoginSupabase() {
+  const sb    = getSB();
+  const email = document.getElementById('lEmail')?.value.trim().toLowerCase();
+  const pass  = document.getElementById('lPass')?.value;
+  const err   = document.getElementById('lErr');
+
+  if (!sb)  { if(err) err.textContent = 'Auth not loaded — refresh and try again.'; return; }
+  if (!email || !pass) { if(err) err.textContent = 'Enter your email and password.'; return; }
+
+  if(err) err.textContent = '';
+
+  /* Show loading state */
+  const btn = document.querySelector('.btn-signin');
+  if(btn) { btn.disabled=true; btn.innerHTML='<i class="ti ti-loader" style="animation:spin 1s linear infinite;display:inline-block"></i> Signing in...'; }
+
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+
+  if(btn) { btn.disabled=false; btn.innerHTML='<i class="ti ti-login" style="font-size:15px"></i>Sign In'; }
+
+  if (error) {
+    if(err) err.textContent = error.message === 'Invalid login credentials'
+      ? 'Incorrect email or password.'
+      : error.message;
+    return;
+  }
+
+  /* Get role from user metadata */
+  const meta = data.user?.user_metadata || {};
+  const role = meta.role || 'organizer';
+
+  /* Check selected role tab matches actual role */
+  if (role !== currentRole) {
+    if(err) err.textContent = 'That account is a ' + role + ' — select the correct role tab.';
+    await sb.auth.signOut();
+    return;
+  }
+
+  /* Build display info */
+  const displayName = meta.full_name || meta.name || email.split('@')[0];
+  const initials    = displayName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+
+  const roleConfig = {
+    organizer: { label:'Organizer', cls:'rp-org',  bg:'rgba(255,0,160,0.2)',   color:'var(--pink)' },
+    staff:     { label:'Staff',     cls:'rp-staff', bg:'rgba(0,207,255,0.18)',  color:'var(--sky)'  },
+    sponsor:   { label:'Sponsor',   cls:'rp-spon',  bg:'rgba(255,214,0,0.18)', color:'var(--gold)' },
+    vendor:    { label:'Vendor',    cls:'rp-spon',  bg:'rgba(255,107,0,0.18)', color:'var(--orange)'}
+  }[role] || { label:role, cls:'rp-org', bg:'rgba(255,255,255,0.1)', color:'#fff' };
+
+  if(err) err.textContent = '';
+  loggedIn = true;
+
+  document.getElementById('dAvatar').textContent      = initials;
+  document.getElementById('dAvatar').style.background = roleConfig.bg;
+  document.getElementById('dAvatar').style.color      = roleConfig.color;
+  document.getElementById('dName').textContent        = displayName;
+  const dr = document.getElementById('dRole');
+  dr.textContent  = roleConfig.label;
+  dr.className    = 'd-role ' + roleConfig.cls;
+
+  buildDash(role);
+  const nb = document.getElementById('dashNavBtn');
+  nb.querySelector('i').className        = 'ti ti-layout-dashboard';
+  nb.querySelector('span').textContent   = 'Dashboard';
+  go('dashPage', nb);
+}
+
+async function doLogoutSupabase() {
+  const sb = getSB();
+  if (sb) await sb.auth.signOut();
+  loggedIn = false;
+  document.getElementById('lEmail').value = '';
+  document.getElementById('lPass').value  = '';
+  document.getElementById('lErr').textContent = '';
+  const nb = document.getElementById('dashNavBtn');
+  nb.querySelector('i').className       = 'ti ti-lock';
+  nb.querySelector('span').textContent  = 'Login';
+  go('loginPage', nb);
+}
+
+/* ── Password reset ────────────────────────────────────────── */
+async function resetPassword(email) {
+  const sb = getSB();
+  if (!sb || !email) return;
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + '/?reset=true'
+  });
+  return error;
+}
+
+/* ── Vendor signup ─────────────────────────────────────────── */
+async function supabaseVendorSignup(email, password, bizName) {
+  const sb = getSB();
+  if (!sb) return { error: { message: 'Auth not loaded' } };
+  return sb.auth.signUp({
+    email,
+    password,
+    options: { data: { role: 'vendor', full_name: bizName } }
+  });
+}
+
+/* ── Session restore on page load ─────────────────────────── */
+async function restoreSession() {
+  const sb = getSB();
+  if (!sb) return;
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return;
+  const meta = session.user?.user_metadata || {};
+  const role = meta.role || 'organizer';
+  const displayName = meta.full_name || session.user.email.split('@')[0];
+  const initials = displayName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const roleConfig = {
+    organizer: { label:'Organizer', cls:'rp-org',  bg:'rgba(255,0,160,0.2)',   color:'var(--pink)' },
+    staff:     { label:'Staff',     cls:'rp-staff', bg:'rgba(0,207,255,0.18)',  color:'var(--sky)'  },
+    sponsor:   { label:'Sponsor',   cls:'rp-spon',  bg:'rgba(255,214,0,0.18)', color:'var(--gold)' },
+    vendor:    { label:'Vendor',    cls:'rp-spon',  bg:'rgba(255,107,0,0.18)', color:'var(--orange)'}
+  }[role] || { label:role, cls:'rp-org', bg:'rgba(255,255,255,0.1)', color:'#fff' };
+  loggedIn = true;
+  document.getElementById('dAvatar').textContent      = initials;
+  document.getElementById('dAvatar').style.background = roleConfig.bg;
+  document.getElementById('dAvatar').style.color      = roleConfig.color;
+  document.getElementById('dName').textContent        = displayName;
+  const dr = document.getElementById('dRole');
+  dr.textContent = roleConfig.label;
+  dr.className   = 'd-role ' + roleConfig.cls;
+  buildDash(role);
+  const nb = document.getElementById('dashNavBtn');
+  nb.querySelector('i').className       = 'ti ti-layout-dashboard';
+  nb.querySelector('span').textContent  = 'Dashboard';
+}
+
+
+function showForgotPassword(){
+  const email = document.getElementById('lEmail')?.value.trim();
+  if(!email){ alert('Enter your email address first, then click Forgot password.'); return; }
+  resetPassword(email).then(err=>{
+    if(err) alert('Error: '+err.message);
+    else alert('Password reset email sent to '+email+'. Check your inbox.');
+  });
+}
+
+/* Restore session on page load */
+document.addEventListener('DOMContentLoaded', function(){
+  restoreSession();
+}); },150);
   } else if(role==='staff'){
     sidebar.innerHTML=`
       <div class="sb-sec">My Tools</div>
@@ -670,3 +811,152 @@ document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('cbp_key_eventbrite');
   if (token) fetchAllEventbritePrices();
 });
+
+
+/* ── VENDOR PAGE ────────────────────────────────────────────── */
+const DEMO_VENDORS = {
+  'vendor@collectivebp.com': {pass:'vendor123', name:'Mama T's Kitchen', booth:'A-12', cat:'Food & Beverage', days:'SAT+SUN'}
+};
+
+function showVendorTab(tab, btn) {
+  document.querySelectorAll('.vendor-panel').forEach(p => p.style.display='none');
+  document.querySelectorAll('.vendor-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('vendor-'+tab);
+  if (panel) panel.style.display = 'block';
+  if (btn) btn.classList.add('active');
+}
+
+function submitVendorApp() {
+  const biz   = document.getElementById('v-bizname')?.value.trim();
+  const email = document.getElementById('v-email')?.value.trim();
+  const cat   = document.getElementById('v-cat')?.value;
+  if (!biz || !email || !cat) { alert('Please fill in all required fields.'); return; }
+  const success = document.getElementById('vendor-success');
+  if (success) success.style.display = 'block';
+  ['v-bizname','v-name','v-email','v-phone','v-desc'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+}
+
+async function vendorLogin() {
+  const sb    = getSB();
+  const email = document.getElementById('vl-email')?.value.trim().toLowerCase();
+  const pass  = document.getElementById('vl-pass')?.value;
+  const errEl = document.getElementById('vl-err');
+  if (!email || !pass) { if(errEl) errEl.textContent = 'Enter your email and password.'; return; }
+  if(errEl) errEl.textContent = '';
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) { if(errEl) errEl.textContent = 'Incorrect email or password.'; return; }
+  const meta = data.user?.user_metadata || {};
+  if (meta.role !== 'vendor') { if(errEl) errEl.textContent = 'This account is not a vendor account.'; await sb.auth.signOut(); return; }
+  const name = meta.full_name || meta.name || email.split('@')[0];
+  document.getElementById('vd-name').textContent  = name;
+  document.getElementById('vd-booth').textContent = meta.booth || 'TBA';
+  document.getElementById('vd-cat').textContent   = meta.category || 'Vendor';
+  const loginForm = document.getElementById('vl-form');
+  if (loginForm) loginForm.style.display = 'none';
+  document.getElementById('vendor-dashboard').style.display = 'block';
+}
+
+function vendorLogout() {
+  document.getElementById('vl-email').value = '';
+  document.getElementById('vl-pass').value  = '';
+  document.getElementById('vendor-dashboard').style.display = 'none';
+  const loginForm = document.getElementById('vl-form');
+  if (loginForm) loginForm.style.display = 'block';
+}
+
+/* ── 24/7 CHAT WIDGET ──────────────────────────────────────── */
+const CHAT_RESPONSES = {
+  ticket:     ["You can get tickets right on our website! Click the **Register** tab in the nav or hit **Get Tickets**. We have single-day passes and a Full Weekend Pass ($45) for the best value across all 4 days.", "Tickets are available on our Registration page. You can register for individual events or grab a Full Weekend Pass for all 4 days. Click the Register button at the top!"],
+  vendor:     ["To apply as a vendor, click the **Vendors** tab in the nav! Fill out the application — we review within 48 hours. Booth spaces start at $150/day or $450 for the full weekend.", "Head to the Vendors tab to apply for a booth! We have spaces for food trucks, retail, arts & crafts, non-profits, and more. Full weekend spots go fast!"],
+  sponsor:    ["We have 4 sponsorship tiers from $500 Community Partner up to $10K Presenting Sponsor. Sponsors get CRA documentation, brand exposure across 800+ attendees, email list access, and more. Check our Sponsors page!", "Sponsorship packages start at $500 and go up to $10,000 for the Presenting Sponsor title. Each tier includes booth placement, social media features, and a CRA documentation package. Visit our Sponsors page for details."],
+  schedule:   ["The Collective Block Party runs July 3–6, 2026 in Lovejoy, GA! 🗓️
+
+THU July 3 — Small Business Mixer, 5PM–11PM
+FRI July 4 — Taste of Lovejoy + Fireworks, 2PM–Until
+SAT July 5 — Cars, Bikes & Vibes (Main Event), 12PM–Late
+SUN July 6 — Day Party Finale + Skate, 2PM–10PM", "4 days of fun! Thu is the Business Mixer, Fri is the Taste of Lovejoy with fireworks, Sat is the huge block party with cars & bikes, and Sun is the Day Party Finale with skating. Check the Events page for full details!"],
+  kids:       ["Yes! There's a dedicated Kids Zone all weekend — water slides, bubble cannons, gamers lounge, laser tag, carnival games, and face painting. All fully supervised by trained staff.", "Absolutely! Saturday has the biggest kids activities — giant water slides, bubble zone, and the Gamers Lounge. Friday has the Kids Carnival from 2–6PM. All supervised, all ages welcome!"],
+  parking:    ["Parking info will be included in your registration confirmation email. The venue is in Lovejoy, GA — more details coming soon at collectiveblockparty.com.", "Parking details are finalized closer to the event. Register and you'll get full venue info including parking in your confirmation email!"],
+  housing:    ["Yes! Sunday July 6 has a free Housing Counseling Fair from 11AM–3PM. HUD-certified counselors offer free 45-minute 1-on-1 sessions covering homeownership, down payment assistance, and foreclosure prevention.", "Our Housing Counseling Fair is Sunday July 6, 11AM–3PM. It's completely free — just book your session when you register. HUD-certified counselors will be on site all day."],
+  location:   ["The Collective Block Party is in Lovejoy, Georgia — Henry County, South Metro Atlanta. Exact address will be in your registration confirmation. Easy access from I-75.", "We're in Lovejoy, GA — right in Henry County, South Metro Atlanta. Easy to reach from I-75. Full address and directions sent with your registration confirmation."],
+  default:    ["Great question! For anything specific about the event, you can also reach us at info@collectiveblockparty.com — we respond within 24 hours.", "Happy to help! For detailed questions, email us at info@collectiveblockparty.com. Our team responds within 24 hours. You can also check the Events page for the full lineup!"]
+};
+
+function getResponseKey(msg) {
+  const m = msg.toLowerCase();
+  if (/ticket|register|buy|purchase|pass|admission/.test(m)) return 'ticket';
+  if (/vendor|booth|sell|apply|food truck/.test(m)) return 'vendor';
+  if (/sponsor|partner|cra|donate|marketing/.test(m)) return 'sponsor';
+  if (/schedule|lineup|day|when|time|hours/.test(m)) return 'schedule';
+  if (/kid|child|water slide|bubble|carnival|laser|gamer/.test(m)) return 'kids';
+  if (/park/.test(m)) return 'parking';
+  if (/housing|counseling|hud|home|mortgage|foreclosure/.test(m)) return 'housing';
+  if (/where|location|address|lovejoy|directions/.test(m)) return 'location';
+  return 'default';
+}
+
+function toggleChat() {
+  const win   = document.getElementById('chatWindow');
+  const icon  = document.getElementById('chatIcon');
+  const badge = document.getElementById('chatBadge');
+  const open  = win.style.display === 'none';
+  win.style.display  = open ? 'block' : 'none';
+  icon.className     = open ? 'ti ti-x' : 'ti ti-message-circle';
+  if (badge) badge.style.display = 'none';
+}
+
+function addChatMsg(text, type) {
+  const msgs = document.getElementById('chatMessages');
+  if (!msgs) return;
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + type;
+  const now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+  div.innerHTML = '<div class="chat-bubble">' + text.replace(/\n/g,'<br>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>') + '</div><div class="chat-time">' + now + '</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  if (!msgs) return null;
+  const div = document.createElement('div');
+  div.className = 'chat-msg bot';
+  div.id = 'chatTyping';
+  div.innerHTML = '<div class="chat-typing"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function sendChatMessage() {
+  const input = document.getElementById('chatInput');
+  if (!input) return;
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  input.style.height = 'auto';
+  addChatMsg(msg, 'user');
+  // Remove quick reply buttons
+  document.querySelectorAll('.chat-quick').forEach(b => b.parentElement?.remove());
+  const typing = showTyping();
+  setTimeout(() => {
+    if (typing) typing.remove();
+    const key = getResponseKey(msg);
+    const responses = CHAT_RESPONSES[key];
+    const reply = responses[Math.floor(Math.random() * responses.length)];
+    addChatMsg(reply, 'bot');
+  }, 900 + Math.random() * 600);
+}
+
+function sendQuick(msg) {
+  const input = document.getElementById('chatInput');
+  if (input) input.value = msg;
+  sendChatMessage();
+}
+
+function chatKeyDown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+}
