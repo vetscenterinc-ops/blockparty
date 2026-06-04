@@ -44,7 +44,6 @@ function setRole(role,btn){
   btn.classList.add('active');
   document.getElementById('demoHint').innerHTML='<b>Demo:</b> '+HINTS[role];
   document.getElementById('lErr').textContent='';
-  document.getElementById('apiPanel').style.display=role==='organizer'?'block':'none';
 }
 function togglePw(id,btn){
   const inp=document.getElementById(id);
@@ -59,46 +58,42 @@ function toggleApiPanel(){
   hdr.classList.toggle('open',open);
 }
 function loadApiKeys(){
-  /* Platform keys → login page fields */
+  /* Platform keys → dashboard fields (populated after login) */
   ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
     const saved=localStorage.getItem('cbp_key_'+k);
-    if(saved){const el=document.getElementById('key-'+k);if(el)el.value=saved;}
+    if(saved){
+      const el=document.getElementById('dk-'+k);
+      if(el)el.value=saved;
+    }
   });
-  /* Day event IDs → login page fields + EB_DAY_MAP + dashboard fields */
+  /* Day event IDs → EB_DAY_MAP + dashboard fields */
   ['thu','fri','sat','sun'].forEach(day=>{
     const saved=localStorage.getItem('cbp_eb_id_'+day);
     if(!saved)return;
-    /* login page field */
-    const loginEl=document.getElementById('key-eb-'+day);
-    if(loginEl)loginEl.value=saved;
-    /* dashboard field (rendered after login) */
     const dashEl=document.getElementById('dk-eb-'+day);
     if(dashEl)dashEl.value=saved;
-    /* in-memory map */
     if(EB_DAY_MAP[day])EB_DAY_MAP[day].ebId=saved;
   });
 }
 function saveApiKeys(){
-  /* Platform keys */
+  /* Platform keys — read from dashboard dk-* fields */
   ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
-    const el=document.getElementById('key-'+k);
+    const el=document.getElementById('dk-'+k);
     if(el&&el.value.trim())localStorage.setItem('cbp_key_'+k,el.value.trim());
   });
   /* Day-level Eventbrite event IDs */
   ['thu','fri','sat','sun'].forEach(day=>{
-    const el=document.getElementById('key-eb-'+day);
+    const el=document.getElementById('dk-eb-'+day);
     if(el&&el.value.trim()){
       const id=el.value.trim();
       localStorage.setItem('cbp_eb_id_'+day,id);
-      if(EB_DAY_MAP[day]) EB_DAY_MAP[day].ebId=id;
+      if(EB_DAY_MAP[day])EB_DAY_MAP[day].ebId=id;
     }
   });
-  const urlEl=document.getElementById('key-eburl');
+  const urlEl=document.getElementById('dk-eburl');
   if(urlEl&&urlEl.value.trim())setEventbriteUrl(urlEl.value.trim());
-  const s=document.getElementById('apiSaved');
-  s.style.display='block';
-  setTimeout(()=>s.style.display='none',3000);
-  /* Trigger live price sync with newly saved keys */
+  const s=document.getElementById('dkSaved');
+  if(s){s.style.display='block';setTimeout(()=>s.style.display='none',3000);}
   fetchAllEventbritePrices();
 }
 function setEventbriteUrl(url){
@@ -190,19 +185,44 @@ function buildDash(role){
       <div id="o-settings" class="dpanel">
         <div class="ptitle">API Settings</div>
         <div class="api-dash-card">
-          <h3><i class="ti ti-info-circle"></i>Keys Managed at Login</h3>
-          <p style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:20px">
-            All API keys and Eventbrite Event IDs are entered on the <strong style="color:var(--gold)">Login page</strong> before signing in — in the <strong>API &amp; Integration Keys</strong> panel under the Organizer tab.<br><br>
-            This keeps your credentials accessible without needing to be logged in first, and lets the dashboard connect to live data from the moment you sign in.
-          </p>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;"><i class="ti ti-ticket" style="color:var(--gold);font-size:16px"></i><div><div style="font-weight:700;margin-bottom:2px;">Eventbrite Token</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">${localStorage.getItem('cbp_key_eventbrite') ? '✓ Saved' : 'Not set — go to Login → Organizer → API Keys'}</div></div></div>
-            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;"><i class="ti ti-mail" style="color:var(--gold);font-size:16px"></i><div><div style="font-weight:700;margin-bottom:2px;">MailChimp Key</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">${localStorage.getItem('cbp_key_mailchimp') ? '✓ Saved' : 'Not set'}</div></div></div>
-            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;"><i class="ti ti-calendar-event" style="color:var(--gold);font-size:16px"></i><div><div style="font-weight:700;margin-bottom:2px;">Eventbrite Day IDs</div><div style="font-size:11px;color:rgba(255,255,255,0.4)">THU: ${localStorage.getItem('cbp_eb_id_thu')||'Not set'} &nbsp;|&nbsp; FRI: ${localStorage.getItem('cbp_eb_id_fri')||'Not set'} &nbsp;|&nbsp; SAT: ${localStorage.getItem('cbp_eb_id_sat')||'Not set'} &nbsp;|&nbsp; SUN: ${localStorage.getItem('cbp_eb_id_sun')||'Not set'}</div></div></div>
+          <h3><i class="ti ti-key"></i>Integration Keys</h3>
+          <p style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:16px;line-height:1.6">Keys are saved in your browser only — never sent to any server. Save them here and your dashboard connects to live data immediately.</p>
+
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,214,0,0.6);margin-bottom:10px;display:flex;align-items:center;gap:6px;"><i class="ti ti-plug" style="font-size:13px;color:var(--gold)"></i>Platform Keys</div>
+          <div class="api-row">
+            <div class="api-field"><label><i class="ti ti-ticket"></i>Eventbrite Private Token</label><div class="api-input-wrap"><input type="password" id="dk-eventbrite" placeholder="Paste your Eventbrite Private Token"><button class="api-eye" onclick="togglePw('dk-eventbrite',this)" type="button" aria-label="Show"><i class="ti ti-eye"></i></button></div></div>
+            <div class="api-field"><label><i class="ti ti-mail"></i>MailChimp API Key</label><div class="api-input-wrap"><input type="password" id="dk-mailchimp" placeholder="Paste your MailChimp API Key"><button class="api-eye" onclick="togglePw('dk-mailchimp',this)" type="button" aria-label="Show"><i class="ti ti-eye"></i></button></div></div>
+            <div class="api-field"><label><i class="ti ti-brand-firebase"></i>Firebase Config (JSON)</label><div class="api-input-wrap"><input type="password" id="dk-firebase" placeholder='{"apiKey":"...","projectId":"..."}' ><button class="api-eye" onclick="togglePw('dk-firebase',this)" type="button" aria-label="Show"><i class="ti ti-eye"></i></button></div></div>
+            <div class="api-field"><label><i class="ti ti-world"></i>Eventbrite Org ID</label><div class="api-input-wrap"><input type="text" id="dk-orgid" placeholder="Your Eventbrite Org ID (numbers only)"></div></div>
           </div>
-          <div class="act-row" style="margin-top:16px">
-            <button class="act-btn primary" onclick="doLogout()"><i class="ti ti-logout" style="font-size:13px"></i>Go to Login → Update Keys</button>
+          <div class="api-field" style="margin-top:4px"><label><i class="ti ti-link"></i>Global Eventbrite URL <span style="font-size:9px;color:rgba(255,255,255,0.3);font-weight:400;letter-spacing:0;">(updates all Register buttons)</span></label><div class="api-input-wrap"><input type="text" id="dk-eburl" placeholder="https://www.eventbrite.com/e/your-event-id"></div></div>
+
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,214,0,0.6);margin:16px 0 10px;display:flex;align-items:center;gap:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.07);"><i class="ti ti-calendar-event" style="font-size:13px;color:var(--gold)"></i>Eventbrite Event IDs — one per day</div>
+          <p style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:12px;line-height:1.6">Find the ID in your Eventbrite URL: eventbrite.com/e/<b style="color:rgba(255,214,0,0.7)">123456789</b>. Each day links to its own Eventbrite page and embeds live registration.</p>
+          <div class="api-row">
+            <div class="api-field">
+              <label><i class="ti ti-sun-low" style="color:var(--sky)"></i>THU July 3 — Biz Mixer &amp; Workshop</label>
+              <div class="api-input-wrap"><input type="text" id="dk-eb-thu" placeholder="Thursday Event ID (e.g. 123456789)"></div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px">Covers: Small Business Mixer + Financial Literacy Workshop</div>
+            </div>
+            <div class="api-field">
+              <label><i class="ti ti-sun" style="color:var(--green)"></i>FRI July 4 — Taste of Lovejoy</label>
+              <div class="api-input-wrap"><input type="text" id="dk-eb-fri" placeholder="Friday Event ID (e.g. 123456790)"></div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px">Covers: Taste of ATL + Kids Carnival</div>
+            </div>
+            <div class="api-field">
+              <label><i class="ti ti-sun-filled" style="color:var(--pink)"></i>SAT July 5 — Cars, Bikes &amp; Vibes</label>
+              <div class="api-input-wrap"><input type="text" id="dk-eb-sat" placeholder="Saturday Event ID (e.g. 123456791)"></div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px">Covers: Main Event + Water Slides + Gamers Lounge</div>
+            </div>
+            <div class="api-field">
+              <label><i class="ti ti-moon" style="color:var(--gold)"></i>SUN July 6 — Day Party Finale</label>
+              <div class="api-input-wrap"><input type="text" id="dk-eb-sun" placeholder="Sunday Event ID (e.g. 123456792)"></div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:4px">Covers: Let's Skate + Housing Counseling Fair</div>
+            </div>
           </div>
+          <button class="api-save" onclick="saveApiKeys()" style="margin-top:10px"><i class="ti ti-device-floppy" style="font-size:14px"></i>Save All Keys</button>
+          <div class="api-saved" id="dkSaved"><i class="ti ti-check" style="font-size:12px;vertical-align:-1px"></i> Saved successfully</div>
         </div>
       </div>
       <div id="o-regs" class="dpanel">
@@ -265,12 +285,7 @@ function buildDash(role){
         <div class="ptitle">CRA &amp; Housing</div>
         <div class="sg"><div class="sc"><div class="sl">Sessions</div><div class="sv" style="color:var(--sky)">76</div><div class="ss">Booked</div></div><div class="sc"><div class="sl">CRA Hours</div><div class="sv" style="color:var(--green)">152</div></div><div class="sc"><div class="sl">Partner Banks</div><div class="sv" style="color:var(--gold)">3</div></div></div>
       </div>`;
-    setTimeout(()=>{
-      ['eventbrite','mailchimp','firebase','orgid','eburl'].forEach(k=>{
-        const v=localStorage.getItem('cbp_key_'+k);
-        if(v){const el=document.getElementById('dk-'+k);if(el)el.value=v;}
-      });
-    },100);
+    setTimeout(()=>{ loadApiKeys(); },150);
   } else if(role==='staff'){
     sidebar.innerHTML=`
       <div class="sb-sec">My Tools</div>
