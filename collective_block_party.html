@@ -4,18 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Collective Block Party — Lovejoy, GA · July 3–6, 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Teko:wght@500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{--pink:#FF0AA0;--gold:#FFD600;--green:#00FF6A;--sky:#00CFFF;--orange:#FF6B00;--purple:#9B00FF;--dark:#080810;--border:rgba(255,255,255,0.1);}
-body{font-family:'Barlow Condensed',sans-serif;background:var(--dark);color:#fff;overflow-x:hidden;}
+body{font-family:'Barlow Condensed',Arial,sans-serif;background:var(--dark);color:#fff;overflow-x:hidden;}
 .page{display:none;min-height:100vh;padding-top:56px;}
 .page.active{display:block;}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96);backdrop-filter:blur(12px);border-bottom:2px solid rgba(255,0,160,0.3);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;}
-.nav-logo{font-family:'Permanent Marker',cursive;font-size:17px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
+.nav-logo{font-family:'Permanent Marker',cursive,fantasy;font-size:17px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
 .nav-links{display:flex;gap:4px;}
 .nav-btn{background:none;border:none;color:rgba(255,255,255,0.65);font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;padding:6px 13px;cursor:pointer;border-radius:6px;transition:all .2s;text-transform:uppercase;display:flex;align-items:center;gap:5px;}
 .nav-btn:hover,.nav-btn.active{background:var(--pink);color:#fff;}
@@ -28,9 +30,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,0,160,0.3),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(0,207,255,0.18),transparent 50%),linear-gradient(180deg,#080810,#10081a);}
 .hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px);background-size:30px 30px;}
 .presents{font-size:12px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:8px;}
-.h-the{font-family:'Permanent Marker',cursive;font-size:clamp(24px,5vw,52px);line-height:1;margin-bottom:-6px;}
-.h-col{font-family:'Permanent Marker',cursive;font-size:clamp(52px,13vw,124px);line-height:.88;background:linear-gradient(135deg,var(--pink) 0%,var(--gold) 50%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
-.h-bp{font-family:'Permanent Marker',cursive;font-size:clamp(32px,8vw,84px);color:var(--gold);line-height:1;margin-bottom:16px;}
+.h-the{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(24px,5vw,52px);line-height:1;margin-bottom:-6px;}
+.h-col{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(52px,13vw,124px);line-height:.88;background:linear-gradient(135deg,var(--pink) 0%,var(--gold) 50%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.h-bp{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(32px,8vw,84px);color:var(--gold);line-height:1;margin-bottom:16px;}
 .h-loc{font-size:clamp(16px,3vw,24px);letter-spacing:4px;color:rgba(255,255,255,0.85);text-transform:uppercase;margin-bottom:8px;}
 .h-tag{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,4.5vw,44px);font-weight:900;font-style:italic;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:28px;}
@@ -38,7 +40,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .btn-hot:hover{transform:translateY(-2px);}
 .btn-ol{background:transparent;color:var(--gold);border:2px solid var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:12px 30px;border-radius:10px;cursor:pointer;transition:all .2s;}
 .btn-ol:hover{background:var(--gold);color:#000;}
-.meet{font-family:'Permanent Marker',cursive;font-size:clamp(16px,3.5vw,34px);color:var(--pink);margin-top:4px;}
+.meet{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(16px,3.5vw,34px);color:var(--pink);margin-top:4px;}
 
 /* DAY STRIP */
 .day-strip{background:#0C0C18;border-top:2px solid rgba(255,0,160,0.25);border-bottom:2px solid rgba(255,0,160,0.25);}
@@ -46,7 +48,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .dtile{padding:22px 14px;border-right:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:background .2s;text-align:center;}
 .dtile:last-child{border-right:none;}
 .dtile:hover{background:rgba(255,255,255,0.04);}
-.tday{font-family:'Permanent Marker',cursive;font-size:24px;margin-bottom:2px;}
+.tday{font-family:'Permanent Marker',cursive,fantasy;font-size:24px;margin-bottom:2px;}
 .tdate{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6px;}
 .ttitle{font-family:'Teko',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;margin-bottom:5px;}
 .tsub{font-size:11px;color:rgba(255,255,255,0.5);line-height:1.4;margin-bottom:8px;}
@@ -56,13 +58,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .sat .tday,.sat .ttime{color:var(--pink);}.sat .ttime{background:rgba(255,0,160,0.1);border:1px solid rgba(255,0,160,0.25);}
 .sun .tday,.sun .ttime{color:var(--gold);}.sun .ttime{background:rgba(255,214,0,0.08);border:1px solid rgba(255,214,0,0.2);}
 .pillars{display:flex;justify-content:center;border-top:1px solid rgba(255,255,255,0.05);}
-.pillar{flex:1;text-align:center;padding:16px;font-family:'Permanent Marker',cursive;font-size:clamp(13px,2.2vw,20px);}
+.pillar{flex:1;text-align:center;padding:16px;font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(13px,2.2vw,20px);}
 .pillar:nth-child(1){color:var(--sky);}.pillar:nth-child(2){color:var(--pink);}.pillar:nth-child(3){color:var(--gold);}
 
 /* SECTIONS */
 .sec{padding:52px 20px;max-width:1060px;margin:0 auto;}
 .sec-eye{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--pink);margin-bottom:8px;}
-.sec-title{font-family:'Permanent Marker',cursive;font-size:clamp(28px,5vw,48px);line-height:1.1;margin-bottom:24px;}
+.sec-title{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(28px,5vw,48px);line-height:1.1;margin-bottom:24px;}
 .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:13px;}
 .fcard{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:20px 16px;cursor:pointer;transition:all .22s;}
 .fcard:hover{background:rgba(255,255,255,0.08);transform:translateY(-3px);}
@@ -72,12 +74,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 
 /* EVENTS PAGE */
 .ev-hero{padding:44px 20px 24px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(255,0,160,0.18),transparent 55%);}
-.ev-hero h1{font-family:'Permanent Marker',cursive;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
+.ev-hero h1{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;}
 .ev-hero p{font-size:14px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;}
 .ev-wrap{max-width:920px;margin:0 auto;padding:0 20px 56px;}
 .day-block{margin-bottom:44px;}
 .db-head{display:flex;align-items:center;gap:16px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.db-num{font-family:'Permanent Marker',cursive;font-size:52px;line-height:1;}
+.db-num{font-family:'Permanent Marker',cursive,fantasy;font-size:52px;line-height:1;}
 .db-info h3{font-family:'Teko',sans-serif;font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
 .db-info p{font-size:13px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
 .ecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:13px;}
@@ -97,7 +99,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 
 /* SPONSORS PAGE */
 .sp-hero{padding:44px 20px 28px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(255,214,0,0.15),transparent 50%);}
-.sp-hero h1{font-family:'Permanent Marker',cursive;font-size:clamp(32px,7vw,68px);line-height:1.1;margin-bottom:10px;}
+.sp-hero h1{font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(32px,7vw,68px);line-height:1.1;margin-bottom:10px;}
 .sp-hero p{font-size:15px;color:rgba(255,255,255,0.58);max-width:540px;margin:0 auto 24px;line-height:1.6;}
 .sp-wrap{max-width:1060px;margin:0 auto;padding:0 20px 56px;position:relative;}
 .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:13px;margin-bottom:44px;}
@@ -113,7 +115,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .tier.gold .tbadge{background:rgba(255,214,0,0.15);color:var(--gold);}
 .tier.silv .tbadge{background:rgba(160,160,190,0.12);color:#B0B0D0;}
 .tier.comm .tbadge{background:rgba(0,207,255,0.12);color:var(--sky);}
-.tamt{font-family:'Permanent Marker',cursive;font-size:40px;line-height:1;margin-bottom:5px;}
+.tamt{font-family:'Permanent Marker',cursive,fantasy;font-size:40px;line-height:1;margin-bottom:5px;}
 .tname{font-family:'Teko',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;margin-bottom:13px;color:rgba(255,255,255,0.65);}
 .tperks{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
 .tperks li{font-size:12px;color:rgba(255,255,255,0.62);display:flex;align-items:flex-start;gap:7px;line-height:1.4;}
@@ -139,10 +141,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .zip{background:rgba(0,207,255,0.1);color:var(--sky);font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:5px;}
 .reach-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;}
 .ritem{text-align:center;}
-.rval{font-family:'Permanent Marker',cursive;font-size:24px;color:var(--gold);}
+.rval{font-family:'Permanent Marker',cursive,fantasy;font-size:24px;color:var(--gold);}
 .rlbl{font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.38);text-transform:uppercase;}
 .cra-box{background:rgba(0,207,255,0.05);border:1px solid rgba(0,207,255,0.16);border-radius:13px;padding:24px;margin-top:24px;}
-.cra-box h3{font-family:'Permanent Marker',cursive;font-size:22px;color:var(--sky);margin-bottom:7px;}
+.cra-box h3{font-family:'Permanent Marker',cursive,fantasy;font-size:22px;color:var(--sky);margin-bottom:7px;}
 .cra-box p{font-size:13px;color:rgba(255,255,255,0.58);line-height:1.7;margin-bottom:16px;}
 .cra4{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;}
 .cra4 .ct{background:rgba(0,207,255,0.07);border:1px solid rgba(0,207,255,0.14);border-radius:9px;padding:13px;}
@@ -153,7 +155,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:200;align-items:center;justify-content:center;}
 .modal-ov.open{display:flex;}
 .mbox{background:#100C1A;border:1px solid rgba(255,0,160,0.25);border-radius:18px;padding:30px;width:min(400px,92vw);}
-.mbox h2{font-family:'Permanent Marker',cursive;font-size:24px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
+.mbox h2{font-family:'Permanent Marker',cursive,fantasy;font-size:24px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
 .mbox .msub-txt{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:18px;}
 .mf{margin-bottom:12px;}
 .mf label{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:5px;}
@@ -170,7 +172,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .login-wrap{width:min(440px,96vw);}
 .login-icon{width:52px;height:52px;border-radius:50%;background:rgba(255,0,160,0.15);border:1px solid rgba(255,0,160,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
 .login-icon i{font-size:24px;color:var(--pink);}
-.login-title{font-family:'Permanent Marker',cursive;font-size:26px;text-align:center;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
+.login-title{font-family:'Permanent Marker',cursive,fantasy;font-size:26px;text-align:center;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
 .login-sub{font-size:12px;letter-spacing:3px;color:rgba(255,255,255,0.35);text-transform:uppercase;text-align:center;margin-bottom:24px;}
 .login-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:26px;}
 .role-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:18px;}
@@ -245,7 +247,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,0.96)
 .main{flex:1;padding:22px;overflow:auto;}
 .dpanel{display:none;}
 .dpanel.active{display:block;}
-.ptitle{font-family:'Permanent Marker',cursive;font-size:28px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:18px;}
+.ptitle{font-family:'Permanent Marker',cursive,fantasy;font-size:28px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:18px;}
 .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:11px;margin-bottom:18px;}
 .sc{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:15px;}
 .sc .sl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:5px;}
@@ -321,6 +323,12 @@ footer span{color:var(--pink);}
 </style>
 </head>
 <body>
+<noscript style="display:block;padding:40px;text-align:center;font-family:sans-serif;font-size:18px;background:#080810;color:#fff;">
+  JavaScript is required to view this site. Please enable JavaScript in your browser settings.
+</noscript>
+<div id="jsCheck" style="position:fixed;bottom:20px;right:20px;background:#00FF6A;color:#000;padding:10px 18px;border-radius:8px;font-family:sans-serif;font-size:13px;font-weight:700;z-index:9999;display:none;">
+  ✓ Site loaded successfully
+</div>
 
 <!-- NAV -->
 <nav>
@@ -516,7 +524,7 @@ footer span{color:var(--pink);}
 <div id="registration" class="page">
   <div class="ev-hero">
     <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Secure Your Spot</div>
-    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">Register Now</h1>
+    <h1 style="font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(40px,8vw,76px);background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">Register Now</h1>
     <p style="font-size:14px;letter-spacing:4px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;">July 3&ndash;6, 2025 &middot; Lovejoy, GA &middot; Outside All Weekend</p>
   </div>
 
@@ -682,7 +690,7 @@ footer span{color:var(--pink);}
           </div>
           <div style="text-align:center;padding:16px 24px;background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid rgba(255,255,255,0.1);">
             <div style="font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:4px;">Weekend Pass</div>
-            <div style="font-family:'Permanent Marker',cursive;font-size:48px;color:var(--gold);line-height:1;">$45</div>
+            <div style="font-family:'Permanent Marker',cursive,fantasy;font-size:48px;color:var(--gold);line-height:1;">$45</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;">Save up to $65 vs. individual tickets</div>
             <button class="rc-btn primary-btn" onclick="openReg('weekend-pass')"><i class="ti ti-star" aria-hidden="true"></i> Get Weekend Pass &rarr;</button>
           </div>
@@ -695,7 +703,7 @@ footer span{color:var(--pink);}
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
         <div>
           <div class="sec-eye" style="margin-bottom:4px">Eventbrite Secure Registration</div>
-          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--gold)" id="ebEventTitle">Event Name</div>
+          <div style="font-family:'Permanent Marker',cursive,fantasy;font-size:28px;color:var(--gold)" id="ebEventTitle">Event Name</div>
         </div>
         <button onclick="closeReg()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:8px 16px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;"><i class="ti ti-x" aria-hidden="true"></i> Close</button>
       </div>
@@ -868,6 +876,12 @@ footer span{color:var(--pink);}
 </div>
 
 <script>
+// ── Startup check — confirms JS is executing ──
+(function(){
+  var b = document.getElementById('jsCheck');
+  if(b){ b.style.display='block'; setTimeout(function(){ b.style.display='none'; }, 3000); }
+})();
+
 const USERS={
   'admin@collectivebp.com':   {pass:'admin123',  role:'organizer',name:'Admin',             init:'AD',roleLabel:'Organizer',roleClass:'rp-org', avatarBg:'rgba(255,0,160,0.2)',  avatarColor:'var(--pink)'},
   'staff@collectivebp.com':   {pass:'staff123',  role:'staff',    name:'Staff Member',       init:'ST',roleLabel:'Staff',    roleClass:'rp-staff',avatarBg:'rgba(0,207,255,0.18)',avatarColor:'var(--sky)'},
