@@ -1,6 +1,6 @@
 /* ============================================================
    The Collective Block Party — Main Application Script
-   Vets Central & The Community · Lovejoy, GA · July 3–6 2025
+   Vets Central & The Community · Lovejoy, GA · July 3–6 2026
 
    Sections:
      1. User accounts & auth (demo credentials)
@@ -98,9 +98,11 @@ function saveApiKeys(){
 }
 function setEventbriteUrl(url){
   if(!url||!url.startsWith('http'))return;
-  document.querySelectorAll('[id^="reg-"]').forEach(el=>el.href=url);
-  document.getElementById('ticketLink').href=url;
-  document.getElementById('heroTicketBtn').href=url;
+  /* Update any direct Eventbrite anchor links in the Events page */
+  document.querySelectorAll('[id^="reg-"]').forEach(el=>{
+    if(el.tagName==='A') el.href=url;
+  });
+  /* ticketLink and heroTicketBtn are now buttons → no href to update */
 }
 function doLogin(){
   const email=document.getElementById('lEmail').value.trim().toLowerCase();
