@@ -443,172 +443,340 @@
 
 <!-- VENDOR PAGE -->
 <div id="vendorPage" class="page">
-  <div class="ev-hero" style="background:radial-gradient(ellipse at 50% 0%,rgba(255,107,0,0.2),transparent 55%);">
-    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">The Collective Block Party 2026</div>
-    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(38px,7vw,72px);background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">Vendor Portal</h1>
-    <p style="font-size:14px;letter-spacing:3px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-top:6px;">Apply &middot; Register &middot; Manage Your Booth</p>
+
+  <!-- Animated background -->
+  <div class="vp-bg">
+    <div class="vp-orb vp-orb1"></div>
+    <div class="vp-orb vp-orb2"></div>
+    <div class="vp-orb vp-orb3"></div>
+    <div class="vp-grid"></div>
   </div>
 
-  <div style="max-width:980px;margin:0 auto;padding:0 20px 60px;">
-
-    <!-- Role toggle -->
-    <div style="display:flex;gap:8px;justify-content:center;margin-bottom:28px;flex-wrap:wrap;">
-      <button class="vendor-tab active" id="vtab-apply" onclick="showVendorTab('apply',this)"><i class="ti ti-forms"></i> Apply as Vendor</button>
-      <button class="vendor-tab" id="vtab-login" onclick="showVendorTab('login',this)"><i class="ti ti-login"></i> Vendor Login</button>
-      <button class="vendor-tab" id="vtab-info" onclick="showVendorTab('info',this)"><i class="ti ti-info-circle"></i> Booth Info & Pricing</button>
+  <!-- Hero -->
+  <div class="vp-hero">
+    <div class="vp-hero-badge"><i class="ti ti-store"></i> Vendor Portal</div>
+    <h1 class="vp-hero-title">Claim Your<br><span class="vp-hero-accent">Booth Space</span></h1>
+    <p class="vp-hero-sub">Join 800+ attendees across 4 days &middot; Lovejoy, GA &middot; July 3&ndash;6, 2026</p>
+    <div class="vp-hero-stats">
+      <div class="vp-stat"><div class="vp-stat-val">800+</div><div class="vp-stat-lbl">Attendees</div></div>
+      <div class="vp-stat-div"></div>
+      <div class="vp-stat"><div class="vp-stat-val">4</div><div class="vp-stat-lbl">Days</div></div>
+      <div class="vp-stat-div"></div>
+      <div class="vp-stat"><div class="vp-stat-val">$150</div><div class="vp-stat-lbl">From/Day</div></div>
+      <div class="vp-stat-div"></div>
+      <div class="vp-stat"><div class="vp-stat-val">Limited</div><div class="vp-stat-lbl">Spots Left</div></div>
     </div>
+  </div>
 
-    <!-- APPLY PANEL -->
+  <!-- Tab switcher -->
+  <div class="vp-tabs-wrap">
+    <div class="vp-tabs">
+      <button class="vp-tab active" id="vtab-apply" onclick="showVendorTab(\'apply\',this)">
+        <i class="ti ti-forms"></i> Apply Now
+      </button>
+      <button class="vp-tab" id="vtab-login" onclick="showVendorTab(\'login\',this)">
+        <i class="ti ti-lock"></i> Vendor Login
+      </button>
+      <button class="vp-tab" id="vtab-info" onclick="showVendorTab(\'info\',this)">
+        <i class="ti ti-info-circle"></i> Pricing & Info
+      </button>
+    </div>
+  </div>
+
+  <div class="vp-body">
+
+    <!-- ── APPLY PANEL ── -->
     <div id="vendor-apply" class="vendor-panel">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,107,0,0.25);border-radius:14px;padding:24px;">
-          <div style="font-family:'Permanent Marker',cursive;font-size:22px;color:var(--orange);margin-bottom:4px;">Apply for a Booth</div>
-          <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;line-height:1.6">Fill out the form below. Applications reviewed within 48 hours. You'll receive a confirmation email with payment instructions.</p>
-          <div class="vform-field"><label>Business Name <span style="color:var(--pink)">*</span></label><input type="text" placeholder="e.g. Mama T's Kitchen" id="v-bizname"></div>
-          <div class="vform-field"><label>Your Full Name <span style="color:var(--pink)">*</span></label><input type="text" placeholder="First and last name" id="v-name"></div>
-          <div class="vform-field"><label>Email Address <span style="color:var(--pink)">*</span></label><input type="email" placeholder="you@email.com" id="v-email"></div>
-          <div class="vform-field"><label>Phone Number</label><input type="tel" placeholder="(XXX) XXX-XXXX" id="v-phone"></div>
-          <div class="vform-field"><label>Vendor Category <span style="color:var(--pink)">*</span></label>
-            <select id="v-cat">
-              <option value="">Select category...</option>
-              <option>Food &amp; Beverage</option>
-              <option>Retail &amp; Merchandise</option>
-              <option>Arts &amp; Crafts</option>
-              <option>Health &amp; Wellness</option>
-              <option>Services &amp; Information</option>
-              <option>Kids &amp; Family</option>
-              <option>Non-Profit / Community Org</option>
-            </select>
-          </div>
-          <div class="vform-field"><label>Which Day(s)? <span style="color:var(--pink)">*</span></label>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
-              <label class="vcheck"><input type="checkbox" value="thu"> THU July 3</label>
-              <label class="vcheck"><input type="checkbox" value="fri"> FRI July 4</label>
-              <label class="vcheck"><input type="checkbox" value="sat"> SAT July 5</label>
-              <label class="vcheck"><input type="checkbox" value="sun"> SUN July 6</label>
-            </div>
-          </div>
-          <div class="vform-field"><label>Booth Size Needed</label>
-            <select id="v-size">
-              <option>10x10 (standard)</option>
-              <option>10x20 (double)</option>
-              <option>Food Truck Space</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div class="vform-field"><label>Brief Description of What You're Selling / Offering</label>
-            <textarea id="v-desc" rows="3" placeholder="Tell us about your products or services..." style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.11);border-radius:8px;padding:10px 13px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:13px;outline:none;resize:vertical;line-height:1.5;"></textarea>
-          </div>
-          <button class="vendor-submit-btn" onclick="submitVendorApp()"><i class="ti ti-send"></i> Submit Application</button>
-          <div id="vendor-success" style="display:none;margin-top:12px;background:rgba(0,255,106,0.08);border:1px solid rgba(0,255,106,0.25);border-radius:9px;padding:12px 16px;font-size:13px;color:var(--green);">
-            <i class="ti ti-check" style="font-size:14px;vertical-align:-1px;margin-right:6px"></i>Application submitted! Check your email within 48 hours for next steps.
-          </div>
-        </div>
+      <div class="vp-two-col">
 
-        <!-- right side info -->
-        <div>
-          <div style="background:rgba(255,107,0,0.07);border:1px solid rgba(255,107,0,0.2);border-radius:13px;padding:20px;margin-bottom:14px;">
-            <div style="font-family:'Teko',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;color:var(--orange);margin-bottom:12px;">Why Vend With Us?</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-users" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>800+ attendees across 4 days</div>
-              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-map-pin" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Prime South Metro ATL location, Lovejoy GA</div>
-              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-star" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Featured on event website &amp; social media</div>
-              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-tool" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Setup support &amp; on-site event staff</div>
-              <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:rgba(255,255,255,0.7)"><i class="ti ti-heart" style="color:var(--orange);font-size:15px;flex-shrink:0;margin-top:1px"></i>Community-first audience — engaged &amp; buying</div>
-            </div>
-          </div>
-          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:20px;">
-            <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:12px;">Important Dates</div>
-            <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(255,255,255,0.65);">
-              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Applications Open</span><span style="color:var(--gold)">Now</span></div>
-              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Early Bird Deadline</span><span style="color:var(--gold)">May 1, 2026</span></div>
-              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Final Application Deadline</span><span style="color:var(--gold)">Jun 15, 2026</span></div>
-              <div style="display:flex;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,0.06)"><span>Vendor Confirmation Sent</span><span style="color:var(--gold)">Jun 20, 2026</span></div>
-              <div style="display:flex;justify-content:space-between"><span>Setup Day</span><span style="color:var(--gold)">Jul 3, 2026 — AM</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LOGIN PANEL -->
-    <div id="vendor-login" class="vendor-panel" style="display:none;">
-      <div style="max-width:420px;margin:0 auto;">
-        <div id="vl-form" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,0,0.25);border-radius:18px;padding:28px;">
-          <div style="font-family:'Permanent Marker',cursive;font-size:24px;background:linear-gradient(90deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;">Vendor Login</div>
-          <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:20px;">Access your booth dashboard, payment status, and event details.</p>
-          <div class="vform-field"><label>Email Address</label><input type="email" id="vl-email" placeholder="you@email.com" autocomplete="username"></div>
-          <div class="vform-field"><label>Password</label>
-            <div style="position:relative">
-              <input type="password" id="vl-pass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password" style="padding-right:40px">
-              <button onclick="togglePw('vl-pass',this)" type="button" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.35);cursor:pointer;font-size:15px" aria-label="Show password"><i class="ti ti-eye"></i></button>
-            </div>
-          </div>
-          <button class="vendor-submit-btn" onclick="vendorLogin()" style="margin-top:4px"><i class="ti ti-login"></i> Sign In</button>
-          <div id="vl-err" style="color:#FF6B6B;font-size:12px;text-align:center;min-height:16px;margin-top:8px"></div>
-          <div style="text-align:center;margin-top:14px;font-size:12px;color:rgba(255,255,255,0.4)">
-            Don't have an account? <button onclick="showVendorTab('apply',document.getElementById('vtab-apply'))" style="background:none;border:none;color:var(--orange);cursor:pointer;font-size:12px;font-family:'Barlow Condensed',sans-serif;font-weight:700">Apply as a Vendor →</button>
-          </div>
-        </div>
-
-        <!-- Logged-in vendor dashboard (shown after login) -->
-        <div id="vendor-dashboard" style="display:none;margin-top:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,107,0,0.2);border-radius:14px;padding:22px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <!-- Left: form -->
+        <div class="glass-card vp-form-card">
+          <div class="glass-card-header">
+            <div class="glass-card-icon"><i class="ti ti-sparkles"></i></div>
             <div>
-              <div style="font-family:'Teko',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;">Welcome back, <span id="vd-name" style="color:var(--orange)">Vendor</span></div>
-              <div style="font-size:12px;color:rgba(255,255,255,0.4)">Booth #<span id="vd-booth">A-12</span> &middot; <span id="vd-cat">Food &amp; Beverage</span></div>
+              <div class="glass-card-title">Vendor Application</div>
+              <div class="glass-card-sub">Applications reviewed within 48 hours</div>
             </div>
-            <button onclick="vendorLogout()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 13px;border-radius:6px;cursor:pointer;">Logout</button>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px;">
-            <div class="sc"><div class="sl">Payment</div><div class="sv" style="color:var(--green)">Paid</div></div>
-            <div class="sc"><div class="sl">Booth Size</div><div class="sv" style="color:var(--gold)">10x10</div></div>
-            <div class="sc"><div class="sl">Setup Time</div><div class="sv" style="color:var(--sky)">8AM</div></div>
-            <div class="sc"><div class="sl">Days Active</div><div class="sv" style="color:var(--orange)">SAT+SUN</div></div>
+
+          <div class="glass-form">
+            <div class="glass-form-row">
+              <div class="glass-field">
+                <label class="glass-label"><i class="ti ti-building-store"></i> Business Name <span class="req">*</span></label>
+                <div class="glass-input-wrap">
+                  <input type="text" id="v-bizname" class="glass-input" placeholder="Your business name">
+                  <div class="glass-input-line"></div>
+                </div>
+              </div>
+              <div class="glass-field">
+                <label class="glass-label"><i class="ti ti-user"></i> Your Full Name <span class="req">*</span></label>
+                <div class="glass-input-wrap">
+                  <input type="text" id="v-name" class="glass-input" placeholder="First and last name">
+                  <div class="glass-input-line"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-form-row">
+              <div class="glass-field">
+                <label class="glass-label"><i class="ti ti-mail"></i> Email <span class="req">*</span></label>
+                <div class="glass-input-wrap">
+                  <input type="email" id="v-email" class="glass-input" placeholder="you@email.com">
+                  <div class="glass-input-line"></div>
+                </div>
+              </div>
+              <div class="glass-field">
+                <label class="glass-label"><i class="ti ti-phone"></i> Phone Number</label>
+                <div class="glass-input-wrap">
+                  <input type="tel" id="v-phone" class="glass-input" placeholder="(XXX) XXX-XXXX">
+                  <div class="glass-input-line"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-field">
+              <label class="glass-label"><i class="ti ti-tag"></i> Vendor Category <span class="req">*</span></label>
+              <div class="glass-select-wrap">
+                <select id="v-cat" class="glass-select">
+                  <option value="">Select your category...</option>
+                  <option>Food &amp; Beverage</option>
+                  <option>Retail &amp; Merchandise</option>
+                  <option>Arts &amp; Crafts</option>
+                  <option>Health &amp; Wellness</option>
+                  <option>Services &amp; Information</option>
+                  <option>Kids &amp; Family</option>
+                  <option>Non-Profit / Community Org</option>
+                </select>
+                <i class="ti ti-chevron-down glass-select-icon"></i>
+              </div>
+            </div>
+
+            <div class="glass-field">
+              <label class="glass-label"><i class="ti ti-calendar-event"></i> Which Day(s)? <span class="req">*</span></label>
+              <div class="vp-day-picker">
+                <label class="vp-day-chip" id="chip-thu">
+                  <input type="checkbox" value="thu" onchange="toggleDayChip(this,'chip-thu')">
+                  <span class="chip-day">THU</span>
+                  <span class="chip-date">July 3</span>
+                </label>
+                <label class="vp-day-chip" id="chip-fri">
+                  <input type="checkbox" value="fri" onchange="toggleDayChip(this,'chip-fri')">
+                  <span class="chip-day">FRI</span>
+                  <span class="chip-date">July 4</span>
+                </label>
+                <label class="vp-day-chip" id="chip-sat">
+                  <input type="checkbox" value="sat" onchange="toggleDayChip(this,'chip-sat')">
+                  <span class="chip-day">SAT</span>
+                  <span class="chip-date">July 5</span>
+                </label>
+                <label class="vp-day-chip" id="chip-sun">
+                  <input type="checkbox" value="sun" onchange="toggleDayChip(this,'chip-sun')">
+                  <span class="chip-day">SUN</span>
+                  <span class="chip-date">July 6</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="glass-field">
+              <label class="glass-label"><i class="ti ti-layout-grid"></i> Booth Size</label>
+              <div class="vp-size-picker">
+                <label class="vp-size-chip active-size" id="size-1010" onclick="selectSize(\'size-1010\')">
+                  <div class="size-icon">◻️</div>
+                  <div class="size-name">10&times;10</div>
+                  <div class="size-price">Standard</div>
+                </label>
+                <label class="vp-size-chip" id="size-1020" onclick="selectSize(\'size-1020\')">
+                  <div class="size-icon">▭</div>
+                  <div class="size-name">10&times;20</div>
+                  <div class="size-price">Double</div>
+                </label>
+                <label class="vp-size-chip" id="size-truck" onclick="selectSize(\'size-truck\')">
+                  <div class="size-icon">🚚</div>
+                  <div class="size-name">Food Truck</div>
+                  <div class="size-price">Space</div>
+                </label>
+              </div>
+              <input type="hidden" id="v-size" value="10x10">
+            </div>
+
+            <div class="glass-field">
+              <label class="glass-label"><i class="ti ti-pencil"></i> What are you selling / offering?</label>
+              <div class="glass-input-wrap">
+                <textarea id="v-desc" class="glass-input glass-textarea" rows="3" placeholder="Tell us about your products or services..."></textarea>
+                <div class="glass-input-line"></div>
+              </div>
+            </div>
+
+            <button class="vp-submit-btn" onclick="submitVendorApp()" id="vp-submit">
+              <span class="vp-btn-text"><i class="ti ti-send"></i> Submit Application</span>
+              <div class="vp-btn-glow"></div>
+            </button>
+
+            <div id="vendor-success" class="vp-success" style="display:none">
+              <i class="ti ti-circle-check" style="font-size:22px"></i>
+              <div>
+                <strong>Application submitted!</strong><br>
+                Check your email within 48 hours for next steps and payment info.
+              </div>
+            </div>
           </div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.45);background:rgba(0,207,255,0.06);border:1px solid rgba(0,207,255,0.15);border-radius:8px;padding:10px 14px;line-height:1.6">
-            <i class="ti ti-info-circle" style="font-size:13px;vertical-align:-1px;margin-right:5px;color:var(--sky)"></i>
-            Your vendor packet with load-in map, rules, and parking info will be emailed 2 weeks before the event.
+        </div>
+
+        <!-- Right: info cards -->
+        <div class="vp-right-col">
+          <div class="glass-card vp-why-card">
+            <div class="vp-why-title"><i class="ti ti-rocket"></i> Why Vend With Us?</div>
+            <div class="vp-why-items">
+              <div class="vp-why-item"><div class="vp-why-icon" style="background:rgba(255,0,160,0.15);color:var(--pink)"><i class="ti ti-users"></i></div><div><strong>800+ attendees</strong><br><span>across 4 days</span></div></div>
+              <div class="vp-why-item"><div class="vp-why-icon" style="background:rgba(255,214,0,0.15);color:var(--gold)"><i class="ti ti-map-pin"></i></div><div><strong>Prime location</strong><br><span>South Metro Atlanta</span></div></div>
+              <div class="vp-why-item"><div class="vp-why-icon" style="background:rgba(0,207,255,0.15);color:var(--sky)"><i class="ti ti-star"></i></div><div><strong>Featured online</strong><br><span>Site &amp; social media</span></div></div>
+              <div class="vp-why-item"><div class="vp-why-icon" style="background:rgba(0,255,106,0.15);color:var(--green)"><i class="ti ti-heart"></i></div><div><strong>Engaged buyers</strong><br><span>Community-first crowd</span></div></div>
+            </div>
+          </div>
+
+          <div class="glass-card vp-dates-card">
+            <div class="vp-why-title"><i class="ti ti-calendar"></i> Key Dates</div>
+            <div class="vp-timeline">
+              <div class="vp-tl-item done"><div class="vp-tl-dot"></div><div><div class="vp-tl-label">Applications Open</div><div class="vp-tl-date" style="color:var(--green)">Now</div></div></div>
+              <div class="vp-tl-item"><div class="vp-tl-dot"></div><div><div class="vp-tl-label">Early Bird Deadline</div><div class="vp-tl-date">May 1, 2026</div></div></div>
+              <div class="vp-tl-item"><div class="vp-tl-dot"></div><div><div class="vp-tl-label">Final Deadline</div><div class="vp-tl-date">Jun 15, 2026</div></div></div>
+              <div class="vp-tl-item"><div class="vp-tl-dot"></div><div><div class="vp-tl-label">Confirmation Sent</div><div class="vp-tl-date">Jun 20, 2026</div></div></div>
+              <div class="vp-tl-item"><div class="vp-tl-dot"></div><div><div class="vp-tl-label">Setup Day</div><div class="vp-tl-date">Jul 3 AM</div></div></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- INFO PANEL -->
-    <div id="vendor-info" class="vendor-panel" style="display:none;">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:24px;">
-        <div style="background:rgba(255,107,0,0.07);border:1px solid rgba(255,107,0,0.25);border-radius:13px;padding:20px;">
-          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--orange);margin-bottom:4px;">$150</div>
-          <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Single Day</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;">10x10 space, 1 table &amp; 2 chairs, electricity access, vendor listing on website</div>
+    <!-- ── LOGIN PANEL ── -->
+    <div id="vendor-login" class="vendor-panel" style="display:none">
+      <div class="vp-login-wrap">
+        <div id="vl-form" class="glass-card vp-login-card">
+          <div class="glass-card-header">
+            <div class="glass-card-icon" style="background:rgba(255,107,0,0.2);color:var(--orange)"><i class="ti ti-lock-open"></i></div>
+            <div>
+              <div class="glass-card-title">Vendor Login</div>
+              <div class="glass-card-sub">Access your booth dashboard &amp; event details</div>
+            </div>
+          </div>
+          <div class="glass-form">
+            <div class="glass-field">
+              <label class="glass-label"><i class="ti ti-mail"></i> Email Address</label>
+              <div class="glass-input-wrap">
+                <input type="email" id="vl-email" class="glass-input" placeholder="you@email.com" autocomplete="username">
+                <div class="glass-input-line"></div>
+              </div>
+            </div>
+            <div class="glass-field">
+              <label class="glass-label"><i class="ti ti-key"></i> Password</label>
+              <div class="glass-input-wrap" style="position:relative">
+                <input type="password" id="vl-pass" class="glass-input" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password" style="padding-right:44px">
+                <button onclick="togglePw(\'vl-pass\',this)" type="button" class="glass-eye" aria-label="Show password"><i class="ti ti-eye"></i></button>
+                <div class="glass-input-line"></div>
+              </div>
+            </div>
+            <div id="vl-err" class="vp-err"></div>
+            <button class="vp-submit-btn" onclick="vendorLogin()">
+              <span class="vp-btn-text"><i class="ti ti-login"></i> Sign In</span>
+              <div class="vp-btn-glow"></div>
+            </button>
+            <div style="text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.4)">
+              No account yet? <button onclick="showVendorTab(\'apply\',document.getElementById(\'vtab-apply\'))" class="vp-link-btn">Apply as a Vendor &rarr;</button>
+            </div>
+          </div>
         </div>
-        <div style="background:rgba(255,214,0,0.07);border:2px solid rgba(255,214,0,0.35);border-radius:13px;padding:20px;position:relative;">
-          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 12px;border-radius:100px;">Best Value</div>
-          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--gold);margin-bottom:4px;">$450</div>
-          <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Full Weekend</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;">All 4 days, 10x10 space, featured on site &amp; social media, priority placement</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:20px;">
-          <div style="font-family:'Permanent Marker',cursive;font-size:28px;color:var(--pink);margin-bottom:4px;">$300</div>
-          <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Food Truck</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;">Dedicated truck space, hookup access, listing in food vendor map</div>
+
+        <!-- Vendor dashboard after login -->
+        <div id="vendor-dashboard" class="glass-card vp-dash-card" style="display:none">
+          <div class="vp-dash-header">
+            <div class="vp-dash-avatar"><i class="ti ti-building-store"></i></div>
+            <div>
+              <div class="vp-dash-name" id="vd-name">Vendor</div>
+              <div class="vp-dash-meta">Booth #<span id="vd-booth">TBA</span> &middot; <span id="vd-cat">Vendor</span></div>
+            </div>
+            <button onclick="vendorLogout()" class="vp-logout-btn"><i class="ti ti-logout"></i> Logout</button>
+          </div>
+          <div class="vp-dash-stats">
+            <div class="vp-ds"><div class="vp-ds-val" style="color:var(--green)">Paid</div><div class="vp-ds-lbl">Payment</div></div>
+            <div class="vp-ds"><div class="vp-ds-val" style="color:var(--gold)">10&times;10</div><div class="vp-ds-lbl">Booth Size</div></div>
+            <div class="vp-ds"><div class="vp-ds-val" style="color:var(--sky)">8AM</div><div class="vp-ds-lbl">Setup Time</div></div>
+            <div class="vp-ds"><div class="vp-ds-val" style="color:var(--orange)">SAT+SUN</div><div class="vp-ds-lbl">Active Days</div></div>
+          </div>
+          <div class="vp-dash-notice">
+            <i class="ti ti-info-circle" style="color:var(--sky);font-size:15px;flex-shrink:0"></i>
+            Your vendor packet with load-in map, rules, and parking will be emailed 2 weeks before the event.
+          </div>
         </div>
       </div>
-      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:13px;padding:20px;">
-        <div style="font-family:'Teko',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:14px;">What's Included</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;color:rgba(255,255,255,0.65);">
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>10x10 booth space</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>1 folding table &amp; 2 chairs</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Electricity access (20A)</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Vendor listing on website</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Load-in &amp; setup support</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>On-site event staff</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Shared WiFi access</div>
-          <div style="display:flex;align-items:center;gap:7px"><i class="ti ti-check" style="color:var(--green);font-size:14px"></i>Vendor parking pass</div>
+    </div>
+
+    <!-- ── INFO PANEL ── -->
+    <div id="vendor-info" class="vendor-panel" style="display:none">
+      <div class="vp-pricing-grid">
+        <div class="glass-card vp-price-card">
+          <div class="vp-price-header" style="background:linear-gradient(135deg,rgba(0,207,255,0.15),rgba(0,207,255,0.05))">
+            <div class="vp-price-icon">◻️</div>
+            <div class="vp-price-amount">$150<span>/day</span></div>
+            <div class="vp-price-name">Single Day</div>
+          </div>
+          <div class="vp-price-perks">
+            <div class="vp-perk"><i class="ti ti-check"></i> 10&times;10 booth space</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> 1 table &amp; 2 chairs</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Electricity (20A)</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Vendor site listing</div>
+          </div>
+          <button class="vp-price-btn" onclick="showVendorTab(\'apply\',document.getElementById(\'vtab-apply\'))">Apply Now &rarr;</button>
+        </div>
+
+        <div class="glass-card vp-price-card vp-price-featured">
+          <div class="vp-featured-badge">Best Value</div>
+          <div class="vp-price-header" style="background:linear-gradient(135deg,rgba(255,214,0,0.2),rgba(255,107,0,0.1))">
+            <div class="vp-price-icon">⭐</div>
+            <div class="vp-price-amount">$450<span>/weekend</span></div>
+            <div class="vp-price-name">Full Weekend</div>
+          </div>
+          <div class="vp-price-perks">
+            <div class="vp-perk"><i class="ti ti-check"></i> All 4 days included</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Priority placement</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Featured on website</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Social media spotlight</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Save $150 vs daily</div>
+          </div>
+          <button class="vp-price-btn vp-price-btn-gold" onclick="showVendorTab(\'apply\',document.getElementById(\'vtab-apply\'))">Apply Now &rarr;</button>
+        </div>
+
+        <div class="glass-card vp-price-card">
+          <div class="vp-price-header" style="background:linear-gradient(135deg,rgba(255,0,160,0.15),rgba(155,0,255,0.08))">
+            <div class="vp-price-icon">🚚</div>
+            <div class="vp-price-amount">$300<span>/day</span></div>
+            <div class="vp-price-name">Food Truck</div>
+          </div>
+          <div class="vp-price-perks">
+            <div class="vp-perk"><i class="ti ti-check"></i> Dedicated truck space</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Hookup access</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> Food vendor map listing</div>
+            <div class="vp-perk"><i class="ti ti-check"></i> High-traffic placement</div>
+          </div>
+          <button class="vp-price-btn" onclick="showVendorTab(\'apply\',document.getElementById(\'vtab-apply\'))">Apply Now &rarr;</button>
+        </div>
+      </div>
+
+      <div class="glass-card vp-includes-card">
+        <div class="vp-why-title"><i class="ti ti-gift"></i> Every Booth Includes</div>
+        <div class="vp-includes-grid">
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> 10&times;10 booth space</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> Folding table &amp; 2 chairs</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> 20A electricity access</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> Vendor listing on website</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> Load-in &amp; setup support</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> On-site event staff</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> Shared WiFi access</div>
+          <div class="vp-inc"><i class="ti ti-check" style="color:var(--green)"></i> Vendor parking pass</div>
         </div>
       </div>
     </div>
   </div>
+
   <footer>&copy; 2026 Vets Central &amp; The Community &middot; <span>The Collective Block Party</span> &middot; vendors@collectiveblockparty.com</footer>
 </div>
 
