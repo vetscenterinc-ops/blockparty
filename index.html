@@ -41,22 +41,81 @@
 
 <!-- HOME -->
 <div id="home" class="page active">
-  <div class="hero">
-    <div class="hero-bg"></div><div class="hero-dots"></div>
-    <div style="position:relative;z-index:2">
-      <div class="presents">Vets Central &amp; The Community Presents</div>
-      <div class="h-the">The</div>
-      <div class="h-col">COLLECTIVE</div>
-      <div class="h-bp">BLOCK PARTY</div>
-      <div class="h-loc">Lovejoy, GA &nbsp;&middot;&nbsp; July 3&ndash;6, 2026</div>
-      <div class="h-tag">Outside All Weekend</div>
-      <div class="hero-btns">
-        <button class="btn-hot" id="heroTicketBtn" onclick="go('registration',document.querySelectorAll('.nav-btn')[3])">
-          <i class="ti ti-ticket" style="font-size:16px"></i>Get Tickets Now
-        </button>
-        <button class="btn-ol" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">View Full Lineup</button>
+  <!-- FLYER HERO — full-screen immersive -->
+  <div class="flyer-hero">
+
+    <!-- Background: blurred flyer as ambient glow -->
+    <div class="flyer-hero-blur">
+      <img src="./assets/images/flyer.png" alt="" aria-hidden="true" class="flyer-blur-img">
+    </div>
+
+    <!-- Particle dots overlay -->
+    <div class="hero-dots" style="position:absolute;inset:0;z-index:1;opacity:0.4"></div>
+
+    <!-- Dark gradient overlay for readability -->
+    <div class="flyer-hero-overlay"></div>
+
+    <!-- Content layout: left text + right flyer -->
+    <div class="flyer-hero-inner">
+
+      <!-- Left: headline content -->
+      <div class="flyer-hero-left">
+        <div class="flyer-presents">Vets Central &amp; The Community Presents</div>
+        <div class="h-the" style="font-size:clamp(18px,3vw,36px)">The</div>
+        <div class="h-col" style="font-size:clamp(52px,11vw,110px)">COLLECTIVE</div>
+        <div class="h-bp" style="font-size:clamp(30px,7vw,72px)">BLOCK PARTY</div>
+        <div class="flyer-location">
+          <i class="ti ti-map-pin" style="font-size:16px;color:var(--pink)"></i>
+          Lovejoy, GA &nbsp;&middot;&nbsp; July 4th Weekend 2026
+        </div>
+        <div class="h-tag" style="font-size:clamp(18px,3.5vw,36px);margin-bottom:0">Outside All Weekend</div>
+
+        <!-- Day pills -->
+        <div class="flyer-day-pills">
+          <div class="fdp thu"><span>THU</span>Biz Mixer</div>
+          <div class="fdp fri"><span>FRI</span>Taste ATL</div>
+          <div class="fdp sat"><span>SAT</span>Cars &amp; Bikes</div>
+          <div class="fdp sun"><span>SUN</span>Let&#39;s Skate</div>
+        </div>
+
+        <div class="flyer-hero-btns">
+          <button class="btn-hot flyer-cta-main" id="heroTicketBtn" onclick="go('registration',document.querySelectorAll('.nav-btn')[3])">
+            <i class="ti ti-ticket" style="font-size:16px"></i>Get Tickets Now
+          </button>
+          <button class="btn-ol flyer-cta-sec" onclick="go('events',document.querySelectorAll('.nav-btn')[1])">
+            <i class="ti ti-calendar" style="font-size:15px"></i>Full Lineup
+          </button>
+        </div>
+
+        <div class="flyer-pillars">
+          <span>🏠 Housing</span>
+          <span class="fp-dot"></span>
+          <span>🎨 Culture</span>
+          <span class="fp-dot"></span>
+          <span>🤝 Community</span>
+        </div>
       </div>
-      <div class="meet">Meet Me In Lovejoy 🍑</div>
+
+      <!-- Right: the actual flyer, floating with glow -->
+      <div class="flyer-hero-right">
+        <div class="flyer-frame">
+          <div class="flyer-glow-ring"></div>
+          <img src="./assets/images/flyer.png"
+               alt="The Collective Block Party — Lovejoy GA July 4th Weekend 2026 — Outside All Weekend — Cars, Bikes, Vibes, Food, Music, Skating"
+               class="flyer-img"
+               loading="eager">
+          <div class="flyer-badge">
+            <i class="ti ti-ticket"></i> Tickets Available
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom scroll cue -->
+    <div class="flyer-scroll-cue">
+      <div class="flyer-scroll-text">Scroll to explore</div>
+      <div class="flyer-scroll-arrow"><i class="ti ti-chevron-down"></i></div>
     </div>
   </div>
   <div class="day-strip">
@@ -92,6 +151,30 @@
       <div class="pillar">🤝 Community</div>
     </div>
   </div>
+  <div class="flyer-meet-section">
+    <div class="fms-inner">
+      <div class="fms-text">
+        <div class="sec-eye">Meet Me In Lovejoy 🍑</div>
+        <div class="sec-title" style="background:linear-gradient(135deg,var(--pink),var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:clamp(28px,5vw,52px);line-height:1.1;margin-bottom:16px;">The Official<br>2026 Event Flyer</div>
+        <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.8;margin-bottom:20px;">Share it. Print it. Post it. The Collective Block Party is coming to Lovejoy, GA for 4 days of community, culture, cars, music, food, and memories.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-hot" style="font-size:14px;padding:11px 22px;" onclick="go('registration',document.querySelectorAll('.nav-btn')[3])">
+            <i class="ti ti-ticket" style="font-size:14px"></i>Get Tickets
+          </button>
+          <a href="./assets/images/flyer.png" download="CollectiveBlockParty2026.png" class="btn-ol" style="font-size:14px;padding:10px 22px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+            <i class="ti ti-download" style="font-size:14px"></i>Download Flyer
+          </a>
+        </div>
+      </div>
+      <div class="fms-flyer">
+        <div class="fms-flyer-wrap">
+          <img src="./assets/images/flyer.png" alt="Collective Block Party 2026 Official Flyer" class="fms-flyer-img" loading="lazy">
+          <div class="fms-flyer-shine"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="sec">
     <div class="sec-eye">What's Going Down</div>
     <div class="sec-title" style="background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">The Full Experience</div>
