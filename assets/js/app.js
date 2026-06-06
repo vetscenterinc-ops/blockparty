@@ -1,7 +1,7 @@
 /* ============================================================
    The Collective Block Party — Clean Button Handler Script
    Purpose: navigation, dashboard settings, Eventbrite links,
-   Gravity Forms placeholders, vendor tools, and chat.
+   Gravity Forms placeholders, vendor tools, chat, and event pages.
    ============================================================ */
 
 const SUPABASE_URL = 'https://mvftxnzvmmlzyrrqhitx.supabase.co';
@@ -23,6 +23,13 @@ const DEFAULT_EVENTBRITE_URLS = {
   'fri-taste': 'https://www.eventbrite.com/e/taste-of-lovejoy-the-collective-block-party-weekend-tickets-1991129970341?aff=oddtdtcreator',
   'sat-main': 'https://www.eventbrite.com/e/cars-bikes-bikes-the-collective-block-party-weekend-tickets-1991032727485?aff=oddtdtcreator',
   'sun-skate': 'https://www.eventbrite.com/e/lets-skate-day-party-finale-the-collective-block-party-weekend-tickets-1991245469803?aff=oddtdtcreator'
+};
+
+const EVENTBRITE_EVENT_IDS = {
+  'thu-mixer': '1991029263123',
+  'fri-taste': '1991129970341',
+  'sat-main': '1991032727485',
+  'sun-skate': '1991245469803'
 };
 
 const EVENTBRITE_EVENTS = [
@@ -248,11 +255,11 @@ function buildDash(role) {
   main.innerHTML = `
     <div id="o-overview" class="dpanel active">
       <div class="ptitle">Overview</div>
-      <div id="dash-empty-state" class="dcrd2"><h3>Dashboard Status</h3><p>Four Eventbrite links are already embedded as defaults. Use Eventbrite Links to review or override them.</p></div>
+      <div id="dash-empty-state" class="dcrd2"><h3>Dashboard Status</h3><p>Small Business Mixer now uses the official embedded Eventbrite checkout widget on its event page.</p></div>
       <div id="dash-live-data" style="display:none;"><div class="sg" id="dash-stats-grid"></div><div class="int-row" id="dash-int-row"></div></div>
       <div class="dcrd2"><h3>Quick Actions</h3><div class="act-row"><button class="act-btn primary" onclick="sp('o-eventbrite',document.querySelectorAll('#dashSidebar .ni')[5])">Manage Eventbrite Links</button><button class="act-btn" onclick="openEventbriteDashboard()">Open Eventbrite</button></div></div>
     </div>
-    <div id="o-regs" class="dpanel"><div class="ptitle">Registrations</div><div class="dcrd2"><h3>Eventbrite Registrations</h3><p>Customers register through Eventbrite. The public cards now open the matching Eventbrite checkout for the four links provided.</p></div></div>
+    <div id="o-regs" class="dpanel"><div class="ptitle">Registrations</div><div class="dcrd2"><h3>Eventbrite Registrations</h3><p>Customers register through Eventbrite. API sync comes later.</p></div></div>
     <div id="o-vendors" class="dpanel"><div class="ptitle">Vendors</div><div class="dcrd2"><h3>Vendor Applications</h3><p>Gravity Forms vendor entries will show here after Supabase sync is connected.</p></div></div>
     <div id="o-sponsors" class="dpanel"><div class="ptitle">Sponsors</div><div class="dcrd2"><h3>Sponsor Leads</h3><p>Gravity Forms sponsor entries will show here after Supabase sync is connected.</p></div></div>
     <div id="o-waivers" class="dpanel"><div class="ptitle">Waivers</div><div class="dcrd2"><h3>Waiver Submissions</h3><p>Gravity Forms signature waivers will show here after Supabase sync is connected.</p></div></div>
@@ -294,7 +301,7 @@ function eventbriteSettingsHTML() {
   return `
     <div class="api-dash-card">
       <h3><i class="ti ti-ticket"></i>Eventbrite IDs & Links</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px;">Four Eventbrite links are already embedded: Small Business Kickoff Mixer, Taste of Lovejoy, Cars/Bikes event, and Let's Skate Finale. Use these fields to override or add the remaining event links.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px;">Small Business Mixer uses the official Eventbrite checkout widget. Other events can be upgraded the same way as you provide embed code.</p>
       ${rows}
       <button class="api-save" onclick="saveEventbriteSettings()"><i class="ti ti-device-floppy"></i> Save Eventbrite Links</button>
       <button class="act-btn" onclick="clearEventbriteSettings()" style="margin-left:8px;">Clear Custom Overrides</button>
@@ -402,15 +409,100 @@ function syncDashboard() {
   if (liveData) liveData.style.display = 'block';
   if (statsGrid) statsGrid.innerHTML = `
     <div class="sc"><div class="sl">Eventbrite Links</div><div class="sv" style="color:var(--green)">${linkedCount}/${EVENTBRITE_EVENTS.length}</div><div class="ss">Default + saved links</div></div>
-    <div class="sc"><div class="sl">Eventbrite API</div><div class="sv" style="color:var(--gold)">Pending</div><div class="ss">Direct registration works now</div></div>
+    <div class="sc"><div class="sl">Kickoff Widget</div><div class="sv" style="color:var(--gold)">Embedded</div><div class="ss">Official checkout widget</div></div>
     <div class="sc"><div class="sl">Forms</div><div class="sv" style="color:var(--sky)">Gravity</div><div class="ss">Embed next</div></div>`;
   if (intRow) intRow.innerHTML = `
     <div class="itile"><div style="font-size:20px">🎟️</div><div class="iname">Registration Pages</div><div class="ist">${linkedCount} Eventbrite links configured</div><div class="icnt">${linkedCount}/${EVENTBRITE_EVENTS.length}</div></div>
-    <div class="itile"><div style="font-size:20px">📝</div><div class="iname">Gravity Forms</div><div class="ist">Use iframe embed</div><div class="icnt">Ready</div></div>`;
+    <div class="itile"><div style="font-size:20px">💼</div><div class="iname">Small Business Mixer</div><div class="ist">Official Eventbrite widget installed</div><div class="icnt">Live</div></div>`;
 }
 
 function openEventbriteDashboard() {
   window.open('https://www.eventbrite.com/organizations/events', '_blank', 'noopener');
+}
+
+function loadEventbriteWidgetScript(callback) {
+  if (window.EBWidgets) { callback(); return; }
+  const existing = document.querySelector('script[data-eb-widgets="true"]');
+  if (existing) {
+    existing.addEventListener('load', callback, { once: true });
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = 'https://www.eventbrite.com/static/widgets/eb_widgets.js';
+  script.async = true;
+  script.dataset.ebWidgets = 'true';
+  script.onload = callback;
+  script.onerror = () => console.warn('Eventbrite widget script could not be loaded.');
+  document.head.appendChild(script);
+}
+
+function createEventbriteCheckout(eventId, containerId, height = 425) {
+  const container = $(containerId);
+  if (!container) return;
+  container.innerHTML = '<div style="padding:22px;text-align:center;color:rgba(255,255,255,.55);font-size:13px;">Loading secure Eventbrite checkout…</div>';
+  loadEventbriteWidgetScript(() => {
+    if (!window.EBWidgets) return;
+    container.innerHTML = '';
+    window.EBWidgets.createWidget({
+      widgetType: 'checkout',
+      eventId,
+      iframeContainerId: containerId,
+      iframeContainerHeight: height,
+      onOrderComplete: function () {
+        console.log('Order complete!');
+        const done = $('eb-order-complete-' + eventId);
+        if (done) done.style.display = 'block';
+      }
+    });
+  });
+}
+
+function smallBusinessMixerPageHTML() {
+  const url = getEventbriteUrl('thu-mixer');
+  return `
+    <div style="min-height:100vh;background:radial-gradient(circle at top left,rgba(0,207,255,.18),transparent 35%),radial-gradient(circle at bottom right,rgba(255,10,160,.14),transparent 42%),#080810;padding:88px 20px 56px;">
+      <div style="max-width:1120px;margin:0 auto;">
+        <button onclick="closeEventPage()" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:9px 16px;border-radius:999px;cursor:pointer;margin-bottom:22px;display:inline-flex;align-items:center;gap:7px;"><i class="ti ti-arrow-left"></i> Back to Registration</button>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,440px);gap:22px;align-items:start;">
+          <div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:clamp(22px,4vw,40px);box-shadow:0 24px 80px rgba(0,0,0,.42);backdrop-filter:blur(18px);position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,207,255,.13),transparent 36%,rgba(255,10,160,.1));pointer-events:none;"></div>
+            <div style="position:relative;z-index:1;">
+              <div style="display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--sky);background:rgba(0,207,255,.12);border:1px solid rgba(0,207,255,.28);padding:7px 12px;border-radius:999px;margin-bottom:16px;"><i class="ti ti-briefcase"></i> Thursday • July 3 • 5PM–11PM</div>
+              <h1 style="font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(42px,7vw,86px);line-height:.95;margin-bottom:12px;background:linear-gradient(135deg,var(--sky),var(--gold),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Small Business<br>Kickoff Mixer</h1>
+              <div style="font-family:'Teko',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:18px;">Network. Grow. Vibe.</div>
+              <p style="font-size:16px;color:rgba(255,255,255,.68);line-height:1.8;max-width:720px;margin-bottom:22px;">Kick off The Collective Block Party Weekend with entrepreneurs, vendors, community builders, sponsors, and resource partners. This is the business networking night that sets the tone for the whole weekend.</p>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:20px;">
+                ${['Local brand showcases','Resource tables','Live DJ + food vendors','VIP networking lounge','Pitch corner for entrepreneurs'].map(item => `<div style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px 14px;color:rgba(255,255,255,.72);font-size:13px;"><i class="ti ti-check" style="color:var(--green);margin-right:6px;"></i>${item}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="eventbrite-glass-card" style="background:rgba(14,14,28,.78);border:1px solid rgba(0,207,255,.22);border-radius:26px;padding:18px;box-shadow:0 24px 80px rgba(0,0,0,.55),0 0 34px rgba(0,207,255,.08);backdrop-filter:blur(18px);position:sticky;top:78px;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at top,rgba(0,207,255,.16),transparent 42%),radial-gradient(circle at bottom right,rgba(255,10,160,.11),transparent 45%);pointer-events:none;"></div>
+            <div style="position:relative;z-index:1;">
+              <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--green);font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:6px;"><i class="ti ti-lock"></i> Secure Eventbrite Registration</div>
+              <h3 style="font-family:'Teko',sans-serif;font-size:30px;line-height:1;text-transform:uppercase;margin-bottom:6px;">Register for the Mixer</h3>
+              <p style="font-size:13px;color:rgba(255,255,255,.58);line-height:1.55;margin-bottom:14px;">Complete your official Eventbrite checkout below. You will receive confirmation directly from Eventbrite.</p>
+              <div style="border-radius:18px;overflow:hidden;background:#fff;border:1px solid rgba(255,255,255,.14);min-height:425px;">
+                <div id="eventbrite-widget-container-1991029263123"></div>
+              </div>
+              <div id="eb-order-complete-1991029263123" style="display:none;margin-top:12px;padding:11px 13px;border-radius:12px;background:rgba(0,255,106,.12);border:1px solid rgba(0,255,106,.25);color:var(--green);font-size:13px;font-weight:800;">Order complete — check your email for confirmation.</div>
+              <a href="${url}" target="_blank" rel="noopener" class="btn-hot" style="width:100%;justify-content:center;margin-top:14px;text-decoration:none;"><i class="ti ti-external-link"></i> Open Secure Eventbrite Checkout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function openSmallBusinessMixerPage() {
+  const page = $('eventDetailPage');
+  if (!page) { openReg('thu-mixer'); return; }
+  page.innerHTML = smallBusinessMixerPageHTML();
+  const regBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.querySelector('i.ti-ticket') || b.textContent.trim().toLowerCase().includes('register'));
+  go('eventDetailPage', regBtn || null);
+  window.setTimeout(() => createEventbriteCheckout('1991029263123', 'eventbrite-widget-container-1991029263123', 425), 150);
 }
 
 function eventbriteFallbackHTML(title, url) {
@@ -461,8 +553,22 @@ function openReg(cardKey) {
   if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function openEventPage(cardKey) { openReg(cardKey); }
-function closeEventPage() { closeReg(); }
+function openEventPage(cardKey) {
+  if (cardKey === 'thu-mixer') {
+    openSmallBusinessMixerPage();
+    return;
+  }
+  if (typeof window.openOriginalEventPage === 'function') {
+    window.openOriginalEventPage(cardKey);
+    return;
+  }
+  openReg(cardKey);
+}
+
+function closeEventPage() {
+  const regBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.querySelector('i.ti-ticket') || b.textContent.trim().toLowerCase().includes('register'));
+  go('registration', regBtn || document.querySelectorAll('.nav-btn')[3]);
+}
 
 function closeReg() {
   const section = $('ebEmbedSection');
@@ -550,7 +656,7 @@ async function vendorLogout() {
 }
 
 const CHAT_RESPONSES = {
-  ticket: ['Click Register or Get Tickets. Each event opens its own Eventbrite registration page.', 'Tickets are handled through separate Eventbrite pages for each event.'],
+  ticket: ['Click Register or Get Tickets. The Small Business Mixer now uses an embedded Eventbrite checkout widget.', 'Tickets are handled through Eventbrite. Open each event page to register.'],
   vendor: ['Use the Vendors page to apply. We can embed your Gravity Form there.', 'Vendor applications should be handled through Gravity Forms with email notifications.'],
   sponsor: ['Visit Sponsors to pick a package or request details.', 'Sponsor interest can be collected with Gravity Forms and synced to Mailchimp.'],
   schedule: ['The event runs July 3–6, 2026 in Lovejoy, GA.', 'Check the Events page for the full lineup.'],
