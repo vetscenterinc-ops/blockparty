@@ -1,6 +1,7 @@
 /* ============================================================
    The Collective Block Party — Clean Button Handler Script
-   Purpose: keep all navigation/forms/chat/dashboard buttons working.
+   Purpose: navigation, dashboard settings, Eventbrite links,
+   Gravity Forms placeholders, vendor tools, and chat.
    ============================================================ */
 
 const SUPABASE_URL = 'https://mvftxnzvmmlzyrrqhitx.supabase.co';
@@ -16,6 +17,21 @@ const HINTS = {
   sponsor: 'sponsor account email',
   vendor: 'vendor account email'
 };
+
+const EVENTBRITE_EVENTS = [
+  { key: 'thu-mixer', day: 'THU July 3', name: 'Small Business Mixer' },
+  { key: 'thu-workshop', day: 'THU July 3', name: 'Financial Literacy Workshop' },
+  { key: 'fri-taste', day: 'FRI July 4', name: 'Taste of Lovejoy' },
+  { key: 'fri-kids', day: 'FRI July 4', name: 'Kids Carnival & Games' },
+  { key: 'sat-main', day: 'SAT July 5', name: 'Cars, Bikes & Vibes' },
+  { key: 'sat-slides', day: 'SAT July 5', name: 'Water Slides & Bubbles' },
+  { key: 'sat-gamers', day: 'SAT July 5', name: 'Gamers Lounge + Laser Tag' },
+  { key: 'sun-skate', day: 'SUN July 6', name: "Let's Skate! Day Party Finale" },
+  { key: 'sun-housing', day: 'SUN July 6', name: 'Housing Counseling Fair' },
+  { key: 'weekend-pass', day: 'All Weekend', name: 'Full Weekend Pass' }
+];
+
+const EVENT_NAMES = Object.fromEntries(EVENTBRITE_EVENTS.map(e => [e.key, `${e.name} — ${e.day}`]));
 
 function getSB() {
   if (!_sb && window.supabase) {
@@ -219,21 +235,23 @@ function buildDash(role) {
     <button class="ni" onclick="sp('o-vendors',this)"><i class="ti ti-store"></i><span>Vendors</span></button>
     <button class="ni" onclick="sp('o-sponsors',this)"><i class="ti ti-building"></i><span>Sponsors</span></button>
     <button class="ni" onclick="sp('o-waivers',this)"><i class="ti ti-file-check"></i><span>Waivers</span></button>
+    <button class="ni" onclick="sp('o-eventbrite',this)"><i class="ti ti-ticket"></i><span>Eventbrite Links</span></button>
     <button class="ni" onclick="sp('o-settings',this)"><i class="ti ti-settings"></i><span>Settings</span></button>`;
 
   main.innerHTML = `
     <div id="o-overview" class="dpanel active">
       <div class="ptitle">Overview</div>
-      <div id="dash-empty-state" class="dcrd2"><h3>Dashboard Status</h3><p>Buttons are working. Supabase tables, Gravity Forms sync, and Eventbrite API sync are next steps.</p></div>
+      <div id="dash-empty-state" class="dcrd2"><h3>Dashboard Status</h3><p>Use Eventbrite Links to paste each event's Eventbrite ID and URL. Registration pages will auto-use those values.</p></div>
       <div id="dash-live-data" style="display:none;"><div class="sg" id="dash-stats-grid"></div><div class="int-row" id="dash-int-row"></div></div>
-      <div class="dcrd2"><h3>Quick Actions</h3><div class="act-row"><button class="act-btn primary" onclick="syncDashboard()">Sync Status</button><button class="act-btn" onclick="openEventbriteDashboard()">Open Eventbrite</button></div></div>
+      <div class="dcrd2"><h3>Quick Actions</h3><div class="act-row"><button class="act-btn primary" onclick="sp('o-eventbrite',document.querySelectorAll('#dashSidebar .ni')[5])">Manage Eventbrite Links</button><button class="act-btn" onclick="openEventbriteDashboard()">Open Eventbrite</button></div></div>
     </div>
-    <div id="o-regs" class="dpanel"><div class="ptitle">Registrations</div><div class="dcrd2"><h3>Eventbrite Registrations</h3><p>Eventbrite API is not connected yet. Registration pages can still link directly to Eventbrite.</p></div></div>
+    <div id="o-regs" class="dpanel"><div class="ptitle">Registrations</div><div class="dcrd2"><h3>Eventbrite Registrations</h3><p>Customers will register through Eventbrite. API sync comes later; direct links work now.</p></div></div>
     <div id="o-vendors" class="dpanel"><div class="ptitle">Vendors</div><div class="dcrd2"><h3>Vendor Applications</h3><p>Gravity Forms vendor entries will show here after Supabase sync is connected.</p></div></div>
     <div id="o-sponsors" class="dpanel"><div class="ptitle">Sponsors</div><div class="dcrd2"><h3>Sponsor Leads</h3><p>Gravity Forms sponsor entries will show here after Supabase sync is connected.</p></div></div>
     <div id="o-waivers" class="dpanel"><div class="ptitle">Waivers</div><div class="dcrd2"><h3>Waiver Submissions</h3><p>Gravity Forms signature waivers will show here after Supabase sync is connected.</p></div></div>
+    <div id="o-eventbrite" class="dpanel"><div class="ptitle">Eventbrite Registration Links</div>${eventbriteSettingsHTML()}</div>
     <div id="o-settings" class="dpanel"><div class="ptitle">Settings</div>${apiSettingsHTML()}</div>`;
-  setTimeout(() => { loadApiKeys(); syncDashboard(); }, 100);
+  setTimeout(() => { loadApiKeys(); loadEventbriteSettings(); syncDashboard(); }, 100);
 }
 
 function apiSettingsHTML() {
@@ -249,6 +267,28 @@ function apiSettingsHTML() {
       </div>
       <button class="api-save" onclick="saveApiKeys()">Save Settings</button>
       <div class="api-saved" id="dkSaved">Saved successfully</div>
+    </div>`;
+}
+
+function eventbriteSettingsHTML() {
+  const rows = EVENTBRITE_EVENTS.map(e => `
+    <div class="api-field" style="background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;margin-bottom:10px;">
+      <label style="display:block;margin-bottom:8px;"><i class="ti ti-ticket"></i> ${e.day} — ${e.name}</label>
+      <div class="api-row" style="grid-template-columns:minmax(160px,0.7fr) minmax(220px,1.3fr);gap:10px;">
+        <div class="api-input-wrap"><input type="text" id="eb-id-${e.key}" placeholder="Eventbrite Event ID"></div>
+        <div class="api-input-wrap"><input type="text" id="eb-url-${e.key}" placeholder="Full Eventbrite URL"></div>
+      </div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:6px;">Storage keys: cbp_eb_id_${e.key} and cbp_eb_url_${e.key}</div>
+    </div>`).join('');
+
+  return `
+    <div class="api-dash-card">
+      <h3><i class="ti ti-ticket"></i>Eventbrite IDs & Links</h3>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px;">Paste each event's Eventbrite ID and/or full URL here. The public registration cards and registration panel will use the correct event-specific link automatically.</p>
+      ${rows}
+      <button class="api-save" onclick="saveEventbriteSettings()"><i class="ti ti-device-floppy"></i> Save Eventbrite Links</button>
+      <button class="act-btn" onclick="clearEventbriteSettings()" style="margin-left:8px;">Clear Links</button>
+      <div class="api-saved" id="ebSaved">Eventbrite links saved</div>
     </div>`;
 }
 
@@ -282,19 +322,78 @@ function saveApiKeys() {
   syncDashboard();
 }
 
+function loadEventbriteSettings() {
+  EVENTBRITE_EVENTS.forEach(e => {
+    const idEl = $('eb-id-' + e.key);
+    const urlEl = $('eb-url-' + e.key);
+    const id = localStorage.getItem('cbp_eb_id_' + e.key) || '';
+    const url = localStorage.getItem('cbp_eb_url_' + e.key) || '';
+    if (idEl) idEl.value = id;
+    if (urlEl) urlEl.value = url;
+  });
+}
+
+function saveEventbriteSettings() {
+  EVENTBRITE_EVENTS.forEach(e => {
+    const id = $('eb-id-' + e.key)?.value.trim() || '';
+    const url = $('eb-url-' + e.key)?.value.trim() || '';
+    if (id) localStorage.setItem('cbp_eb_id_' + e.key, id);
+    else localStorage.removeItem('cbp_eb_id_' + e.key);
+    if (url) localStorage.setItem('cbp_eb_url_' + e.key, url);
+    else localStorage.removeItem('cbp_eb_url_' + e.key);
+  });
+  updateRegistrationLinks();
+  const saved = $('ebSaved');
+  if (saved) { saved.style.display = 'block'; setTimeout(() => saved.style.display = 'none', 2500); }
+  syncDashboard();
+}
+
+function clearEventbriteSettings() {
+  if (!confirm('Clear all saved Eventbrite IDs and URLs?')) return;
+  EVENTBRITE_EVENTS.forEach(e => {
+    localStorage.removeItem('cbp_eb_id_' + e.key);
+    localStorage.removeItem('cbp_eb_url_' + e.key);
+  });
+  loadEventbriteSettings();
+  updateRegistrationLinks();
+  syncDashboard();
+}
+
+function getEventbriteUrl(cardKey) {
+  const specificUrl = localStorage.getItem('cbp_eb_url_' + cardKey);
+  const specificId = localStorage.getItem('cbp_eb_id_' + cardKey);
+  const globalUrl = localStorage.getItem('cbp_key_eburl');
+  if (specificUrl && specificUrl.startsWith('http')) return specificUrl;
+  if (specificId) return 'https://www.eventbrite.com/e/' + encodeURIComponent(specificId);
+  if (globalUrl && globalUrl.startsWith('http')) return globalUrl;
+  return '';
+}
+
+function updateRegistrationLinks() {
+  EVENTBRITE_EVENTS.forEach(e => {
+    const url = getEventbriteUrl(e.key);
+    const btn = $('btn-' + e.key);
+    if (btn && url) {
+      btn.dataset.eventbriteUrl = url;
+      btn.title = 'Opens ' + e.name + ' registration';
+    }
+  });
+}
+
 function syncDashboard() {
   const statsGrid = $('dash-stats-grid');
   const intRow = $('dash-int-row');
   const emptyState = $('dash-empty-state');
   const liveData = $('dash-live-data');
+  const linkedCount = EVENTBRITE_EVENTS.filter(e => getEventbriteUrl(e.key)).length;
   if (emptyState) emptyState.style.display = 'none';
   if (liveData) liveData.style.display = 'block';
   if (statsGrid) statsGrid.innerHTML = `
-    <div class="sc"><div class="sl">Buttons</div><div class="sv" style="color:var(--green)">Working</div><div class="ss">Script loaded</div></div>
-    <div class="sc"><div class="sl">Eventbrite</div><div class="sv" style="color:var(--gold)">Pending</div><div class="ss">API not connected</div></div>
+    <div class="sc"><div class="sl">Eventbrite Links</div><div class="sv" style="color:var(--green)">${linkedCount}/${EVENTBRITE_EVENTS.length}</div><div class="ss">Saved event links</div></div>
+    <div class="sc"><div class="sl">Eventbrite API</div><div class="sv" style="color:var(--gold)">Pending</div><div class="ss">Direct registration works now</div></div>
     <div class="sc"><div class="sl">Forms</div><div class="sv" style="color:var(--sky)">Gravity</div><div class="ss">Embed next</div></div>`;
   if (intRow) intRow.innerHTML = `
-    <div class="itile"><div style="font-size:20px">🎟️</div><div class="iname">Eventbrite</div><div class="ist">Direct links now, API later</div><div class="icnt">Pending</div></div>
+    <div class="itile"><div style="font-size:20px">🎟️</div><div class="iname">Registration Pages</div><div class="ist">${linkedCount} Eventbrite links configured</div><div class="icnt">${linkedCount}/${EVENTBRITE_EVENTS.length}</div></div>
     <div class="itile"><div style="font-size:20px">📝</div><div class="iname">Gravity Forms</div><div class="ist">Use iframe embed</div><div class="icnt">Ready</div></div>`;
 }
 
@@ -304,22 +403,37 @@ function openEventbriteDashboard() {
 
 function openReg(cardKey) {
   const title = EVENT_NAMES[cardKey] || 'Registration';
+  const url = getEventbriteUrl(cardKey);
   safeText('ebEventTitle', title);
   const section = $('ebEmbedSection');
   const iframe = $('ebIframe');
   const placeholder = $('ebPlaceholder');
   const directLink = $('ebDirectLink');
-  const url = localStorage.getItem('cbp_eb_url_' + cardKey) || localStorage.getItem('cbp_key_eburl') || '';
   if (section) section.style.display = 'block';
-  if (url && url.startsWith('http')) {
+  if (url) {
     if (iframe) { iframe.src = url; iframe.style.display = 'block'; }
     if (placeholder) placeholder.style.display = 'none';
-    if (directLink) directLink.href = url;
+    if (directLink) {
+      directLink.href = url;
+      directLink.textContent = 'Open Secure Eventbrite Checkout →';
+    }
   } else {
     if (iframe) iframe.style.display = 'none';
     if (placeholder) placeholder.style.display = 'block';
+    if (directLink) {
+      directLink.href = 'https://www.eventbrite.com';
+      directLink.textContent = 'Register on Eventbrite';
+    }
   }
   if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openEventPage(cardKey) {
+  openReg(cardKey);
+}
+
+function closeEventPage() {
+  closeReg();
 }
 
 function closeReg() {
@@ -336,19 +450,6 @@ function showEvt(day, btn) {
     c.style.display = (day === 'all' || c.dataset.day === day || c.dataset.day === 'all') ? 'flex' : 'none';
   });
 }
-
-const EVENT_NAMES = {
-  'thu-mixer': 'Small Business Mixer — Thu July 3',
-  'thu-workshop': 'Financial Literacy Workshop — Thu July 3',
-  'fri-taste': 'Taste of Lovejoy — Fri July 4',
-  'fri-kids': 'Kids Carnival & Games — Fri July 4',
-  'sat-main': 'Cars, Bikes & Vibes — Sat July 5',
-  'sat-slides': 'Water Slides & Bubbles — Sat July 5',
-  'sat-gamers': 'Gamers Lounge + Laser Tag — Sat July 5',
-  'sun-skate': 'Let\'s Skate! Day Party Finale — Sun July 6',
-  'sun-housing': 'Housing Counseling Fair — Sun July 6',
-  'weekend-pass': 'Full Weekend Pass — July 3–6'
-};
 
 async function fetchAllEventbritePrices() { console.info('Eventbrite API sync not connected yet.'); }
 
@@ -510,6 +611,7 @@ function initApp() {
   $('lEmail')?.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
   $('lPass')?.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
   loadApiKeys();
+  updateRegistrationLinks();
   restoreSession();
 }
 
