@@ -18,15 +18,22 @@ const HINTS = {
   vendor: 'vendor account email'
 };
 
+const DEFAULT_EVENTBRITE_URLS = {
+  'thu-mixer': 'https://www.eventbrite.com/e/small-business-kickoff-mixer-the-collective-block-party-weekend-tickets-1991029263123?aff=oddtdtcreator',
+  'fri-taste': 'https://www.eventbrite.com/e/taste-of-lovejoy-the-collective-block-party-weekend-tickets-1991129970341?aff=oddtdtcreator',
+  'sat-main': 'https://www.eventbrite.com/e/cars-bikes-bikes-the-collective-block-party-weekend-tickets-1991032727485?aff=oddtdtcreator',
+  'sun-skate': 'https://www.eventbrite.com/e/lets-skate-day-party-finale-the-collective-block-party-weekend-tickets-1991245469803?aff=oddtdtcreator'
+};
+
 const EVENTBRITE_EVENTS = [
-  { key: 'thu-mixer', day: 'THU July 3', name: 'Small Business Mixer' },
+  { key: 'thu-mixer', day: 'THU July 3', name: 'Small Business Kickoff Mixer' },
   { key: 'thu-workshop', day: 'THU July 3', name: 'Financial Literacy Workshop' },
   { key: 'fri-taste', day: 'FRI July 4', name: 'Taste of Lovejoy' },
   { key: 'fri-kids', day: 'FRI July 4', name: 'Kids Carnival & Games' },
-  { key: 'sat-main', day: 'SAT July 5', name: 'Cars, Bikes & Vibes' },
+  { key: 'sat-main', day: 'SAT July 5', name: 'Cars, Bikes, & Bikes' },
   { key: 'sat-slides', day: 'SAT July 5', name: 'Water Slides & Bubbles' },
   { key: 'sat-gamers', day: 'SAT July 5', name: 'Gamers Lounge + Laser Tag' },
-  { key: 'sun-skate', day: 'SUN July 6', name: "Let's Skate! Day Party Finale" },
+  { key: 'sun-skate', day: 'SUN July 6', name: "Let's Skate Day Party Finale" },
   { key: 'sun-housing', day: 'SUN July 6', name: 'Housing Counseling Fair' },
   { key: 'weekend-pass', day: 'All Weekend', name: 'Full Weekend Pass' }
 ];
@@ -241,11 +248,11 @@ function buildDash(role) {
   main.innerHTML = `
     <div id="o-overview" class="dpanel active">
       <div class="ptitle">Overview</div>
-      <div id="dash-empty-state" class="dcrd2"><h3>Dashboard Status</h3><p>Use Eventbrite Links to paste each event's Eventbrite ID and URL. Registration pages will auto-use those values.</p></div>
+      <div id="dash-empty-state" class="dcrd2"><h3>Dashboard Status</h3><p>Four Eventbrite links are already embedded as defaults. Use Eventbrite Links to review or override them.</p></div>
       <div id="dash-live-data" style="display:none;"><div class="sg" id="dash-stats-grid"></div><div class="int-row" id="dash-int-row"></div></div>
       <div class="dcrd2"><h3>Quick Actions</h3><div class="act-row"><button class="act-btn primary" onclick="sp('o-eventbrite',document.querySelectorAll('#dashSidebar .ni')[5])">Manage Eventbrite Links</button><button class="act-btn" onclick="openEventbriteDashboard()">Open Eventbrite</button></div></div>
     </div>
-    <div id="o-regs" class="dpanel"><div class="ptitle">Registrations</div><div class="dcrd2"><h3>Eventbrite Registrations</h3><p>Customers will register through Eventbrite. API sync comes later; direct links work now.</p></div></div>
+    <div id="o-regs" class="dpanel"><div class="ptitle">Registrations</div><div class="dcrd2"><h3>Eventbrite Registrations</h3><p>Customers register through Eventbrite. The public cards now open the matching Eventbrite checkout for the four links provided.</p></div></div>
     <div id="o-vendors" class="dpanel"><div class="ptitle">Vendors</div><div class="dcrd2"><h3>Vendor Applications</h3><p>Gravity Forms vendor entries will show here after Supabase sync is connected.</p></div></div>
     <div id="o-sponsors" class="dpanel"><div class="ptitle">Sponsors</div><div class="dcrd2"><h3>Sponsor Leads</h3><p>Gravity Forms sponsor entries will show here after Supabase sync is connected.</p></div></div>
     <div id="o-waivers" class="dpanel"><div class="ptitle">Waivers</div><div class="dcrd2"><h3>Waiver Submissions</h3><p>Gravity Forms signature waivers will show here after Supabase sync is connected.</p></div></div>
@@ -271,23 +278,26 @@ function apiSettingsHTML() {
 }
 
 function eventbriteSettingsHTML() {
-  const rows = EVENTBRITE_EVENTS.map(e => `
+  const rows = EVENTBRITE_EVENTS.map(e => {
+    const defaultUrl = DEFAULT_EVENTBRITE_URLS[e.key] || '';
+    return `
     <div class="api-field" style="background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px;margin-bottom:10px;">
       <label style="display:block;margin-bottom:8px;"><i class="ti ti-ticket"></i> ${e.day} — ${e.name}</label>
       <div class="api-row" style="grid-template-columns:minmax(160px,0.7fr) minmax(220px,1.3fr);gap:10px;">
         <div class="api-input-wrap"><input type="text" id="eb-id-${e.key}" placeholder="Eventbrite Event ID"></div>
-        <div class="api-input-wrap"><input type="text" id="eb-url-${e.key}" placeholder="Full Eventbrite URL"></div>
+        <div class="api-input-wrap"><input type="text" id="eb-url-${e.key}" placeholder="Full Eventbrite URL${defaultUrl ? ' already embedded' : ''}"></div>
       </div>
-      <div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:6px;">Storage keys: cbp_eb_id_${e.key} and cbp_eb_url_${e.key}</div>
-    </div>`).join('');
+      ${defaultUrl ? `<div style="font-size:10px;color:rgba(0,255,106,.75);margin-top:6px;">Default link embedded. Paste a new URL above only if you want to override it.</div>` : `<div style="font-size:10px;color:rgba(255,255,255,.35);margin-top:6px;">No default URL yet. Paste the Eventbrite link when ready.</div>`}
+    </div>`;
+  }).join('');
 
   return `
     <div class="api-dash-card">
       <h3><i class="ti ti-ticket"></i>Eventbrite IDs & Links</h3>
-      <p style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px;">Paste each event's Eventbrite ID and/or full URL here. The public registration cards and registration panel will use the correct event-specific link automatically.</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:14px;">Four Eventbrite links are already embedded: Small Business Kickoff Mixer, Taste of Lovejoy, Cars/Bikes event, and Let's Skate Finale. Use these fields to override or add the remaining event links.</p>
       ${rows}
       <button class="api-save" onclick="saveEventbriteSettings()"><i class="ti ti-device-floppy"></i> Save Eventbrite Links</button>
-      <button class="act-btn" onclick="clearEventbriteSettings()" style="margin-left:8px;">Clear Links</button>
+      <button class="act-btn" onclick="clearEventbriteSettings()" style="margin-left:8px;">Clear Custom Overrides</button>
       <div class="api-saved" id="ebSaved">Eventbrite links saved</div>
     </div>`;
 }
@@ -349,7 +359,7 @@ function saveEventbriteSettings() {
 }
 
 function clearEventbriteSettings() {
-  if (!confirm('Clear all saved Eventbrite IDs and URLs?')) return;
+  if (!confirm('Clear custom Eventbrite IDs and URLs? Built-in default links will remain.')) return;
   EVENTBRITE_EVENTS.forEach(e => {
     localStorage.removeItem('cbp_eb_id_' + e.key);
     localStorage.removeItem('cbp_eb_url_' + e.key);
@@ -362,9 +372,11 @@ function clearEventbriteSettings() {
 function getEventbriteUrl(cardKey) {
   const specificUrl = localStorage.getItem('cbp_eb_url_' + cardKey);
   const specificId = localStorage.getItem('cbp_eb_id_' + cardKey);
+  const defaultUrl = DEFAULT_EVENTBRITE_URLS[cardKey];
   const globalUrl = localStorage.getItem('cbp_key_eburl');
   if (specificUrl && specificUrl.startsWith('http')) return specificUrl;
   if (specificId) return 'https://www.eventbrite.com/e/' + encodeURIComponent(specificId);
+  if (defaultUrl) return defaultUrl;
   if (globalUrl && globalUrl.startsWith('http')) return globalUrl;
   return '';
 }
@@ -389,7 +401,7 @@ function syncDashboard() {
   if (emptyState) emptyState.style.display = 'none';
   if (liveData) liveData.style.display = 'block';
   if (statsGrid) statsGrid.innerHTML = `
-    <div class="sc"><div class="sl">Eventbrite Links</div><div class="sv" style="color:var(--green)">${linkedCount}/${EVENTBRITE_EVENTS.length}</div><div class="ss">Saved event links</div></div>
+    <div class="sc"><div class="sl">Eventbrite Links</div><div class="sv" style="color:var(--green)">${linkedCount}/${EVENTBRITE_EVENTS.length}</div><div class="ss">Default + saved links</div></div>
     <div class="sc"><div class="sl">Eventbrite API</div><div class="sv" style="color:var(--gold)">Pending</div><div class="ss">Direct registration works now</div></div>
     <div class="sc"><div class="sl">Forms</div><div class="sv" style="color:var(--sky)">Gravity</div><div class="ss">Embed next</div></div>`;
   if (intRow) intRow.innerHTML = `
@@ -399,6 +411,16 @@ function syncDashboard() {
 
 function openEventbriteDashboard() {
   window.open('https://www.eventbrite.com/organizations/events', '_blank', 'noopener');
+}
+
+function eventbriteFallbackHTML(title, url) {
+  return `
+    <div style="padding:38px 24px;text-align:center;background:radial-gradient(circle at top,rgba(255,10,160,.16),transparent 42%),rgba(8,8,16,.94);">
+      <div style="font-size:44px;margin-bottom:12px;">🎟️</div>
+      <div style="font-family:'Permanent Marker',cursive,fantasy;font-size:clamp(24px,4vw,38px);line-height:1.05;background:linear-gradient(135deg,var(--pink),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;">${title}</div>
+      <p style="font-size:14px;color:rgba(255,255,255,.62);max-width:520px;margin:0 auto 20px;line-height:1.7;">Secure registration is powered by Eventbrite. If the checkout box does not load inside this page, use the button below to open the official Eventbrite registration page.</p>
+      <a href="${url}" target="_blank" rel="noopener" class="btn-hot" style="display:inline-flex;text-decoration:none;align-items:center;gap:8px;"><i class="ti ti-external-link"></i> Open Secure Eventbrite Checkout</a>
+    </div>`;
 }
 
 function openReg(cardKey) {
@@ -411,15 +433,26 @@ function openReg(cardKey) {
   const directLink = $('ebDirectLink');
   if (section) section.style.display = 'block';
   if (url) {
-    if (iframe) { iframe.src = url; iframe.style.display = 'block'; }
-    if (placeholder) placeholder.style.display = 'none';
+    if (placeholder) {
+      placeholder.style.display = 'block';
+      placeholder.innerHTML = eventbriteFallbackHTML(title, url);
+    }
+    if (iframe) {
+      iframe.src = url;
+      iframe.style.display = 'block';
+      iframe.style.minHeight = '720px';
+      iframe.style.background = '#fff';
+    }
     if (directLink) {
       directLink.href = url;
       directLink.textContent = 'Open Secure Eventbrite Checkout →';
     }
   } else {
     if (iframe) iframe.style.display = 'none';
-    if (placeholder) placeholder.style.display = 'block';
+    if (placeholder) {
+      placeholder.style.display = 'block';
+      placeholder.innerHTML = '<div style="padding:48px 32px;text-align:center;"><div style="font-size:48px;margin-bottom:16px;">🎟️</div><div style="font-family:Teko,sans-serif;font-size:28px;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Eventbrite Link Needed</div><div style="font-size:14px;color:rgba(255,255,255,.55);max-width:440px;margin:0 auto 20px;line-height:1.6;">Log in as Organizer, open Eventbrite Links, and paste the Eventbrite URL for this event.</div></div>';
+    }
     if (directLink) {
       directLink.href = 'https://www.eventbrite.com';
       directLink.textContent = 'Register on Eventbrite';
@@ -428,13 +461,8 @@ function openReg(cardKey) {
   if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function openEventPage(cardKey) {
-  openReg(cardKey);
-}
-
-function closeEventPage() {
-  closeReg();
-}
+function openEventPage(cardKey) { openReg(cardKey); }
+function closeEventPage() { closeReg(); }
 
 function closeReg() {
   const section = $('ebEmbedSection');
@@ -522,7 +550,7 @@ async function vendorLogout() {
 }
 
 const CHAT_RESPONSES = {
-  ticket: ['Click Register or Get Tickets. Each event can use its own Eventbrite link.', 'Tickets will be handled through separate Eventbrite pages for each event.'],
+  ticket: ['Click Register or Get Tickets. Each event opens its own Eventbrite registration page.', 'Tickets are handled through separate Eventbrite pages for each event.'],
   vendor: ['Use the Vendors page to apply. We can embed your Gravity Form there.', 'Vendor applications should be handled through Gravity Forms with email notifications.'],
   sponsor: ['Visit Sponsors to pick a package or request details.', 'Sponsor interest can be collected with Gravity Forms and synced to Mailchimp.'],
   schedule: ['The event runs July 3–6, 2026 in Lovejoy, GA.', 'Check the Events page for the full lineup.'],
