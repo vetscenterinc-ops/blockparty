@@ -183,7 +183,7 @@
       <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">💦</div><h3>Water Slides</h3><p>Giant inflatables, bubbles, and splash zones Saturday.</p></div>
       <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">🚗</div><h3>Car &amp; Bike Show</h3><p>Custom builds, lowriders, and the cleanest rides in South Metro.</p></div>
       <div class="fcard" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])"><div class="femo">💼</div><h3>Business Mixer</h3><p>Thursday night vendor showcase and entrepreneur networking.</p></div>
-      <div class="fcard" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])"><div class="femo">📊</div><h3>Sponsor Portal</h3><p>Real demographics and ZIP code data for marketing partners.</p></div>
+      <div class="fcard" onclick="go('sponsors',document.querySelectorAll('.nav-btn')[2])"><div class="femo">🏦</div><h3>Woodforest Bank + Sponsors</h3><p>Woodforest Bank is confirmed. Additional sponsor and partner opportunities are still open.</p></div>
       <div class="fcard" onclick="go('events',document.querySelectorAll('.nav-btn')[1])"><div class="femo">🏠</div><h3>Housing Counseling</h3><p>HUD-certified 1-on-1 sessions. CRA-aligned services Sunday.</p></div>
     </div>
   </div>
@@ -238,12 +238,26 @@
 <!-- SPONSORS -->
 <div id="sponsors" class="page">
   <div class="sp-hero">
-    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Sponsor The Collective Block Party 2026</div>
-    <h1>More Than a Donation.<br><span style="color:var(--gold)">A Marketing Partnership.</span></h1>
-    <p>Reach 800+ engaged community members across 4 days. Real demographics, real ZIP code data, real ROI &mdash; aligned with your CRA and marketing goals.</p>
+    <div class="sec-eye" style="font-size:12px;letter-spacing:4px;">Woodforest Bank Confirmed &middot; Sponsor The Collective Block Party 2026</div>
+    <h1>Partner With<br><span style="color:var(--gold)">The Collective Block Party.</span></h1>
+    <p>Woodforest Bank is a confirmed sponsor, and additional sponsor opportunities are still available. Reach 800+ engaged community members across 4 days with real demographics, ZIP code data, and community impact documentation aligned with marketing and CRA goals.</p>
     <button class="btn-hot" onclick="document.getElementById('sponModal').classList.add('open')">Sponsor Login / Apply</button>
   </div>
   <div class="sp-wrap">
+    <div class="cra-box" style="margin-bottom:28px;text-align:center;">
+      <div class="sec-eye" style="margin-bottom:10px;">Confirmed Sponsor</div>
+      <h3 style="font-size:clamp(34px,6vw,64px);line-height:1;color:var(--gold);margin-bottom:12px;">Woodforest Bank</h3>
+      <p style="font-size:17px;color:rgba(255,255,255,0.72);line-height:1.75;max-width:880px;margin:0 auto 20px;">Woodforest Bank is recognized as a confirmed community sponsor supporting financial education, small business visibility, housing resources, and neighborhood impact throughout July 4th weekend.</p>
+      <div class="cra4">
+        <div class="ct"><h4>Confirmed Sponsor</h4><p>Featured across event pages and weekend materials</p></div>
+        <div class="ct"><h4>Financial Education</h4><p>Aligned with workshops and community resources</p></div>
+        <div class="ct"><h4>Community Impact</h4><p>Supports families, entrepreneurs, and local outreach</p></div>
+        <div class="ct"><h4>More Sponsors Welcome</h4><p>Additional partner slots remain open</p></div>
+      </div>
+    </div>
+
+    <div class="sec-eye">Available Sponsor Opportunities</div>
+    <div class="sec-title" style="background:linear-gradient(90deg,var(--gold),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">Join Woodforest Bank As A Community Partner</div>
     <div class="tiers">
       <div class="tier plat" onclick="pickTier(this,'Platinum')"><div class="tbadge">Platinum</div><div class="tamt" style="color:#D0D0F0">$10K</div><div class="tname">Presenting Sponsor</div><ul class="tperks"><li>Title naming rights</li><li>Stage branding all 4 days</li><li>Full email list (3,200+ contacts)</li><li>Premium booth placement</li><li>All digital &amp; print materials</li><li>CRA documentation package</li><li>Post-event impact report</li></ul><button class="pick-btn">Select Platinum</button></div>
       <div class="tier gold" onclick="pickTier(this,'Gold')"><div class="tbadge">Gold</div><div class="tamt" style="color:var(--gold)">$5K</div><div class="tname">Event Day Sponsor</div><ul class="tperks"><li>Sponsor one full event day</li><li>Branded activation booth</li><li>5 social media spotlights</li><li>Logo on signage + website</li><li>Email campaign inclusion</li><li>CRA documentation</li></ul><button class="pick-btn">Select Gold</button></div>
@@ -872,8 +886,8 @@
 <div class="modal-ov" id="sponModal">
   <div class="mbox">
     <h2>Sponsor Portal</h2>
-    <p class="msub-txt">Apply for a sponsorship or log in to your partner dashboard.</p>
-    <div class="mf"><label>Company Name</label><input type="text" placeholder="e.g. First National Bank"></div>
+    <p class="msub-txt">Apply to join Woodforest Bank and other community partners, or log in to your sponsor dashboard.</p>
+    <div class="mf"><label>Company Name</label><input type="text" placeholder="e.g. Your Bank, Business, or Organization"></div>
     <div class="mf"><label>Contact Email</label><input type="email" placeholder="you@company.com"></div>
     <div class="mf"><label>Sponsorship Level</label>
       <select id="sponLevel">
@@ -1142,8 +1156,8 @@ const EVENT_DATA = {
    ──────────────────────────────────────────────────────────────────────── */
 const SPONSOR_DATA = {
   general: [
-    { name:'First National Bank', tier:'Platinum', tagline:'Presenting Sponsor', logo:'🏦', color:'rgba(200,200,230,0.15)', textColor:'#D0D0F0', deal:'Exclusive title rights + booth all 4 days', cta:'Become a Platinum Sponsor', ctaUrl:'#sponsors' },
-    { name:'Henry Co. Realty', tier:'Gold', tagline:'Event Sponsor', logo:'🏘️', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Brand presence across all 4 days', cta:'Join as Gold Sponsor', ctaUrl:'#sponsors' },
+    { name:'Woodforest Bank', tier:'Confirmed Sponsor', tagline:'Community Banking Partner', logo:'🏦', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Supporting community impact, financial education, small business outreach, and housing resources throughout the weekend.', cta:'Sponsor Spotlight', ctaUrl:'#sponsors' },
+    { name:'YOUR BRAND HERE', tier:'Gold', tagline:'Open Sponsor Opportunity', logo:'✨', color:'rgba(255,0,160,0.1)', textColor:'#FF0AA0', deal:'Brand presence across all 4 days — this sponsor slot is available.', cta:'Join as Gold Sponsor', ctaUrl:'#sponsors', available:true },
   ],
   auto: [
     { name:'ATL Auto Group', tier:'Gold', tagline:'Car Show Sponsor', logo:'🚗', color:'rgba(255,214,0,0.12)', textColor:'#FFD600', deal:'Title sponsor of the Car & Bike Show', cta:'Sponsor Car Show', ctaUrl:'#sponsors' },
@@ -1350,7 +1364,7 @@ function closeEventPage() {
     <div id="chatMessages" style="height:280px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;">
       <!-- Welcome message -->
       <div class="chat-msg bot">
-        <div class="chat-bubble">Hey! 👋 Welcome to The Collective Block Party. I'm here 24/7 to help. Ask me anything about tickets, vendors, sponsorships, or the event!</div>
+        <div class="chat-bubble">Hey! 👋 Welcome to The Collective Block Party. I'm here 24/7 to help. Ask me anything about tickets, vendors, Woodforest Bank, sponsorships, or the event!</div>
         <div class="chat-time">Just now</div>
       </div>
       <div class="chat-msg bot">
